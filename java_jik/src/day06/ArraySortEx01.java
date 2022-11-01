@@ -16,13 +16,12 @@ public class ArraySortEx01 {
 					arr[j+1]=tmp;
 				}
 			}
+			for(int tmp: arr) {
+				System.out.print(tmp+" ");
+			}
+			System.out.println();
 		}
-		for(int tmp: arr) {
-			System.out.print(tmp+" ");
-		}
-		System.out.println();
 		System.out.println("==============");
-		
 		int arr2[]= {9,8,7,6,5,4,3,2};
 		Arrays.sort(arr2);
 		for(int tmp: arr2) {
