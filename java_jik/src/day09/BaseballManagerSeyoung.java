@@ -1,8 +1,21 @@
 package day09;
 
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.Scanner;
+
+class Player{
+	int playTime;
+	String name;
+	public Player(String name, int playTime){
+		this.name=name;
+		this.playTime=playTime;
+	}
+	public void setPlayTime(int num) {
+		this.playTime = num;
+	}
+	public void print() {
+		System.out.println(this.name+" "+this.playTime+"회");
+	}
+}
 
 public class BaseballManagerSeyoung {
 
@@ -19,9 +32,9 @@ public class BaseballManagerSeyoung {
 		 * 4. 춘향이 4회
 		 * */
 		int menu=0;
-		int count=0;
 		int min=1, max=9, size=3;
-		Player [] list = new Player[30];
+		Player [] list = new Player[5];
+		
 		do {
 		
 		//메뉴 출력
@@ -29,7 +42,7 @@ public class BaseballManagerSeyoung {
 		//메뉴 선택
 		menu = selectMenu();
 		//선택한 메뉴에 따른 기능 실행
-		runMenu(menu,min,max,size,list,count);
+		runMenu(menu,min,max,size,list);
 			//1. 플레이
 				//컴퓨터가 랜덤으로 숫자 생성
 				//사용자가 숫자 입력
@@ -41,19 +54,17 @@ public class BaseballManagerSeyoung {
 				//등록된 5위까지의 기록을 확인
 			//3. 종료
 		
-		
-			
 		}while(menu!=3);
 		
 	}
-	public static void runMenu(int menu,int min,int max,int size, Player[]list,int count) {
+	public static void runMenu(int menu,int min,int max,int size, Player[]list) {
 		switch(menu) {
 		case 1:
 			System.out.println("~~ 게임 플레이! ~~");
-			playGame(min,max,size,list,count);
+			playGame(min,max,size,list);
 			break;
 		case 2:
-			//기록 확인
+			printRank(list);
 			break;
 		case 3:
 			System.out.println("프로그램을 종료합니다.");
@@ -71,10 +82,11 @@ public class BaseballManagerSeyoung {
 		System.out.println("1. 플레이");
 		System.out.println("2. 기록확인");
 		System.out.println("3. 종료");
+		System.out.println("-------------");
+		System.out.print("메뉴 선택> ");
 	}
-	public static void playGame(int min, int max, int size, Player[]list, int count) {
+	public static void playGame(int min, int max, int size, Player[]list) {
 		Scanner scan = new Scanner(System.in);
-		
 		
 		int []com = createRandomArray(min, max, size);
 		printArray(com);
@@ -82,58 +94,80 @@ public class BaseballManagerSeyoung {
 		int strike=0, ball=0;
 		int playTime=0;
 		do {
-			System.out.println("입력 : ");
+			playTime++;
+			System.out.print((playTime)+"번째 입력 : ");
 			int []user = scanArray(scan, size);
 			
 			strike=getStrike(com, user);
 			ball=getBall(com, user);
 			printGame(strike, ball);
-			playTime++;
 			
 		}while(strike<3);
 		
-		setRanking(playTime, list, count);
+		registerPlayer(list,playTime);
 		
 		System.out.println("게임 종료");
-		scan.close();
+		
 	}
-	
-	//5등과 성적을 비교하여 더 높을 때 성적을 등록하는 메소드
-	public static int setRanking(int playTime, Player[]list, int count) {
-		Scanner scan = new Scanner(System.in);
-		
-		
-		if(count<=5) {
-			System.out.println("이름을 입력하세요> ");
-			list[count].name = scan.next();
-			list[count].playTime = playTime;
-			count++;
-			return count;
-		} 
-		else {
-			int worst = getRankingInteger[4];
-			
-						
-			if(playTime<=worst) {
-				return count;
-			} else {
-				System.out.println("이름을 입력하세요> ");
-				list[count].name = scan.next();
-				list[count].playTime = playTime;
-				count++;
-				return count;
+	public static void printRank(Player[]list) {
+		if(list==null) {
+			return;
+		}
+		System.out.println(" *** 등수 *** ");
+		for(int i=0; i<list.length; i++) {
+			if(list[i]==null) {
+				return;
+			}
+			System.out.print((i+1)+". ");
+			list[i].print();
+		}
+	}
+	// 입력받은 index등 부터의 배열을 뒤로 한칸씩 미루는 메소드
+	public static Player[] pushRank(Player[]list, int index) {
+		int lastNum=4;
+		for(int i=4; i>0; i--) {
+			if(list[i]==null) {
+				lastNum--;
 			}
 		}
-	}
-	public static Integer[] getRankingArray(int playTime, Player[]list, int count) {
-		Integer score[] = new Integer[30];
-		for(int i=0; i<30; i++) {
-			score[i]=list[i].playTime;
+		if(lastNum==4) {
+			for(int i=lastNum; i>index; i--) {
+				list[i].playTime = list[i-1].playTime;
+				list[i].name = list[i-1].name;
+			}
+		} else {
+			list[lastNum+1]=new Player("",0);
+			for(int i=lastNum; i>index-1; i--) {
+				list[i+1].playTime = list[i].playTime;
+				list[i+1].name = list[i].name;
+			}
 		}
-		Arrays.sort(score, Collections.reverseOrder());
-		
-		return score;
+		return list;
 	}
+	
+	//점수를 비교해서 횟수가 더 적으면 등수에 등록하는 메소드
+	public static void registerPlayer(Player[]list, int playTime) {
+		if(list==null) {
+			return;
+		}
+		Scanner scan = new Scanner(System.in);
+		for(int i=0; i<5; i++) {
+			if(list[i]==null) {
+				System.out.print("이름을 입력하세요> ");
+				String name=scan.next();
+				list[i]=new Player(name, playTime);
+				return;
+			} else if(playTime<list[i].playTime) {
+				pushRank(list,i);
+				System.out.print("이름을 입력하세요> ");
+				String name=scan.next();
+				list[i]=new Player(name, playTime);
+				return;
+			}
+		}
+		
+	}
+//이하 숫자야구에서 했던 메소드 그대로(수정사항X)====================================
 	public static void printGame(int strike, int ball) {
 		if(strike!=0) {
 			System.out.print(strike+"S");
@@ -146,6 +180,7 @@ public class BaseballManagerSeyoung {
 		}
 		System.out.println();
 	}
+	
 	public static int getBall(int[]arr1, int[]arr2) {
 		if(arr1==null || arr2==null) {
 			return 0;
@@ -159,6 +194,7 @@ public class BaseballManagerSeyoung {
 		}
 		return ball-strike;
 	}
+	
 	public static int getStrike(int[]arr1, int[]arr2) {
 		if(arr1==null || arr2==null) {
 			return 0;
@@ -248,13 +284,3 @@ public class BaseballManagerSeyoung {
 	}
 }
 
-class Player{
-	int playTime;
-	String name;
-	public Player(String name){
-		this.name=name;
-	}
-	public void setPlayTime(int num) {
-		this.playTime = num;
-	}
-}
