@@ -81,7 +81,7 @@ public class Homework31 {
 			}
 			System.out.println();
 			lastIndex += callNum;
-			//31넘는지 확인 => 사용자 1승 추가
+			//31넘는지 확인 => 넘으면 사용자 승리
 			if(lastIndex>=30) {
 				System.out.println("사용자가 승리하였습니다.");
 				doesComWin=false;
@@ -103,7 +103,7 @@ public class Homework31 {
 			}
 			System.out.println();
 			lastIndex += callNum;
-			//31넘는지 확인 => 컴퓨터 1승 추가
+			//31넘는지 확인 => 넘으면 컴퓨터 승리
 			if(lastIndex>=30) {
 				System.out.println("컴퓨터가 승리하였습니다.");
 				doesComWin=true;
