@@ -3,7 +3,9 @@ package day13;
 public class Score {
 	//필드: 과목, 학기, 중간, 기말, 수행평가, 총점
 	private String title;
-	private int term, midScore, finalScore, performance,total;
+	private int term, midScore, finalScore, performance;
+	private double total;
+	private double midRate=0.4, finalRate=0.5, performanceRate=0.1;
 	
 	//메소드: equals():성적 추가시 확용, toString():성적 출력시 활용
 	//   getter, setter
@@ -37,7 +39,7 @@ public class Score {
 	public void setPerformance(int performance) {
 		this.performance = performance;
 	}
-	public int getTotal() {
+	public double getTotal() {
 		return total;
 	}
 	public void setTotal(int total) {
@@ -74,6 +76,8 @@ public class Score {
 		this.midScore = midScore;
 		this.finalScore = finalScore;
 		this.performance = performance;
+		this.total = midRate*midScore + finalRate*finalScore +
+				performanceRate*performance;
 	}
 	//    : 과목, 학기가 필요한 생성자(성적이 같은지 확인할 때);
 	public Score(String title, int term) {
