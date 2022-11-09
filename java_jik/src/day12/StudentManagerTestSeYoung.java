@@ -2,7 +2,7 @@ package day12;
 
 import java.util.Scanner;
 
-public class StudentManagerTest {
+public class StudentManagerTestSeYoung {
 
 	public static void main(String[] args) {
 		/* 학생 성적 관리 프로그램을 작성하세요.
@@ -154,7 +154,13 @@ class HighStudent{
 			return;
 		}
 		//성적이 없으면 성적 추가 하면 됨
-		
+		if(semester==1) {
+			sub[0]=s1;
+		} else if(semester==2) {
+			sub[1]=s1;
+		} else {
+			return;
+		}
 	}
 	
 	public void print() {
