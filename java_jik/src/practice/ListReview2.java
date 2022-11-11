@@ -2,7 +2,7 @@ package practice;
 
 import java.util.ArrayList;
 
-public class ListRevies2 {
+public class ListReview2 {
 //새로운 class를 만들어 이를 리스트로 응용하기 
 //리스트 생성, add, get, contains(toString관리까지), 출력
 	public static void main(String[] args) {
