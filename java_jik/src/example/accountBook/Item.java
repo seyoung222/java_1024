@@ -1,5 +1,8 @@
 package example.accountBook;
 
+import lombok.Data;
+
+@Data
 public class Item {
 	private String inAndOut, category, contents;
 	private int amount, year,month,day;
