@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Scanner;
+import java.util.function.Predicate;
 
 public class AccountServiceImp implements AccountService {
 	@Override
@@ -220,21 +221,36 @@ public class AccountServiceImp implements AccountService {
 			break;
 		case 2:
 			year = inputYear(scan);
-			printItem(list,year);
+			printItem(list,(s)->s.getDateStr().substring(0,4).equals(""+year));
+//			printItem(list,year);
 			break;
 		case 3:
 			year = inputYear(scan);
 			month = inputMonth(scan);
-			printItem(list,year,month);
+			printItem(list,s->s.getDateStr().substring(0, 7).equals(year+"-"+month));
+//			printItem(list,year,month);
 			break;
 		case 4:
 			year = inputYear(scan);
 			month = inputMonth(scan);
 			day = inputDay(scan);
-			printItem(list,year,month,day);
+			printItem(list,s->s.getDateStr().substring(0, 10).equals(year+"-"+month+"-"+day));
+//			printItem(list,year,month,day);
 			break;
+		case 5: //수입/지출만 따로 출력하고 싶을때도 메소드 따로 만들필요없이 람다식 사용하면 간편하다
+			System.out.println("수입/지출 선택: ");
+			String type = scan.next();
+			printItem(list, s->s.getType().equals(type));
 		default:
 		}		
+	}
+	@Override
+	public void printItem(ArrayList<Item> list, Predicate<Item> p) { //람다식 이용한 메서드
+		for(Item item : list) {
+			if(p.test(item)) {
+				System.out.println(item);
+			}
+		}
 	}
 	
 }
