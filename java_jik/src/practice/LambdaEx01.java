@@ -18,7 +18,7 @@ public class LambdaEx01 {
 		
 		//consumer 예제
 		//출력 방식 등을 제어
-		print(list,a->System.out.println(a));
+//		print(list,a->System.out.println(a));//다른 람다식과 구분이 어려워서 안되는듯? ....
 		print(list,a->{
 			System.out.println("학년 : "+a.getGrade());
 			System.out.println("반 : "+a.getClassNum());
