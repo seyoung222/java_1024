@@ -3,6 +3,7 @@ package day22;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.Scanner;
 import java.util.regex.Pattern;
@@ -46,10 +47,14 @@ public class AttendanceMain {
 		int menu=-1;
 		Attendance attendance = new Attendance();
 		do {
-			printMenu();
-			menu = scan.nextInt();
-			scan.nextLine();
-			runMenu(menu,attendance);
+			try {
+				printMenu();
+				menu = scan.nextInt();
+				scan.nextLine();
+				runMenu(menu,attendance);
+			}catch(Exception e) {
+				System.out.println(e.getMessage());
+			}
 		}while(menu!=3);
 	}
 	
@@ -61,7 +66,7 @@ public class AttendanceMain {
 			ManagementStudent(stds);
 			break;
 		case 2:
-//			ManagementLogs(logs, stds);
+			ManagementLogs(logs, stds);
 			break;
 		case 3:
 			System.out.println("프로그램 종료");
@@ -79,13 +84,10 @@ public class AttendanceMain {
 		case 1: 	addStudent(stds);		break;
 		case 2:  	updateStudent(stds);	break;
 		case 3:		deleteStudent(stds); 	break;
-		case 4: //학생 출결 확인 - 이름과 생년월일로 검색해서 등록된 해당 학생의 모든 출결을 확인
-			break;
-		case 5:		System.out.println("취소합니다.");		break;
+		case 4:		System.out.println("취소합니다.");		break;
 		default:	System.out.println("잘못된 메뉴입니다.");
 		}
 	}
-
 	private static void addStudent(ArrayList<Student> stds) {
 		if(stds==null)
 			throw new RuntimeException("예외발생: 학생 정보를 관리하는 리스트가 없습니다.");
@@ -153,8 +155,7 @@ public class AttendanceMain {
 			System.out.println("1. 학생 등록");
 			System.out.println("2. 학생 수정");
 			System.out.println("3. 학생 삭제");
-			System.out.println("4. 학생 출결 확인");
-			System.out.println("5. 취소");
+			System.out.println("4. 취소");
 			System.out.println("==================");
 			System.out.print("메뉴 선택> ");
 			break;
@@ -176,6 +177,163 @@ public class AttendanceMain {
 			System.out.println("잘못된 메뉴입니다.");
 		}
 	}
-	
+	private static void ManagementLogs(ArrayList<Log> logs, ArrayList<Student> stds) {
+		printSubMenu(2);
+		int subMenu = scan.nextInt();
+		scan.nextLine();
+		switch(subMenu) {
+		case 1:	
+			checkLog(logs,stds);
+			sortLogs(logs); //일지 정렬(기능별로 쉽게 하려고)
+			break;
+		case 2:
+			printLogsByStudent(logs);
+			break;
+		case 3:
+			printLogsByDate(logs);
+			break;
+		case 4: 
+			updateLogs(logs);
+			break;
+		case 5:
+			deleteLogs(logs);
+			break;
+		case 6: System.out.println("취소합니다.");	break;
+		default: System.out.println("잘못된 메뉴입니다.");
+		}
+	}
+	private static void checkLog(ArrayList<Log> logs, ArrayList<Student> stds) {
+		//날짜를 입력
+		System.out.print("출석 일자(예:2022.11.23)> ");
+		String date = scan.nextLine();
+		//이미 입력된 날짜인지 확인
+		if(checkLogDate(logs,date)) {
+			System.out.println("이미 출석체크한 일자입니다.");
+			return;
+		}
+		//출석 상태 정보 출력 (결석:X, 출석:O, 지각:/, 조퇴:\)
+		System.out.println("결석:X, 출석:O, 지각:/, 조퇴:\\");
+		
+		//StudentLog를 리스트로 생성
+		ArrayList<StudentLog> stdLogs = new ArrayList<StudentLog>();
+		//홍길동(2020-01-01) : O
+		//반복
+		for(Student std : stds) {
+			//학생 이름과 생일 출력
+			System.out.print(std.getName()+"("+std.getBirth()+") : ");
+			//출석 상태 입력
+			String state = scan.nextLine();
+			//StudentLog를 생성
+			StudentLog stdLog = new StudentLog(std,state);
+			//StudentLog 리스트에 저장
+			stdLogs.add(stdLog);
+		}
+		//StudentLog 리스트와 날짜를 이용하여 Log 객체를 생성
+		Log log = new Log(stdLogs, date);
+		//Log 리스트에 생성된 Log 객체를 추가
+		logs.add(log);
+	}
+	private static boolean checkLogDate(ArrayList<Log>logs, String date) {
+		if(logs==null || date==null)
+			throw new RuntimeException("일지 리스트가 없거나 날짜가 없습니다.");
+		if(logs.size()==0)
+			return false;
+		for(Log log : logs) {
+			if(log.getDate().equals(date)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	private static void sortLogs(ArrayList<Log>logs) {
+		if(logs == null || logs.size()==0)
+			return;
+		Collections.sort(logs,(o1,o2)->o1.getDate().compareTo(o2.getDate()));
+	}
+	private static void printLogsByStudent(ArrayList<Log>logs) {
+		if(logs==null || logs.size()==0) {
+			System.out.println("등록된 출석 정보가 없습니다.");
+			return;
+		}
+		//이름과 생일 입력
+		System.out.print("이름> ");
+		String name = scan.nextLine();
+		System.out.print("생일> ");
+		String birth = scan.nextLine();
+		//입력받은 정보와 일치하는 출석체크 목록을 확인
+		//2022.11.23 : O
+		for(Log log : logs) {
+			for(StudentLog slog : log.getSlogs()) {
+				if(slog.getStd().equals(new Student(name,birth))) {
+					System.out.println(log.getDate()+" : "+slog.getState());
+				}
+			}
+		}
+	}
+	private static void printLogsByDate(ArrayList<Log>logs) {
+		//날짜 입력
+		System.out.print("날짜 입력> ");
+		String date = scan.nextLine();
+		//날짜와 일치하는 출석 기록 확인
+		//학생명(생일) : O
+		for(Log log : logs) {
+			if(log.getDate().equals(date)) {
+				for(StudentLog slog : log.getSlogs()) {
+					String name = slog.getStd().getName();
+					String birth = slog.getStd().getBirth();
+					System.out.println(name+"("+birth+") : "+slog.getState());
+				}
+			}
+		}
+	}
+	private static void updateLogs(ArrayList<Log>logs) {
+		//날짜를 입력
+		System.out.print("날짜 입력 : ");
+		String date = scan.nextLine();
+		
+		if(!checkLogDate(logs,date)) {
+			System.out.println("해당 일자로 등록된 출석체크가 없습니다.");
+			return;
+		}
+		//이름과 생일을 입력
+		System.out.print("이름 입력 : ");
+		String name = scan.nextLine();
+		System.out.print("생일 입력 : ");
+		String birth = scan.nextLine();
+		//상태를 입력
+		System.out.print("상태 입력 : ");
+		String state = scan.nextLine();
+		
+		//입력한 정보와 일치하는 출석정보를 수정
+		for(Log log : logs) {
+			if(log.getDate().equals(date)) {
+				for(StudentLog slog : log.getSlogs()) {
+					String tmpName = slog.getStd().getName();
+					String tmpBirth = slog.getStd().getBirth();
+					if(tmpName.equals(name) && tmpBirth.equals(birth)) {
+						slog.setState(state);
+					}
+				}
+				System.out.println("수정이 완료되었습니다.");
+				return;
+			}
+		}
+	}
+	private static void deleteLogs(ArrayList<Log>logs) {
+		//날짜를 입력
+		System.out.print("날짜 입력 : ");
+		String date = scan.nextLine();
+		
+		if(!checkLogDate(logs,date)) {
+			System.out.println("해당 일자로 등록된 출석체크가 없습니다.");
+			return;
+		}
+		for(int i=0; i<logs.size(); i++) {
+			if(logs.get(i).getDate().equals(date)) {
+				logs.remove(i);
+				System.out.println("삭제가 완료되었습니다.");
+				return;
+			}
+		}
+	}
 }
-

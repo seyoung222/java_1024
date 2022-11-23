@@ -126,9 +126,9 @@ public class AttendanceMainSeyoung {
 			System.out.println("해당 날짜 출석 정보는 아직 입력되지 않았습니다.");
 			return;
 		}
-		System.out.print("수정할 학생 이름> ");
+		System.out.print("삭제할 학생 이름> ");
 		String name = scan.nextLine();
-		System.out.print("수정할 학생 생일> ");
+		System.out.print("삭제할 학생 생일> ");
 		String birth = scan.nextLine();
 		int stdIndex = logs.get(dateIndex).getSlogs().indexOf(new Student(name,birth));
 		if(stdIndex == -1) {
@@ -164,11 +164,16 @@ public class AttendanceMainSeyoung {
 	private static void insertAttendance(ArrayList<Student> stds, ArrayList<Log> logs) {
 		System.out.print("날짜 입력> ");
 		String date = scan.nextLine();
+		for(Log tmp : logs) {
+			if(tmp.getDate().equals(date)==true) {
+				System.out.println("출석 입력이 이미 완료된 날짜입니다.");
+				return;
+			}
+		}
 		Log log = new Log(stds,date);
 		for(StudentLog slog : log.getSlogs()) {
 			System.out.print(slog.getStd().getName()+" 출석현황 : ");
 			slog.setState(scan.nextLine());
-			System.out.println();
 		}
 		//한 날짜의 출석 정보를 모두 입력받아 일지 리스트에 넣음
 		logs.add(log);
@@ -227,9 +232,15 @@ public class AttendanceMainSeyoung {
 	}
 	private static void printMenu() {
 		System.out.println("=======메뉴========");
-		System.out.println("1. 학생 관리");
-		System.out.println("2. 출석 관리");
-		System.out.println("3. 종료");
+		System.out.println("1. 학생 등록");
+		System.out.println("2. 학생 수정");
+		System.out.println("3. 학생 삭제");
+		System.out.println("4. 학생 출결 확인");
+		System.out.println("5. 출석 확인");
+		System.out.println("6. 출석 수정");
+		System.out.println("7. 출석 삭제");
+		System.out.println("8. 날짜별 출결 확인");
+		System.out.println("9. 종료");
 		System.out.println("==================");
 		System.out.print("메뉴 선택> ");
 	}

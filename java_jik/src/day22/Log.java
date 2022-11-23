@@ -1,7 +1,6 @@
 package day22;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 import lombok.Data;
 
@@ -10,12 +9,9 @@ public class Log {
 	ArrayList<StudentLog> slogs = new ArrayList<StudentLog>();
 	private String date;
 	
-	public Log(ArrayList<Student>stds, String date) {
+	public Log(ArrayList<StudentLog>stdLogs, String date) {
 		this.date = date;
-		for(Student std : stds) {
-			StudentLog slog = new StudentLog(std, null);
-			slogs.add(slog);
-		}
+		this.slogs = stdLogs;
 	}
 
 	@Override
