@@ -170,13 +170,13 @@ public class AttendanceMainSeyoung {
 				return;
 			}
 		}
-		Log log = new Log(stds,date);
-		for(StudentLog slog : log.getSlogs()) {
-			System.out.print(slog.getStd().getName()+" 출석현황 : ");
-			slog.setState(scan.nextLine());
-		}
-		//한 날짜의 출석 정보를 모두 입력받아 일지 리스트에 넣음
-		logs.add(log);
+//		Log log = new Log(stds,date);
+//		for(StudentLog slog : log.getSlogs()) {
+//			System.out.print(slog.getStd().getName()+" 출석현황 : ");
+//			slog.setState(scan.nextLine());
+//		}
+//		//한 날짜의 출석 정보를 모두 입력받아 일지 리스트에 넣음
+//		logs.add(log);
 	}
 
 	private static boolean deleteStudent(ArrayList<Student> list) {
