@@ -1,0 +1,44 @@
+package day26;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.InetSocketAddress;
+import java.net.ServerSocket;
+import java.net.Socket;
+
+public class Ex02_ServerMain {
+
+	public static void main(String[] args) {
+		/* 클라이언트가 연결을 요청하면 연결을 하고, 연결이 종료되기 전까지
+		 * 클라이언트가 전송한 문자열을 계속 출력함
+		 * */
+		ServerSocket serverSocket = null;
+		
+		try {
+			serverSocket = new ServerSocket();
+			serverSocket.bind(new InetSocketAddress(5001));
+			while(true) {
+				System.out.println("[연결 대기 중]");
+				Socket socket = serverSocket.accept();
+				InetSocketAddress isa=(InetSocketAddress)socket.getRemoteSocketAddress();
+				System.out.println("[연결 수락함]"+isa.getAddress());
+				
+				InputStream is = socket.getInputStream();
+				while(true) {
+					byte[] bytes = new byte[1024];
+					int readCount = is.read(bytes);//아무것도 안넘어오면 -1리턴 ->아래서 오류 발생
+					if(readCount==-1)
+						break;
+					String str = new String(bytes,0,readCount,"UTF-8");
+					if(str.equals("exit"))
+						break;
+					System.out.println(str);
+				}
+				is.close();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+}
