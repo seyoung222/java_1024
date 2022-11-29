@@ -1,30 +1,33 @@
 package example.boardManager;
 
-import java.util.ArrayList;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
+import lombok.Data;
+
+@Data
 public class Post {
 
-	private ArrayList<String> categories;
 	private static int count=1;
 	private int postNum;
 	private String title, content;
-	public Post(int postNum, String title, String content) {
+	private Date date;
+	public Post(String title, String content) {
 		this.postNum = count;
 		this.title = title;
 		this.content = content;
+		this.date=new Date(0);
 		count++;
 	}
-	public boolean isCategoryExist(String category) {
-		if(categories.contains(category))
-			return true;
-		else
-			return false;
+	public String getDateStr() {
+		SimpleDateFormat d = new SimpleDateFormat("yyyy-MM-dd");
+		return d.format(date);
 	}
-	public void makeNewCategory(String category) {
-		if(categories.contains(category)) {
-			System.out.println("이미 등록된 카테고리입니다.");
-		}else {
-			categories.add(category);
-		}
+	@Override
+	public String toString() {
+		return "["+postNum+"]  |  제목:"+title+"  |  ("+getDateStr()+")\n내용 : "+content;
+	}
+	public void printBriefly() {
+		System.out.println("["+postNum+"]  |  제목:"+title+"  |  {"+getDateStr()+")");
 	}
 }
