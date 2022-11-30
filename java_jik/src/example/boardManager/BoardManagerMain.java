@@ -67,12 +67,12 @@ public class BoardManagerMain {
 					case 1:
 						printSubMenu(11);
 						int boardMenu=scan.nextInt();
-						runBoard(boardMenu,bList);
+						runBoardManagement(boardMenu,bList);
 						break;
 					case 2:
 						printSubMenu(12);
 						int categoryMenu=scan.nextInt();
-						runManagerCategory(categoryMenu);
+						runCategoryManagement(categoryMenu);
 						break;
 					case 3:
 						System.out.println("로그아웃합니다.");
@@ -88,7 +88,7 @@ public class BoardManagerMain {
 				while(memberMenu!=3) {
 					printSubMenu(2);
 					memberMenu=scan.nextInt();
-//					runMemberMenu(memberMenu);
+//					runBoardManagement(memberMenu);
 				}
 				break;
 			case 3:
@@ -139,31 +139,43 @@ public class BoardManagerMain {
 		System.out.println("비밀번호가 틀렸습니다.");
 		return 3;
 	}
-	private static void runBoard(int menu,ArrayList<Board>bList) {
-		
+	private static void runBoardManagement(int menu,ArrayList<Board>bList) {
 		switch(menu) {
 		case 1://게시글 작성
-			scan.nextLine();
-			System.out.print("제목> ");
-			String title=scan.nextLine();
-			System.out.print("내용> ");
-			String content=scan.nextLine();
-			System.out.print("카테고리> ");
-			String category=scan.nextLine();
-			Board b = new Board(category,new Post(title,content));
-			bList.add(0,b);
+			writeNewBoard(bList);
+			//아래는 확인용
 			bList.get(0).printCategories();
 			for(Board tmp : bList)
 				System.out.println(tmp);
 			break;
 		case 2://수정
+			printSubMenu(4);
+			
 			break;
 		case 3://삭제
 			break;
+		case 4: //목록
+			break;
+		case 5: 
+			break;
 		default:
+			System.out.println("잘못된 메뉴입니다.");
 		}
 	}
-	private static void runManagerCategory(int menu) {
+	private static void writeNewBoard(ArrayList<Board>bList) {
+		scan.nextLine();
+		System.out.print("제목> ");
+		String title=scan.nextLine();
+		System.out.print("작성자> ");
+		String writer=scan.nextLine();
+		System.out.print("내용> ");
+		String content=scan.nextLine();
+		System.out.print("카테고리> ");
+		String category=scan.nextLine();
+		Board b = new Board(category,new Post(title,writer,content));
+		bList.add(0,b);
+	}
+	private static void runCategoryManagement(int menu) {
 		switch(menu) {
 		case 1://카테고리 추가
 			break;
@@ -188,6 +200,8 @@ public class BoardManagerMain {
 			System.out.println("1. 게시글 작성");
 			System.out.println("2. 게시글 수정");
 			System.out.println("3. 게시글 삭제");
+			System.out.println("4. 게시글 목록");
+			System.out.println("5. 뒤로 가기");
 			System.out.print("메뉴 선택> ");
 			break;
 		case 12:
@@ -195,6 +209,7 @@ public class BoardManagerMain {
 			System.out.println("1. 카테고리 추가");
 			System.out.println("2. 카테고리 수정");
 			System.out.println("3. 카테고리 삭제");
+			System.out.println("4. 뒤로 가기");
 			System.out.print("메뉴 선택> ");
 			break;
 		case 2:
