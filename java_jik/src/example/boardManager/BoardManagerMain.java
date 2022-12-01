@@ -150,7 +150,6 @@ public class BoardManagerMain {
 			break;
 		case 2://수정
 			printSubMenu(4);
-			
 			break;
 		case 3://삭제
 			break;

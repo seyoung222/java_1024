@@ -11,11 +11,12 @@ import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
+import java.util.function.Predicate;
 
 public class BoardMain {
 	private static Scanner scan = new Scanner(System.in);
 	private static List<Member> memberList=new ArrayList<Member>();
-	private static List<Object> boardList=new ArrayList<Object>();
+	private static List<Board> boardList=new ArrayList<Board>();
 	private static List<String> categoryList=new ArrayList<String>();
 	         //Arrays.asList()는 사이즈 고정된 리스트를 만듦
 	private static Member user = null;
@@ -45,8 +46,11 @@ public class BoardMain {
 	 * */
 	public static void main(String[] args) {
 		int menu = -1;
-		loadMember("member.txt");
-		loadCategory("category.txt");
+//		loadMember("member.txt");
+		load("member.txt",memberList);
+//		loadCategory("category.txt");
+		load("category.txt",categoryList);
+		loadBoard("board.txt");
 		do {
 			try {
 				printMenu();
@@ -61,14 +65,17 @@ public class BoardMain {
 				e.printStackTrace();
 			}
 		}while(menu != 4);
-		saveMember("member.txt");
-		saveCategory("category.txt");
+//		saveMember("member.txt");
+		save("member.txt",memberList);
+//		saveCategory("category.txt");
+		save("category.txt",categoryList);
+		saveBoard("board.txt");
 	}
-	//양식이 같아서 제네릭함수로 만듦list)
-	private static <T> save(String fileName,List<T> {
+	//양식이 같아서 제네릭함수로 만듦
+	private static <T> void save(String fileName,List<T>list) {
 		try(ObjectOutputStream oos = 
 				new ObjectOutputStream(new FileOutputStream(fileName))){
-			for(String tmp : categoryList) {
+			for(T tmp : list) {
 				oos.writeObject(tmp);
 			}
 			System.out.println("저장 완료");
@@ -76,6 +83,50 @@ public class BoardMain {
 			System.out.println("저장 실패");
 		}
 	}
+	private static <T> void load(String fileName,List<T>list) {
+		try(ObjectInputStream ois = 
+				new ObjectInputStream(new FileInputStream(fileName))){
+			while(true) {
+				T obj = (T)ois.readObject();
+				list.add(obj);
+			}
+		}catch(ClassNotFoundException e) {
+			System.out.println("불러오기 실패");
+		}catch(EOFException e) {
+			System.out.println("불러오기 성공");
+		}catch(IOException e) {
+			System.out.println("불러오기 실패");
+		}
+	}	
+	private static void saveBoard(String fileName) {
+		try(ObjectOutputStream oos = 
+				new ObjectOutputStream(new FileOutputStream(fileName))){
+			oos.writeInt(Board.getCount()); //static필드는 이렇게 따로 저장해줘야 글이 이어서 써짐
+			for(Board tmp : boardList) {
+				oos.writeObject(tmp);
+			}
+			System.out.println("저장 완료");
+		}catch(IOException e) {
+			System.out.println("저장 실패");
+		}
+	}
+	private static void loadBoard(String fileName) {
+		try(ObjectInputStream ois = 
+				new ObjectInputStream(new FileInputStream(fileName))){
+			int count=ois.readInt();
+			Board.setCount(count);
+			while(true) {
+				Board board = (Board)ois.readObject();
+				boardList.add(board);
+			}
+		}catch(ClassNotFoundException e) {
+			System.out.println("불러오기 실패");
+		}catch(EOFException e) {
+			System.out.println("불러오기 성공");
+		}catch(IOException e) {
+			System.out.println("불러오기 실패");
+		}
+	}	
 	private static void saveCategory(String fileName) {
 		try(ObjectOutputStream oos = 
 				new ObjectOutputStream(new FileOutputStream(fileName))){
@@ -103,8 +154,7 @@ public class BoardMain {
 		}catch(IOException e) {
 			System.out.println("불러오기 실패");
 		}
-	}
-	
+	}	
 	private static void saveMember(String fileName) {
 		if(memberList.size()==0)
 			return;
@@ -195,7 +245,8 @@ public class BoardMain {
 			System.out.println("등록된 카테고리가 없습니다.");
 			return;
 		}
-		for(int i=0;i<categoryList.size();i++) {
+		System.out.println("<카테고리 목록>");
+		for(int i=0; i<categoryList.size(); i++) {
 			System.out.println(i+1+". "+categoryList.get(i));
 		}
 	}
@@ -245,32 +296,183 @@ public class BoardMain {
 		return true;
 	}
 	private static void boardMenu() {
+		int subMenu=-1;
+		do {
 		//서브메뉴를 출력
+			printSubMenu(2);
+			subMenu=scan.nextInt();
+			scan.nextLine();
 		//서브메뉴 선택 및 선택한 서브메뉴에 맞는 기능 실행
-			//1.게시글 등록
-				//회원 체크=> 회원(로그인한 사용자)가 아니면 게시글 등록 못함
-				//게시글 정보(제목, 내용) 입력
-				//게시글 등록
-			//2.게시글 수정
-				//수정할 게시글 번호 입력
-				//해당 게시글이 존재하고, 작성자가 회원과 같지않으면 수정 못함
-				//작성자 체크=> 회원(로그인한 사용자)가 아니면 게시글 등록 못함
-				//게시글 정보(제목, 내용) 입력
-				//게시글 수정
-			//3.게시글 삭제
-				//삭제할 게시글 번호 입력
-				//해당 게시글이 존재하고, 작성자가 회원과 같지않으면 삭제 못함
-				//작성자 체크=> 회원(로그인한 사용자)가 아니면 게시글 등록 못함
-				//해당 게시글 삭제
-			//4.게시글 목록
-				//서브메뉴 출력
-				//서브메뉴 선택 및 기능 실행
-					//1. 게시글 목록 확인 : 모든 게시글 확인
-					//2. 게시글 검색 : 검색어 입력 후 게시글 확인
-					//3. 게시글 확인 : 게시글 번호를 입력 후 입력한 게시글이 있으면 확인
-					//4. 이전
-			//5. 이전
-		
+			runBoardMenu(subMenu);
+		}while(subMenu!=5);
+	}
+	private static void runBoardMenu(int subMenu) {
+		switch(subMenu) {
+		case 1://1.게시글 등록
+			insertBoard();
+			break;
+		case 2://2.게시글 수정
+			updateBoard();
+			break;
+		case 3://3.게시글 삭제
+			deleteBoard();
+			break;
+		case 4://4.게시글 목록
+			printBoard();
+			break;
+		case 5://5. 이전
+			System.out.println("이전 메뉴로 돌아갑니다.");
+			break;
+		default:
+			System.out.println("잘못된 메뉴입니다.");
+		}
+		System.out.println(boardList);
+	}
+	private static void printBoard() {
+		int detailMenu=-1;
+		do {
+		//디테일 메뉴 출력
+			printDetailMenu();
+		//서브메뉴 선택 및 기능 실행
+			detailMenu=scan.nextInt();
+			scan.nextLine();
+			runPrintMenu(detailMenu);
+		}while(detailMenu!=4);
+	}
+	private static void runPrintMenu(int detailMenu) {
+		switch(detailMenu) {
+		case 1://1. 게시글 목록 확인 : 모든 게시글 확인
+			printBoardListAll();
+			break;
+		case 2://2. 게시글 검색 : 검색어 입력 후 게시글 확인
+			printBoardListSearch();
+			break;
+		case 3://3. 게시글 확인 : 게시글 번호를 입력 후 입력한 게시글이 있으면 확인
+			printBoardDetail();
+			break;
+		case 4://4. 이전
+			System.out.println("이전 메뉴로 돌아갑니다.");
+			break;
+		default:
+			System.out.println("잘못된 메뉴입니다.");
+		}
+	}
+	private static void printBoardDetail() {
+		//게시글 번호 입력
+		System.out.print("게시글 번호 : ");
+		int num = scan.nextInt();
+		scan.nextLine();
+		int index = boardList.indexOf(new Board(num));
+		if(index==-1) {
+			System.out.println("등록되지 않거나 삭제된 게시글입니다.");
+			return;
+		}
+		int views = boardList.get(index).getViews();
+		boardList.get(index).setViews(views+1);
+		boardList.get(index).print();
+	}
+	private static void printBoardListSearch() {
+		System.out.print("검색어 : ");
+		String search = scan.nextLine();
+//		printBoardList(b->b.getTitle().contains(search));
+		printBoardList(b->b.getTitle().contains(search.trim()));//.trim() 붙여서 공백제거
+	}
+	private static void printBoardListAll() {
+		printBoardList(b->true);
+	}
+	private static void printBoardList(Predicate<Board> p) {
+		if(boardList.size()==0) {
+			System.out.println("등록된 게시글이 없습니다.");
+			return;
+		}
+		for(Board tmp: boardList) {
+			if(p.test(tmp))
+				System.out.println(tmp);
+		}
+	}
+	private static void printDetailMenu() {
+		System.out.println("=======게시글관리 메뉴=======");
+		System.out.println("1. 게시글 목록 확인");
+		System.out.println("2. 게시글 검색");
+		System.out.println("3. 게시글 확인");
+		System.out.println("4. 이전");
+		System.out.println("=================");
+		System.out.print("메뉴 선택> ");
+	}
+	private static void deleteBoard() {
+		//회원 체크=> 회원(로그인한 사용자)가 아니면 게시글 등록 못함
+		if(checkLogin(false))
+			return;
+		//삭제할 게시글 번호 입력
+		System.out.print("게시글 번호 : ");
+		int num = scan.nextInt();
+		scan.nextLine();
+		int index = boardList.indexOf(new Board(num));
+		//해당 게시글이 존재하고, 작성자가 회원과 같지않으면 삭제 못함
+			//작성자 체크=> 회원(로그인한 사용자)가 아니면 게시글 등록 못함
+		if(index==-1) {
+			System.out.println("등록되지 않거나 삭제된 게시글입니다.");
+			return;
+		}
+		Board board=boardList.get(index);
+		if(!board.getWriter().equals(user.getId())) {
+			System.out.println("작성자가 아닌 사용자는 수정할 수 없습니다.");
+			return;
+		}
+		//해당 게시글 삭제
+		boardList.remove(index);
+		System.out.println("게시글 삭제가 완료되었습니다.");
+	}
+	private static void updateBoard() {
+		//회원 체크=> 회원(로그인한 사용자)가 아니면 게시글 등록 못함
+		if(checkLogin(false))
+			return;
+		//수정할 게시글 번호 입력
+		System.out.print("게시글 번호 : ");
+		int num = scan.nextInt();
+		scan.nextLine();
+		int index = boardList.indexOf(new Board(num));
+		//해당 게시글이 존재하고, 작성자가 회원과 같지않으면 수정 못함
+			//작성자 체크=> 회원(로그인한 사용자)가 아니면 게시글 등록 못함
+		if(index==-1) {
+			System.out.println("등록되지 않거나 삭제된 게시글입니다.");
+			return;
+		}
+		Board board=boardList.get(index);
+		if(!board.getWriter().equals(user.getId())) {
+			System.out.println("작성자가 아닌 사용자는 수정할 수 없습니다.");
+			return;
+		}
+		//게시글 정보(제목, 내용) 입력
+		System.out.print("수정할 제목 : ");
+		String title = scan.nextLine();
+		System.out.print("수정할 내용 : ");
+		String content = scan.nextLine();
+		//게시글 수정
+		board.update(title, content);
+		System.out.println("게시글 수정이 완료되었습니다.");
+	}
+	private static void insertBoard() {
+		//회원 체크=> 회원(로그인한 사용자)가 아니면 게시글 등록 못함
+		if(checkLogin(false))
+			return;
+		//게시글 정보(제목, 내용, 카테고리) 입력
+		printCategory();
+		String category=null;
+		do {
+			if(category!=null)
+				System.out.println("등록되지 않은 카테고리입니다.");
+			System.out.print("카테고리 : ");
+			category = scan.nextLine();
+		}while(!categoryList.contains(category));
+		System.out.print("제목 : ");
+		String title = scan.nextLine();
+		System.out.print("내용 : ");
+		String content = scan.nextLine();
+		//게시글 등록
+		Board board = new Board(title, content, user.getId(), category);
+		boardList.add(board);
+		System.out.println("게시글 등록이 완료됐습니다.");
 	}
 	private static void memberMenu() {
 		//로그인 체크=> 로그인한 사람은 로그인/회원가입 시도를 할수 없게함
