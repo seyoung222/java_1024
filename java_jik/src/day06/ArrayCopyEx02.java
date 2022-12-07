@@ -25,6 +25,7 @@ public class ArrayCopyEx02 {
 		//깊은 복사 예제2
 //		arr2 = new int [arr1.length];
 //		System.arraycopy(arr1,  0, arr2, 0, arr1.length);
+		System.arraycopy(arr2, 0, tmpArr, 0, 0);
 		
 		
 		//깊은 복사 예제3 (import 필요)
