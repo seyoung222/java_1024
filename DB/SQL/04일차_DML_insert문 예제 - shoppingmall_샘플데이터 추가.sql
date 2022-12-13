@@ -34,3 +34,15 @@ update product
 		pr_amount = pr_amount-1
 	where pr_num=1;
 select * from product;
+
+/*
+- insert values문 : 추가하는 값들을 모두 알고 있는 경우
+insert into 테이블명 values();
+- insert select문 : 일부 값들이 검색을 통해 가져와야하는 경우
+inert into 테이블명 select ... <-서브쿼리 쓰기에 용이
+*/
+-- 식품, 음료수, 콜라, 100개, 1000월
+insert into product(pr_title, pr_contents, pr_amount, pr_price, pr_pc_num)
+	select '음료수','콜라',100,1000,pc_num from product_category
+		where pc_name = '식품';
+select * from product;
