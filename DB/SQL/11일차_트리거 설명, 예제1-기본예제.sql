@@ -6,6 +6,7 @@
 	-- insert된 데이터는 트리거에서 수정할 수 없음
 -- update : old(값이 변경 전 데이터), new(값이 변경 후 데이터)
 -- delete : old(삭제된 데이터)
+-- 실행코드 안에는 select 문이 있으면 안됨(=result set이 있으면 안됨)
 
 drop trigger if exists 트리거명;
 
