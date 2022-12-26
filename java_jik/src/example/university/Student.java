@@ -13,4 +13,9 @@ public class Student {
 		this.st_state = st_state;
 		this.st_pr_num = st_pr_num;
 	}
+	@Override
+	public String toString() {
+		return st_num+" | "+st_name+" | "+st_semester+" | "+st_state+" | "+st_pr_num;
+	}
+	
 }

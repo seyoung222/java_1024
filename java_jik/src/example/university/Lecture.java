@@ -1,7 +1,7 @@
 package example.university;
 
 public class Lecture {
-	private String le_num;
+	private int le_num;
 	private String le_name;
 	private String le_schedule;
 	private int le_point;
@@ -9,7 +9,7 @@ public class Lecture {
 	private int le_year;
 	private String le_term;
 	private String le_pr_num;
-	public Lecture(String le_num, String le_name, String le_schedule, int le_point, int le_class, int le_year,
+	public Lecture(int le_num, String le_name, String le_schedule, int le_point, int le_class, int le_year,
 			String le_term, String le_pr_num) {
 		this.le_num = le_num;
 		this.le_name = le_name;
