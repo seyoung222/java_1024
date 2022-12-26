@@ -20,7 +20,7 @@ CREATE TABLE `department` (
 	`de_name`	varchar(20)	not NULL,
 	`de_address`	varchar(50)	not NULL,
 	`de_tel`	varchar(13)	not NULL,
-	`de_ pr_num`	char(10)
+	`de_pr_num`	char(10)
 );
 
 DROP TABLE IF EXISTS `major`;
@@ -62,7 +62,7 @@ CREATE TABLE `course` (
 	`co_st_num`	char(10)	NOT NULL,
 	`co_le_num`	int	NOT NULL,
 	`co_type`	varchar(5)	not NULL default '학점',
-	`co_grade`	varchar(5)	not NULL default ''
+	`co_grade`	varchar(5)	
 );
 
 DROP TABLE IF EXISTS `score`;
@@ -97,7 +97,7 @@ REFERENCES `professor` (
 );
 
 ALTER TABLE `department` ADD CONSTRAINT `FK_professor_TO_department_1` FOREIGN KEY (
-	`de_ pr_num`
+	`de_pr_num`
 )
 REFERENCES `professor` (
 	`pr_num`
