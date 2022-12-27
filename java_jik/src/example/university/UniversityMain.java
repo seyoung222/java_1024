@@ -98,7 +98,7 @@ public class UniversityMain {
 		System.out.print("강의번호> ");
 		int co_le_num = scan.nextInt();
 		scan.nextLine();
-		db.deleteCourse(co_st_num, co_le_num);
+//		db.deleteCourse(co_st_num, co_le_num);
 		
 	}
 
