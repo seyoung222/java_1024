@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>picture 태그 예제</title>
+</head>
+<body>
+	<!-- 
+	picture 태그
+	- 이미지 태그와 유사
+	- 이미지 태그로 구현 가능(css 활용)
+	- 화면 크기에 따라 보여질 이미지를 다르게 선택
+
+	source
+		- media : 화면 크기를 지정
+	-->
+	<!-- 
+		브라우저 가로가 1200px이상이면 dog.jpg를
+		브라우저 가로가 1200px미만 800px이상이면 dog2.jpg를
+		브라우저 가로가 800px미만이면 dog3.jpg를 화면에 출력
+		보통은 같은 이미지를 넣는데 깨지는 걸 방지하기 위해 비율을 조절하려고 넣음(ex.반응형).. 
+	-->
+	<picture>
+		<source media="(min-width:1200px)" srcset="../img/dog.jpg">
+		<source media="(min-width:800px)" srcset="../img/dog2.jpg">
+		<img src="../img/dog3.jpg" alt="강아지3" width="300" height="auto">
+	</picture>
+</body>
+</html>
