@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>이미지 태그 예제</title>
+</head>
+<body>
+	<!-- 
+		width : 가로
+		height : 높이
+		- 기본 픽셀 단위
+		- auto : 비율에 맞게 크기를 조절. 보통 가로 또는 세로 하나만 지정한 후,
+			다른 속성에 auto를 추가하여 이미지 비율이 깨지지 않게 함.
+	 -->
+	<input width="300" height="auto" type="image" src="http://image.dongascience.com/Photo/2020/03/5bddba7b6574b95d37b6079c199d7101.jpg" alt="강아지"> <br>
+	<!-- src는 이미지를 가져올 장소, 
+	alt는 네트워크 오류등으로 이미지 불러오기 실패했을때 대체할 이미지/텍스드 등
+	만약 웹에서 이미지 주소 가져왔을때 data:image/어쩌구저쩌구로 오면 이건 이미지를
+	문자열로 가져온 형태라서 인터넷이 안될때도 불러와짐. 근데 좋은 형태는 아니다.. 
+	인터넷 주소 뜨면 그건 그 페이지에 올라온 링크를 가져온 것.-->
+
+	<!-- 
+		절대 경로 : 최상위폴더를 기준으로 경로를 탐색
+		- root폴더(최상위폴더) : html폴더.
+		- /로 시작 
+		- 최상위 폴더가 바뀌면(file-open folder다르게하면) 문제 발생
+	-->
+	<input width="300" height="auto" type="image" src="/img/dog.jpg" alt="강아지"><br>
+	<!-- 
+		상대 경로 : 현재 파일 위치를 기준으로 탐색
+		- 최상위 폴더가 바뀌어도 문제가 안됨
+		- .. : 상위 폴더로 이동
+		- ./ : 현재 폴더
+	-->
+	<input width="300" height="auto" type="image" src="../img/dog.jpg" alt="강아지"><br>
+	<!-- 
+		차이점: input태그는 사진위에 마우스 갖다대면 선택손가락모양으로 바뀌는데
+		img 태그는 그냥 일반 커서 모양으로 뜸 -->
+	<img width="300" height="auto" src="../img/dog.jpg" alt="강아지"><br>
+</body>
+</html>
