@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>배경 예제</title>
+	<style>
+		.box{
+			width: 100px; height: 100px;
+			border: 10px solid transparent;
+			padding: 20px;
+		}
+		.box1{background-color: yellow; background-clip: padding-box;}
+		/* content-box(컨텐츠만)/padding-box(패딩포함)/border-box(테두리 포함)*/
+		.box2{background-color: yellow; background-clip: border-box;}
+		.box3{background-color: yellow; background-clip: content-box;}
+		.box4{
+			background-image: url(../img/dog.jpg);
+			background-size: contain;
+			/* 픽셀/contain(원본사이즈)/cover(가로세로맞춤)*/
+			background-repeat: repeat-x;
+			/* norepeat/repeat/repeat-x(x축반복)/repeat-y(y축반복) */
+		} 
+		.box5{
+			background-image: url(../img/dog.jpg);
+			background-size: cover;
+			background-repeat: repeat-y;
+			background-position: 0 0;
+		}
+		.box6{
+			background-image: url(../img/dog.jpg);
+			background-size: 100px 100px;
+			background-repeat: no-repeat;
+			background-position: 50px center; 
+			/* 실제로 한 이미지에 아이콘 여러개 넣어놓고 background-size,position으로 자름 */
+			background-origin: border-box;
+			/* 이미지 배치할 때 시작기준을 어디로 잡을 건지(기본 패딩인듯)
+			content-box/padding-box/border-box */
+		}
+		.box7{
+			height: 1000px;
+			background-image: url(../img/dog.jpg);
+			background-attachment: fixed;
+			/* 스크롤 내릴 때 이미지가 따라내려올지 고정될지(fixed) */
+			background: url(../img/dog.jpg) fixed;
+		}
+		/* 
+		background : image값 repeat값 attachment값 position값
+								clip값 origin값 size값; (해당 안되는건 생략가능)
+		*/
+	</style>
+</head>
+<body>
+	<div class="box box1">내용</div>
+	<div class="box box2">내용</div>
+	<div class="box box3">내용</div>
+	<div class="box box4"></div>
+	<div class="box box5"></div>
+	<div class="box box6"></div>
+	<div class="box7"></div>
+</body>
+</html>
