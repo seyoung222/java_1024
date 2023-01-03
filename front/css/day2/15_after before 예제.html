@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>after before 예제</title>
+	<style>
+		/* 
+		앞 또는 뒤에 들어갈 문자열. 드래그 안됨. 메뉴 사이 공백을 추가해줄 때도 사용.
+		- before: 해당요소 앞에 추가하는 부분
+		- after : 해당요소 뒤에 추가하는 부분 
+		*/
+		.hi::before{
+			content: '인사 : ';
+		}
+		.hi::after{
+			content: '하세요.'; color: red;
+		}
+	</style>
+</head>
+<body>
+	<span class="hi">안녕</span>
+</body>
+</html>
