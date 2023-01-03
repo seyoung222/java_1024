@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>absolute에서 크기 지정 예제</title>
+	<style>
+		.box{
+			position: absolute; background: red;
+			top: 50px; bottom: 50px; left: 50px; right: 50px;
+			/*
+			width/height 설정 안해도 absolute와 fixed는 이런 식으로 지정가능 
+			전부 0px로 바꾸면 화면 전체를 쉽게 선택가능
+			-> ex. 무언가 선택했을때 배경 회색으로 깔리면서 선택창 뜨는 곳*/
+		}
+	</style>
+</head>
+<body>
+	<div class="box"></div>
+</body>
+</html>
