@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>박스 2분할 예제2</title>
+	<style>
+		/* 박스 안에 두 박스가 들어있고, 작은 박스 사이의 간격이 10px만큼 있게하라. */
+		.box{
+			width: calc(50% - 5px); height: 200px;
+			background: red; float: left;
+		}
+		.box2{ float: right;}
+		.container-box{
+			border: 1px solid black;
+		}
+		.container-box::after{
+			display: block; content: ''; clear: both;
+		}
+		/*
+		.container-box{
+			border: 1px solid black;
+		}
+		.box{
+			 width: calc(50% - 5px); height: 100px; 
+			 float: left;background: red;
+			}
+		.box2{float: right; width: calc(50% - 5px); background: yellowgreen;}
+		.container-box::after{ clear: both; display: block; content: ''; } */
+	</style>
+</head>
+<body>
+	<div class="container-box">
+		<div class="box box1"></div>
+		<div class="box box2"></div>
+	</div>
+</body>
+</html>
