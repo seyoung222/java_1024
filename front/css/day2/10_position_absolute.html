@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>absolute 예제</title>
+	<style>
+		/* 
+		absolute : 화면 안에서 특정 위치로 배치
+		- top, bottom, left, right를 이용
+		*/
+		.box{
+			 width: 100px; height: 100px; background-color: red; 
+			 position: absolute; /* absolute넣으면 박스들이 겹침.. */
+			}
+		body{ width: 2000px;}
+		.box1{
+			right: 0px; top: 0;
+			/* 브라우저 딱 켰을 때의 오른쪽에 박스가 위치하고, 스크롤 옮겨도 이동하지X 
+			fixed를 하면 스크롤 이동해도 박스가 계속 같은 자리에 위치해서 따라옴
+			만약 body(조상)에 position:relative 적으면 body기준 오른쪽에 붙으므로
+			브라우저 스크롤 맨 끝에 위치함*/
+		}
+		.box2{ top: 50%; left: 50%;}
+		.container-box{position: relative;}
+		.box3{ right: 0; top: 0;} 
+		/* 부모(container-box)를 기준으로 맨 오른쪽 맨 위에 붙음
+		1 때문에 제일 위에 붙지는 않고 살짝 내려와서 붙어있음 */
+	</style>
+</head>
+<body>
+	1
+	<!-- 
+		box1의 조상 요소?
+		- body태그, html태그
+		box1의 조상 요소 중 position이 relative인 요소가 있나요? NO
+		=> 브라우저 화면을 기준으로 top, bottom, left, right를 따져서 배치
+	 -->
+	<div class="box box1"></div>
+	<div class="box box2"></div>
+	<div class="container-box">
+		<div class="box box3"></div>
+	</div>
+</body>
+</html>

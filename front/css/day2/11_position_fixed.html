@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>fixed 예제</title>
+	<style>
+		.box{width: 100px; height: 100px; border: 1px solid black;}
+		.up{position: fixed; bottom: 30px; right: 30px;}
+		/* 브라우저의 아래서 30px, 오른쪽에서 30px위치에 고정돼서 
+		   스크롤 이동해도 항상 그 위치에 있음 */
+		body{
+			height: 1000px;
+		}
+	</style>
+</head>
+<body>
+	<div class="box up">위로</div>
+</body>
+</html>
