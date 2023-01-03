@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>위로 가기 예제</title>
+	<!-- 위로가기 버튼을 누르면 위로 이동하는 버튼 만들기 -->
+	<style>
+		body{height: 1000px;}
+		.btn-up{
+			text-decoration: none; color: black;
+			display: block;	/*fixed랑 absolute는 block으로 해도 ㄱㅊ음*/
+			width: 50px; height: 50px; border: 1px solid black; border-radius: 50%;
+			text-align: center; line-height: 50px;
+			position: fixed; right: 10px; bottom: 10px;
+		}
+		/*
+		.box{
+			width: 50px; height: 50px; border: 1px dotted black;
+			border-radius: 25px;
+		}
+		.box1{
+			position: fixed; bottom: 30px; right: 30px;
+			text-align: center; line-height: 50px; text-decoration: none;
+		} */
+	</style>
+</head>
+<body id="body">
+	<!-- 클릭했을 때 특정 위치로 이동하는 앵커 기능 => a태그 -->
+	<!-- <a href="" class="box box1">위로</a> -->
+	<a href="#body" class="btn-up">UP</a>
+</body>
+</html>
