@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>float 예제</title>
+	<style>
+		.box{
+			width: 100px; height: 100px; border: 1px solid black;
+			float: left; /* 엔터에 의한 공백도 무시하고 바로 옆에 잘 붙음 */
+		}
+		/* 
+		일반적으로 부모의 높이는 컨텐츠의 높이를 따라감, 
+		but float 적용된 컨텐츠는 부모의 높이로 인식 안됨
+		-> 아래에 추가한 2가 새 줄이 아니라 박스의 옆에서 출력됨(의도한바와 달라짐)
+		이를 막기 위해 아래 코드를 추가해서 부모가 콘텐츠를 감싸도록 함.(공식임)
+		- 내용이 비어있는 block박스를 하나 배치해서 공간을 나눔
+		*/
+		.container-box::after{
+			clear: both; display: block; content: '';
+		}
+	</style>
+</head>
+<body>
+	
+	<div class="container-box">
+		<div class="box box1"></div>
+		<div class="box box2"></div>
+	</div>
+	<div class="container-box">2</div>
+</body>
+</html>
