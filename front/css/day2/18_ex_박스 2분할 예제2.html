@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>박스 2분할 예제</title>
+	<style>
+		.container-box{
+			border: 1px solid black;
+		}
+		.box{
+			height: 100px; background: red; 
+			width: 50%; /* 부모 컨텐츠의 절반을 차지함 */
+			float: left;
+		}
+		.box2{background: blue;}
+		.container-box::after{ /* 이거해야 부모의 높이에도 반영돼서 테두리가 잘 감쌈 */
+			clear: both; display: block; content: '';
+		}
+		/*
+		.box{
+			width: 100px; height: 100px; border: 3px solid;
+		}
+		.container-box{
+			width: 212px; height: 106px; border: 3px solid green;
+		}
+		.box1{color: orange; float: left;}
+		.box2{color: red; float: left;}
+		*/
+	</style>
+</head>
+<body>
+	<!-- 큰박스 안에 작은 박스 두개가 들어있고 정확히 이등분하는 모양 그리기 -->
+	<div class="container-box">
+		<div class="box"></div>
+		<div class="box box2"></div>
+	</div>
+	<!-- 
+	<div class="container-box">
+		<div class="box box1"></div>
+		<div class="box box2"></div>
+	</div>
+	 -->
+	
+</body>
+</html>
