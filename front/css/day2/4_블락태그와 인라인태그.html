@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>블락 vs 인라인</title>
+	<style>
+	
+		.box1{ 
+			width: 50px; height: 50px;
+			background: yellow;
+		}/* 블락태그이므로 크기 변경이 가능, 새 라인에서 시작해서 그 줄 전체를 사용*/
+		.box2{
+			width: 50px; height: 50px;
+			background: rgb(105, 105, 105);
+			display: none;
+			/* display : none(펼치기할때 많이 씀)/block/inline/inline-block */
+		} /* 인라인태그이므로 크기변경 불가, 현재 위치에서 시작
+		컨텐츠만큼의 사이즈만 부여됨->글자의 배경만 회색으로 바뀜 */
+		.box3{
+			width: 50px; height: 50px;
+			background: blue; color: white;
+		} /* 인라인 블락 태그이므로 크기변경 가능, 현재 위치에서 시작 */
+	</style>
+</head>
+<body>
+	<div class="box1">1</div>
+	<span class="box2">2</span>
+	<input type="text" class="box3">
+</body>
+</html>
