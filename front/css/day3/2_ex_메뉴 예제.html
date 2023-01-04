@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>메뉴 예제</title>
+	<style>
+		.menu-list{
+			list-style: none; padding: 0; border: 5px solid red;
+		}
+		.menu-list::after{
+			clear: both; display: block; content: '';
+		}
+		.menu-link{
+			text-decoration: none; color: black;
+			display: block; height: 100%;
+			/* a태그는 inline이어서 글자를 클릭해야 이동됨. 
+			공간 전체를 클릭할수 있도록 block으로 바꾸고 높이 키움*/
+			text-align: center; line-height: 50px; /*얘는 %로하면 이상해짐*/
+		}
+		.menu-item{
+			float: left; width: 33.33%; height: 50px;
+		}
+		.menu-item+.menu-item{
+			border-left: 5px solid red; margin-left: -5px;
+		}
+	</style>
+</head>
+<body>
+	<!-- 메뉴는 보통 nav태그를 씀. 대표적인 시멘틱기능으로 특별한 기능은 없고
+	메뉴를 모아두는 네비게이션 역할할때 많이 씀 ex.메뉴, 아이콘모아두기 -->
+	<!-- class는 스타일 적용하기 위해서 명명하는 편 -->
+	<nav>
+		<ul class="menu-list">
+			<li class="menu-item">
+				<a href="http://www.naver.com" class="menu-link">메뉴1</a>
+			</li>
+			<li class="menu-item">
+				<a href="http://www.daum.net" class="menu-link">메뉴2</a>
+			</li>
+			<li class="menu-item">
+				<a href="http://www.google.com" class="menu-link">메뉴3</a>
+			</li>
+		</ul>
+	</nav>
+</body>
+</html>

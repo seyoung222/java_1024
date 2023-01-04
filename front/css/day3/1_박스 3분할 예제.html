@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>박스 3분할 예제</title>
+	<style>
+		/* 기본적으로 body 태그에 마진이 상하좌우 8px씩 들어가있음 지워도됨 */
+		*{margin: 0px;}
+		.container-box{border: 5px solid red;}
+		/* calc(100% / 3) 으로 써도 ㄱㅊ */
+		.box{ width: 33.33%; height: 100px; float: left;}
+		.box1{ background: green;}
+		.box2{ background: yellow;}
+		.box3{ background: gray;}
+		.container-box::after{
+			clear: both; display: block; content: '';
+		}
+	</style>
+</head>
+<body>
+	<div class="container-box">
+		<div class="box box1">1</div>
+		<div class="box box2"></div>
+		<div class="box box3"></div>
+	</div>
+</body>
+</html>

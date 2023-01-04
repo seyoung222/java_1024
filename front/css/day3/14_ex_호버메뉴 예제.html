@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>호버메뉴</title>
+	<style>
+		.box1{
+			width: 200px; height: 50px; border: 1px solid black;
+			text-align: center; line-height: 50px;
+		}
+		.box2{
+			width: 200px; height: 200px; border: 1px solid salmon;
+			display: none;
+		}
+		.box1:hover{background: rosybrown; display: block;}
+	</style>
+</head>
+<body>
+	<!-- 박스를 하나 만들고 마우스호버하면 밑에 박스가 생기게 만들기 -->
+	<div class="box1">메뉴
+		<div class="box box2">메뉴1234</div>
+	</div>
+	
+</body>
+</html>

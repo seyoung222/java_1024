@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>표 예제</title>
+	<style>
+		/*
+		table{
+			border-collapse: separates;
+			empty-cells: hide;} 두줄로 된 테두리를 하나로 합침
+		*/
+		table{
+			border-collapse: collapse;
+			width: 100%;
+		}
+		tr{ /* tr태그에만 border를 추가하면 세로줄이 사라짐 */
+			border: 1px solid black;
+			border-width: 1px 0px;
+		}
+		tr>th:first-child{ width: 150px;}
+		tr>th:nth-child(2){ width: 100px;}
+		tr>th:nth-child(3){ width: 100px;}
+		/*
+		th, td{
+			border: 1px solid black;
+		} */
+		th,td{ height: 40px;}
+/*		tr:not(tr:first-child):hover{background: rgb(175, 190, 190);} */
+		/* 첫줄만 빼고 호버적용 시키기 -> thead & tbody 쓰면 편함 */
+		tbody>tr:hover{background: rgb(175, 190, 190);}
+	</style>
+</head>
+<body>
+	<!-- table에 바로 border 적용하면 두줄로 뜸 => 별로 추천하지 않고
+	style에서 추가하는 게 좋음 -->
+	<table>
+		<thead>
+			<tr>
+				<th>과목</th>
+				<th>이름</th>
+				<th>점수</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>HTML</td>
+				<td>홍길동</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>HTML</td>
+				<td>홍길동</td>
+				<td></td>
+			</tr>
+		</tbody>
+		</table>
+</body>
+</html>

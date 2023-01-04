@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>transform 예제</title>
+	<style>
+		.body{ perspective: 200px; }
+		
+		.box{
+			width: 300px; height: 100px;
+			margin: 100px auto; background: red;
+		}
+		.box1{ transform: translate(-50px, 10px);}
+		.box2{ transform: scale(2, 0.5);} /* 확대/축소 */
+		.box3{ transform: rotate(45deg);}
+		.box4{ transform: skew(45deg, 30deg);}
+		.box5{
+			transform: rotateY(180deg); /* 해당 박스를 Y축 위에 올리고 회전시킨 것*/
+			background: url(../img/dog.jpg);
+			background-size: auto 100px;
+		} 
+
+		/* 3차원 할때는 부모에 perspective 속성을 같이 써야함 -> 원근감을 줌*/
+		.box6{ transform: translateZ(100px); }
+		.box7{
+			transform: rotateX(0deg); 
+			background: url(../img/dog.jpg);
+			background-size: auto 100px;
+		} 
+	</style>
+</head>
+<body>
+	<div class="box box1"></div>
+	<div class="box box2"></div>
+	<div class="box box3"></div>
+	<div class="box box4"></div>
+	<div class="box box5"></div>
+	<div class="box box6"></div>
+	<div class="box box7"></div>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>투명도 예제</title>
+	<style>
+		.container-box{
+			height: 400px; padding: 100px;
+			background: rgba(255,0,0,0.5);
+			/* opacity: 0.5; */
+			/*부모의 투명도를 낮추면 자식의 투명도에도 반영됨(더진해지지X)
+			부모만 투명도를 낯주고 싶으면 rgba() 4번째자리에 투명도 넣어서 반영해야함*/
+		}
+		.box{
+			height: 200px; background: green; font-size: 100px;
+			opacity: 1; /* 0(투명)~1(불투명)*/
+		}
+	</style>
+</head>
+<body>
+	<div class="container-box">
+		<div class="box">HELLO</div>
+	</div>
+</body>
+</html>

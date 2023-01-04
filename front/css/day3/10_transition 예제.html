@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>transition 예제</title>
+	<style>
+		.box{
+			font-size: 50px;
+			transition-property: font-size; /*감지할 속성*/
+			transition-duration: 3s; /*몇초에 걸쳐 효과가 나타날지*/
+			transition-timing-function: ease; /*이벤트가 발생하는 시간-거리그래프*/
+			transition-delay: 0.5s; /*지연. 보통 없음*/
+			transition: font-size 3s ease 0.5s, color 3s ease;
+		}
+		.box:hover{ font-size: 200px; color: red;}
+	</style>
+</head>
+<body>
+	<div class="box">꽝</div>
+</body>
+</html>
