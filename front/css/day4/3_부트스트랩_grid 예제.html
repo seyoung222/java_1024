@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>grid 예제</title>
+	<!-- link:css 입력하면 아래 파일 불러오는 명령어 뜸 -->
+	<link rel="stylesheet" href="../bootstrap/bootstrap.min.css">
+	<style>
+		.box{
+			height: 50px; background: red; margin-bottom: 20px;
+		}
+		.row>.box1{ background: yellow; height: 50px;}
+		.row>div:nth-child(2n){background: gray;}
+	</style>
+</head>
+<body>
+	<!-- 
+		부트스트랩 쓰는 궁극적 이유 : 반응형으로 만들기 위해
+		부트스트랩에서는 화면을 12등분으로 나누어서 사이즈 지정가능 ->col 클라스 이용
+		브라우저 크기를 나누는 사이즈 단위는 5개(XS/SM/MD/lG/XL) 
+	-->
+	<div class="box col-3"></div>
+		<!-- 전체를 12등분 한 것 중 3개=25% -->
+	<div class="box col-3 col-sm-4"></div>
+		<!-- 브라우저 사이즈가 작으면 3/12이다가 일정 이상 커지면 4/12 비율로 늘어남 -->
+	<div class="box col-3 col-sm-4 col-md-5"></div>
+	<div class="box col-3 col-sm-4 col-md-5 col-lg-6"></div>
+	<div class="box col-3 col-sm-4 col-md-5 col-lg-6 col-xl-12"></div>
+	<div class="container-fluid">
+		<!-- container-fluid : 내부 요소가 가로 브라우저 100%사이즈로 유지됨-->
+		<div class="row">
+			<!-- row : 안에 있는 요소들을 한줄로 묶어주는 역할하는 클래스 -->
+			<div class="box1 col-1">1</div>
+			<div class="box1 col-2">2</div>
+			<!--
+			<div class="box1 col-3">3</div>
+			-->
+			<div class="box1 offset-3 col-6">6</div>
+			<!-- offset-n : 12칸 중 n칸을 띄우고 다음 칸을 채우게 함 -->
+		</div>
+</div>
+</body>
+</html>
