@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>NAVER</title>
+	<title>NAVER세영</title>
 	<style>
 		/* 기본세팅 */
 		*{margin: 0; padding: 0;}
@@ -171,19 +171,17 @@
 		.container-menu{ box-shadow: 0 1px 3px 0 rgb(0,0,0,0.12);}
 /* 메인 */
 		.container-body .inner-container{padding: 20px 30px;}
-		.box-body .box-body-left{width: 750px; float: left;}
-		.box-body .box-body-right{width: 350px; float: right;}
-		.box-body .box-body-left1{height: 135px; position: relative;}
-		.box-body .box-body-left1 .frame{
-			height: 135px; width: 750px;
+		.box-body .box-body-left{
+			width: 750px; float: left;
 		}
-		.box-body .line{
-			position: absolute; background-color: #000; opacity: .07;
+		.box-body .box-body-right{
+			width: 350px; float: right;
 		}
-		.box-body .line-top{height: 1px; top: 0; left: 0; right: 0;}
-		.box-body .line-bottom{height: 1px; bottom: 0; left: 0; right: 0;}
-		.box-body .line-left{width: 1px; top: 0; bottom: 0; left: 0;}
-		.box-body .line-right{width: 1px; top: 0; bottom: 0; right: 0;}
+		.box-body .box-ad{
+			width: 750px; height: 135px;
+			background-image: url(https://ssl.pstatic.net/melona/libs/1430/1430581/c01624d17f5b707af26c_20230109135238797.png);
+			background-size: 750px 135px;
+		}
 
 
 /* 공통 */
@@ -328,13 +326,9 @@
 			<div class="inner-container">
 				<div class="box-body clearfix">
 					<div class="box-body-left">
-						<div class="box-body-left1">
-							<iframe src="add1.html" frameborder="0" class="frame"></iframe>
-							<span class="line line-top"></span>
-							<span class="line line-bottom"></span>
-							<span class="line line-left"></span>
-							<span class="line line-right"></span>
-							<!-- border때문에 사이즈 밀리지 않도록 선 그어줌 -->
+						<iframe src="" frameborder="0" class="box-ad"></iframe>
+						<div class="box-news-stand">
+							<div class="box-news-summary"></div>
 						</div>
 					</div>
 					<div class="box-body-right"></div>
