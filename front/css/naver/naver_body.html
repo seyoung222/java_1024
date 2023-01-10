@@ -179,9 +179,142 @@
 		}
 		.box-body .box-ad{
 			width: 750px; height: 135px;
-			background-image: url(https://ssl.pstatic.net/melona/libs/1430/1430581/c01624d17f5b707af26c_20230109135238797.png);
+			background-image: url(https://ssl.pstatic.net/melona/libs/1423/1423243/c5843895650bfe3c398b_20221228165338223.jpg);
 			background-size: 750px 135px;
 		}
+		/* left1 구현 완료 */
+		.container-login{
+			width: 315px; height: 105px; padding: 16px 16px 12px 17px;
+			border: 1px solid #dae1e6; background-color: #f7f9fa;
+			letter-spacing: -.2px;
+		}
+		.container-login .login-info{
+			color: grey; padding-left: 3px;
+		}
+		.container-login .btn-login{
+			background-color: #19ce60; border: 1px solid #15c654;
+			border-radius: 2px; font-size: 13px; color: #fff;
+			display: block; padding: 15px 0; margin-top: 11px;
+			font-weight: 700; text-align: center; text-decoration: none;
+		}
+		.container-login .icon-login-btn{
+			display: inline-block; width: 60px; height: 12px;
+			background-position: -202px -296px; margin: 2px 5px 0 0;
+			vertical-align: top;
+		}
+		.container-login .group-member{margin: 14px 8px 0 4px;}
+		.container-login .box-find-member{ float: left;}
+		.container-login .box-add-member{ float: right;}
+		.container-login .icon-lock{
+			width: 10px; height: 14px; display: inline-block;
+			background-position: -408px -55px; margin: -1px 1px 1px;
+			vertical-align: top;
+		}
+		.container-login .find-id, .container-login .find-pw,
+		.container-login .add-member{
+			color: #404040;
+		}
+		.container-login .box-space{
+			width: 3px; height: 3px; background-color: #d7dce0;
+			display: inline-block; border-radius: 50%;
+			margin: 0 5px 0 2px; vertical-align: 3px;
+		}
+		.container-login .add-member::before{
+			width: 11px; height: 11px; display: inline-block;
+			background-position: -401px -245px; margin: 2px 5px 0 0;
+			vertical-align: top; content: '';
+		}
+		.container-login .find-id:hover, .container-login .find-pw:hover,
+		.container-login .add-member:hover{text-decoration: underline;}
+		/* right1 구현 완료 */
+		.box-newsstand{width: 750px; margin-top: 9px;}
+		.box-newsstand .box-news-head{
+			padding: 12px 15px 11px 15px; border: 1px solid #dae1e6;
+			background-color: #f7f9fa; line-height: 24px;
+		}
+		.box-newsstand .issue-area{float: left;}
+		.box-newsstand .direct-area{float: right;}
+		.box-newsstand .link-press-name{
+			max-width: 89px; color: #000; font-weight: 700;
+			padding-right: 12px; margin-right: 7px; font-size: 13px;
+			letter-spacing: -.3px; position: relative; float: left;
+		}
+		.box-newsstand .link-press-name::after{
+			position: absolute; top: 7px; right: 0; display: inline-block;
+			width: 6px; height: 10px; background-position: -262px -112px;
+			vertical-align: top; content: '';
+		}
+		.box-newsstand .link-issue-title{
+			width: 310px; overflow: hidden; text-overflow: ellipsis;
+			white-space: nowrap; letter-spacing: -.2px;
+			font-size: 13px; color: #000;  float: left;
+		}
+		.box-newsstand .list-direct>*{
+			float: left; font-size: 13px; font-weight: 700; 
+			margin: 0 4px 0 7px; letter-spacing: -.2px;
+		}
+		.box-newsstand .link-news-home{ color: #3565c9; margin: 0;}
+		.box-newsstand .link-news-home::after{
+			width: 3px; height: 3px; background-color: #c8ccd1;
+			content: ''; margin-left: 8px; border-radius: 50%;
+			display: inline-block; vertical-align: 3px;
+		}
+		/* left 2-1 */
+
+		.box-newsstand .box-stand-title{
+			padding: 22px 0 16px 0; font-size: 14px; line-height: 18px;
+		}
+		.box-newsstand .group-press{float: left;}
+		.box-newsstand .group-icon-set{float: right;}
+		.box-newsstand .link-newsstand{
+			color: #000; font-weight: 700; float: left; letter-spacing: -.2px;
+		}
+		.box-newsstand .link-newsstand::before{
+			width: 27px; height: 24px; display: inline-block; margin: -6px 1px 0 0;
+			background-position: -272px -342px; vertical-align: top; content: '';
+		}
+		.box-newsstand .link-newsstand::after{
+			width: 7px; height: 11px; display: inline-block; margin-left: 6px;
+			background-position: -410px -213px; vertical-align: -1px; content: '';
+		}
+		.box-newsstand .link-checking-press{
+			color: #505050; margin-left: 10px; letter-spacing: -.2px;
+		}
+		.box-newsstand .link-all-press{
+			color: #000; font-weight: 700; letter-spacing: -.2px;
+		}
+		.box-newsstand .link-all-press::before{
+			width: 4px; height: 4px; display: inline-block; margin: 0 8px 0 4px;
+			border-radius: 50%; vertical-align: 3px; content: '';
+			background-color: #c7ccd1;
+		}
+		.box-newsstand .group-icon-set>*{padding: 0 9px; float: left;}
+		.box-newsstand .icon-list{
+			width: 14px; height: 13px; display: inline-block;
+			background-position: -244px -310px; vertical-align: top;
+			opacity: .7;
+		}
+		.box-newsstand .icon-title{
+			width: 13px; height: 13px; display: inline-block;
+			background-position: -276px -310px; vertical-align: top;
+		}
+		.box-newsstand .icon-setting{
+			width: 15px; height: 15px; display: inline-block;
+			background-position: -102px -386px; vertical-align: top;
+			opacity: .7; margin: -1px 0 1px;
+		}
+		.box-newsstand .icon-list:hover, 
+		.box-newsstand .icon-setting:hover{opacity: 1;}
+		/* left 2-2 */
+		.box-news-logo {width: 750px}
+		.box-news-logo .new-box {
+			border: 1px solid gray;
+			width: 16.66%; height: 65px; position: relative;
+			float: left; padding: 23px 0 22px;
+			background-color: #03c75a; text-align: center;
+		}
+		/* left2 구현 중 */
+
 
 
 /* 공통 */
@@ -192,10 +325,7 @@
 			position: absolute;
 			width: 1px; height: 1px; margin: -1px; overflow: hidden;
 		}
-		.img1::after, .icon-jrnaver.img1, .icon-happybean.img1,
-		.icon-search.img1, .icon-kbd.img1, .icon-auto-complete.img1,
-		.icon-naver-logo.img1, .icon-mail.img1, .icon-shopping.img1,
-		.icon-shopping-live.img1, .icon-tv.img1, .icon-more.img1{ 
+		.img1a::after, .img1, .img1b::before{ 
 			/*사진 불러오려고 따로씀 img1이 필요할때마다 클래스 소환*/
 			background-image: url(img/img1.png);
 			background-size: 442px 428px;
@@ -210,7 +340,7 @@
 				<div class="box-search">
 					<div class="box-service">
 						<a href="https://help.naver.com/service/30016/contents/18042?osType=PC&lang=ko"
-						 class="link-start-page img1">네이버를 시작페이지로</a>
+						 class="link-start-page img1a">네이버를 시작페이지로</a>
 						<i class="icon-bar"></i>
 						<a href="https://jr.naver.com/" class="link-jrnaver">
 							<i class="icon-jrnaver img1"></i>
@@ -327,11 +457,83 @@
 				<div class="box-body clearfix">
 					<div class="box-body-left">
 						<iframe src="" frameborder="0" class="box-ad"></iframe>
-						<div class="box-news-stand">
-							<div class="box-news-summary"></div>
+						<!-- left1 구현 완료. 나는 걍 넣었는데 html따로 만들어서 iframe 사용 -->
+						<div class="box-newsstand">
+							<div class="box-news-head">
+								<div class="box-in-head clearfix">
+									<div class="issue-area clearfix">
+										<a href="" class="link-press-name img1a">연합뉴스</a>
+										<a href="" class="link-issue-title">계절 흘러가는 날씨... 내일 낮 기온 대부분 지역서 10도 넘을 전망</a>
+									</div>
+									<div class="direct-area">
+										<ul class="list-direct clearfix">
+											<li class="link-news-home">뉴스홈</li>
+											<li class="link-entertain">연예</li>
+											<li class="link-sports">스포츠</li>
+											<li class="link-economic">경제</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+							<!-- left 2-1 구현 완료 -->
+							<div class="box-stand-title">
+								<div class="box-in-title clearfix">
+									<div class="group-press clearfis">
+										<a href="" class="link-newsstand img1a img1b">뉴스스탠드</a>
+										<a href="" class="link-checking-press">구독한 언론사 </a>
+										<a href="" class="link-all-press">전체언론사</a>
+									</div>
+									<div class="group-icon-set">
+										<a href="">
+											<i class="icon-list img1"></i>
+										</a>
+										<a href="">
+											<i class="icon-title img1"></i>
+										</a>
+										<a href="">
+											<i class="icon-setting img1"></i>
+										</a>
+									</div>
+								</div>
+							</div>
+							<!-- left 2-2 구현 완료 -->
+							<div class="box-news-logo">
+								<table class="table-all-press">
+									<tr class="clearfix">
+										<th><i class="new-box icon-press1">1</i></th>
+										<th><i class="new-box icon-press2">2</i></th>
+										<th><i class="new-box icon-press3">3</i></th>
+										<th><i class="new-box icon-press4">4</i></th>
+										<th><i class="new-box icon-press5">5</i></th>
+										<th><i class="new-box icon-press6">6</i></th>
+									</tr>
+									<tr></tr>
+									<tr></tr>
+									<tr></tr>
+								</table>
+							</div>
 						</div>
 					</div>
-					<div class="box-body-right"></div>
+					<div class="box-body-right">
+						<div class="container-login">
+							<div>
+								<p class="login-info">네이버를 더 안전하고 편리하게 이용하세요</p>
+								<a href="" class="btn-login">
+									<i class="icon-login-btn img1"></i>로그인
+								</a>
+								<div class="group-member clearfix">
+									<div class="box-find-member">
+										<i class="icon-lock img1"></i>
+										<a href="" class="find-id">아이디</a>
+										<div class="box-space"></div><a href="" class="find-pw">비밀번호찾기</a>
+									</div>
+									<div class="box-add-member">
+										<a href="" class="add-member img1b">회원가입</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>

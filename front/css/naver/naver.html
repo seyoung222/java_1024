@@ -170,6 +170,7 @@
 		.container-menu .box-menu{position: relative;}
 		.container-menu{ box-shadow: 0 1px 3px 0 rgb(0,0,0,0.12);}
 /* 메인 */
+/* left1 */
 		.container-body .inner-container{padding: 20px 30px;}
 		.box-body .box-body-left{width: 750px; float: left;}
 		.box-body .box-body-right{width: 350px; float: right;}
@@ -184,6 +185,85 @@
 		.box-body .line-bottom{height: 1px; bottom: 0; left: 0; right: 0;}
 		.box-body .line-left{width: 1px; top: 0; bottom: 0; left: 0;}
 		.box-body .line-right{width: 1px; top: 0; bottom: 0; right: 0;}
+/* right1 */
+		.box-body-right1{
+			padding: 16px 16px 12px 17px; border: 1px solid #dae1e6; background-color: #f7f9fa;
+		}
+		.box-body-right1 .box-title{
+			font-size: 12px; line-height: 16px; letter-spacing: -.2px;
+			color: grey; padding-left: 3px;
+		}
+		.box-body-right1 .link-login{
+			display: block; padding: 15px 0; font-size: 13px; text-align: center;
+			margin-top: 11px; border-radius: 2px; border: 1px solid #15c654;
+			background-color: #19ce60; font-weight: bold; color: #fff;
+		}
+		.box-body-right1 .icon-login{
+			width: 60px; height: 12px; display: inline-block;
+			background-position: -202px -296px; vertical-align: top;
+			margin: 2px 5px 0 0;
+		}
+		.box-body-right1 .box-service{
+			margin: 14px 8px 0 4px; letter-spacing: -.2px;
+		}
+		.box-body-right1 .link-find-id{
+			letter-spacing: -.2px; color: #404040;}
+		.box-body-right1 .box-service::before{
+			width: 10px; height: 14px; display: inline-block;
+			background-position: -408px -55px; vertical-align: top;
+			margin: -1px 1px 1px; content: '';
+		}
+		.box-body-right1 .link-find-pw{
+			letter-spacing: -.2px; color: #404040;}
+		.box-body-right1 .link-find-pw::before{
+			width: 3px; height: 3px; display: inline-block;
+			background-color: #d7dce0; vertical-align: 3px; border-radius: 50%;
+			margin: 0 5px 0 6px; content: '';
+		}
+		.box-body-right1 .link-signup{
+			float: right;letter-spacing: -.2px; color: #505050;}
+		.box-body-right1 .link-signup::before{
+			width: 11px; height: 11px; display: inline-block;
+			background-position: -401px -245px; vertical-align: top;
+			margin: 2px 5px 0 0; content: '';
+		}
+		.box-body-right1 .box-service>*:hover{text-decoration: underline;}
+/* left2 */
+		.box-body .box-body-left2{margin-top: 12px;}
+		.box-body-left2 .box-head{
+			border: 1px solid #dae1e6; padding: 12px 15px 11px 15px;
+			background-color: #f7f9fa; line-height: 24px; 
+		}
+		.box-body-left2 .box-contents{ float: left;}
+		.box-body-left2 .box-service{float: right;}
+		.box-body-left2 .link-media{
+			letter-spacing: -.3px; float: left; 
+			font-size: 13px; font-weight: 700; padding-right: 12px;
+			margin-right: 7px; position: relative; color: #000;
+		}
+		.box-body-left2 .link-media::after{
+			width: 6px; height: 10px; display: inline-block; content: '';
+			background-position: -262px -112px; vertical-align: top;
+			position: absolute; top: 7px; right: 0;			
+		}
+		.box-body-left2 .list-issue{width: 310px; height: 24px; overflow: hidden;}
+		.box-body-left2 .link-issue{
+			display: block; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;
+			color: #202020; font-size: 13px; letter-spacing: -.2px;
+		}
+		.box-body-left2 .item-issue:hover .link-issue{text-decoration: underline;}
+		.box-body-left2 .box-service>*{
+			float: left; line-height: 24px; font-size: 13px; color: #202020;
+			letter-spacing: -.2px; font-weight: 700; margin: 0 4px 0 7px;
+		}
+		.box-body-left2 .box-service>.link-news-home{
+			margin: 0; color: #3565c9;
+		}
+		.box-body-left2 .box-service>.link-news-home::after{
+			width: 3px; height: 3px; display: inline-block; content: '';
+			vertical-align: 3px; margin-left: 8px; border-radius: 50%; background-color: #c8ccd1;	
+		}
+
 
 
 /* 공통 */
@@ -197,7 +277,9 @@
 		.img1::after, .icon-jrnaver.img1, .icon-happybean.img1,
 		.icon-search.img1, .icon-kbd.img1, .icon-auto-complete.img1,
 		.icon-naver-logo.img1, .icon-mail.img1, .icon-shopping.img1,
-		.icon-shopping-live.img1, .icon-tv.img1, .icon-more.img1{ 
+		.icon-shopping-live.img1, .icon-tv.img1, .icon-more.img1,
+		.icon-login.img1, .box-body-right1 .box-service::before,
+		.box-body-right1 .link-signup::before, .link-media::after{ 
 			/*사진 불러오려고 따로씀 img1이 필요할때마다 클래스 소환*/
 			background-image: url(img/img1.png);
 			background-size: 442px 428px;
@@ -334,10 +416,53 @@
 							<span class="line line-bottom"></span>
 							<span class="line line-left"></span>
 							<span class="line line-right"></span>
-							<!-- border때문에 사이즈 밀리지 않도록 선 그어줌 -->
+							<!-- border때문에 사이즈 밀리지 않도록 위에 선을 따로 올림 -->
 						</div>
+						<!-- 메인 왼쪽 1번째 박스 -->
+						<div class="box-body-left2">
+							<div class="box-head">
+								<div class="box-in clearfix">
+									<div class="box-contents">
+										<a href="" class="link-media">연합뉴스</a>
+										<ul class="list-issue">
+											<li class="item-issue">
+												<a href="" class="link-issue">계절 거슬러가는 날씨…내일 낮 기온 대부분 지역서 10도 넘어</a>
+											</li>
+											<li class="item-issue">
+												<a href="" class="link-issue">계절 거슬러가는 날씨…내일 낮 기온 대부분 지역서 10도 넘어</a>
+											</li>
+										</ul>
+									</div>
+									<div class="box-service">
+										<a href="" class="link-news-home">뉴스홈</a>
+										<a href="" class="link-entertain">연예</a>
+										<a href="" class="link-sports">스포츠</a>
+										<a href="" class="link-economic">경제</a>
+									</div>
+								</div>
+							</div>
+							<div class="box-title"></div>
+							<div class="box-body"></div>
+						</div>
+						<!-- 메인 왼쪽 2번째 박스 -->
 					</div>
-					<div class="box-body-right"></div>
+					<!-- 메인 왼쪽 박스 -->
+					<div class="box-body-right">
+						<div class="box-body-right1">
+							<div class="box-in-right1">
+								<p class="box-title">네이버를 더 안전하고 편리하게 이용하세요</p>
+								<a href="" class="link-login">
+									<i class="icon-login img1"></i>로그인
+								</a>
+								<div class="box-service clearfix">
+									<a href="" class="link-find-id"> 아이디</a><a href="" class="link-find-pw">비밀번호찾기</a>
+									<a href="" class="link-signup">회원가입</a>
+								</div>
+							</div>
+						</div>
+						<!-- 메인 오른쪽 1번째 박스 -->
+					</div>
+					<!-- 메인 오른쪽 박스 -->
 				</div>
 			</div>
 		</div>
