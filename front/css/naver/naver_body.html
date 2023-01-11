@@ -182,7 +182,7 @@
 			background-image: url(https://ssl.pstatic.net/melona/libs/1423/1423243/c5843895650bfe3c398b_20221228165338223.jpg);
 			background-size: 750px 135px;
 		}
-		/* left1 구현 완료 */
+/* left1 구현 완료 */
 		.container-login{
 			width: 315px; height: 105px; padding: 16px 16px 12px 17px;
 			border: 1px solid #dae1e6; background-color: #f7f9fa;
@@ -226,7 +226,8 @@
 		}
 		.container-login .find-id:hover, .container-login .find-pw:hover,
 		.container-login .add-member:hover{text-decoration: underline;}
-		/* right1 구현 완료 */
+/* right1 구현 완료 */
+		/* left2-1 */
 		.box-newsstand{width: 750px; margin-top: 9px;}
 		.box-newsstand .box-news-head{
 			padding: 12px 15px 11px 15px; border: 1px solid #dae1e6;
@@ -259,8 +260,7 @@
 			content: ''; margin-left: 8px; border-radius: 50%;
 			display: inline-block; vertical-align: 3px;
 		}
-		/* left 2-1 */
-
+		/* left 2-2 */
 		.box-newsstand .box-stand-title{
 			padding: 22px 0 16px 0; font-size: 14px; line-height: 18px;
 		}
@@ -305,15 +305,110 @@
 		}
 		.box-newsstand .icon-list:hover, 
 		.box-newsstand .icon-setting:hover{opacity: 1;}
-		/* left 2-2 */
-		.box-news-logo {width: 750px}
-		.box-news-logo .new-box {
-			border: 1px solid gray;
-			width: 16.66%; height: 65px; position: relative;
-			float: left; padding: 23px 0 22px;
-			background-color: #03c75a; text-align: center;
+		/* left 2-3 */
+		.box-newsstand .box-body{
+			height: 260px; position: relative; border: 1px solid #dae1e6;
 		}
-		/* left2 구현 중 */
+		.box-newsstand .box-body .box-frame .line{
+			background-color: #e4e8eb; position: absolute; z-index: 1;
+		}
+		.box-newsstand .box-body .box-frame .row1,
+		.box-newsstand .box-body .box-frame .row2,
+		.box-newsstand .box-body .box-frame .row3{
+			height: 1px; right: 0; left: 0;
+		}
+		.box-newsstand .box-body .box-frame .row1{top: 65px;}
+		.box-newsstand .box-body .box-frame .row2{top: 130px;}
+		.box-newsstand .box-body .box-frame .row3{top: 195px;}
+		.box-newsstand .box-body .box-frame .column1,
+		.box-newsstand .box-body .box-frame .column2,
+		.box-newsstand .box-body .box-frame .column3,
+		.box-newsstand .box-body .box-frame .column4,
+		.box-newsstand .box-body .box-frame .column5{
+			width: 1px; top: 0; bottom: 0;
+		}
+		.box-newsstand .box-body .box-frame .column1{left: 124px;}
+		.box-newsstand .box-body .box-frame .column2{left: 248px;}
+		.box-newsstand .box-body .box-frame .column3{left: 372px;}
+		.box-newsstand .box-body .box-frame .column4{left: 497px;}
+		.box-newsstand .box-body .box-frame .column5{left: 622px;}
+		.box-body .logo-area{width: 750px;}
+		.box-body .logo-area .box-logo{
+			position: relative; width: 16.66%; height: 65px; float: left;
+			
+		}
+		.box-body .logo-area .box-logo .logo-img{
+			padding: 22px 0 16px; margin: 0 auto; z-index: 0;
+			width: 65px; height: 20px;
+		}
+		.box-body .logo-area .box-logo .logo-hover{
+			float: left; background-color: #e4e4e4;
+			width: 100%; height: 65px; padding: 18px 0 16px;
+			box-sizing: border-box; text-align: center;
+			display: none;
+		}
+		.box-body .logo-hover .btn-subscribe{
+			font-size: 12px; line-height: 16px; display: inline-block;
+			border: 1px solid #dae1e6; text-align: center;
+			padding: 7px 8px 5px; background-color: #fff;
+			color: #505050;
+		}
+		.box-body .logo-hover .btn-news{
+			font-size: 12px; line-height: 16px; display: inline-block;
+			border: 1px solid #dae1e6; text-align: center;
+			padding: 7px 8px 5px; background-color: #fff; color: #505050;
+		}
+		.box-body .logo-area .box-logo:hover{overflow: hidden;}
+		.box-body .logo-area .box-logo:hover .logo-hover{
+			display: block;
+		}
+/* left2 구현 중 */
+/* right2 */
+		.box-body .box-body-right2{
+			height: 47px; margin: 12px 0; border: 1px solid #dae1e6;
+			letter-spacing: -.25px; position: relative;
+		}
+		.box-body-right2 .box-btn{
+			position: absolute; top: 11px; right: 10px;
+		}
+		.box-body-right2 .box-btn .btn-prev, .box-body-right2 .box-btn .btn-next{
+			background-color: #fff; border: 1px solid #e4e8eb; float: left;
+		}
+		.box-body-right2 .box-btn .btn-prev::before{
+			width: 6px; height: 9px; display: inline-block; content: '';
+			background-position: -162px -327px; vertical-align: top; 
+			margin: 7px 8px 6px;
+		}
+		.box-body-right2 .box-btn .btn-next::before{
+			width: 6px; height: 9px; display: inline-block; content: '';
+			background-position: -146px -327px; vertical-align: top; 
+			margin: 7px 8px 6px;
+		}
+		.box-body-right2 .box-issue{
+			height: 47px; padding-right: 67px; overflow: hidden;
+		}
+		.box-body-right2 .box-issue .container-stock{
+			padding: 14px 0 13px 16px; display: block;
+		}
+		.box-body-right2 .box-issue .stock-title{
+			font-size: 13px; margin-top: 1px; float: left; color: #000;
+		}
+		.box-body-right2 .box-issue .box-stock{float: left;}
+		.box-body-right2 .box-issue .box-stock::before{
+			width: 1px; height: 12px; display: inline-block; content: '';
+			background-color: #e4e8eb; vertical-align: top;
+			margin: 3px 7px 2px 6px;
+		}
+		.box-body-right2 .box-issue .box-stock .name{
+			font-size: 12px; line-height: 17px; color: #505050;
+		}
+		.box-body-right2 .box-issue .box-stock .name::before{
+			width: 20px; height: 20px; display: inline-block; content: '';
+			background-position: -420px -118px; vertical-align: top;
+			margin-right: 7px;
+		}
+
+
 
 
 
@@ -497,20 +592,73 @@
 								</div>
 							</div>
 							<!-- left 2-2 구현 완료 -->
-							<div class="box-news-logo">
-								<table class="table-all-press">
-									<tr class="clearfix">
-										<th><i class="new-box icon-press1">1</i></th>
-										<th><i class="new-box icon-press2">2</i></th>
-										<th><i class="new-box icon-press3">3</i></th>
-										<th><i class="new-box icon-press4">4</i></th>
-										<th><i class="new-box icon-press5">5</i></th>
-										<th><i class="new-box icon-press6">6</i></th>
-									</tr>
-									<tr></tr>
-									<tr></tr>
-									<tr></tr>
-								</table>
+							<div class="box-body">
+								<div class="box-frame">
+									<span class="line row1"></span>
+									<span class="line row2"></span>
+									<span class="line row3"></span>
+									<span class="line column1"></span>
+									<span class="line column2"></span>
+									<span class="line column3"></span>
+									<span class="line column4"></span>
+									<span class="line column5"></span>
+								</div>
+								<div class="box-btn">
+									<div class="btn-left">
+										<i class="icon-left"></i>
+									</div>
+									<div class="btn-right">
+										<i class="icon-right"></i>
+									</div>
+								</div>
+								<div class="logo-area clearfix">
+									<div class="box-logo logo-col1 logo-row1">
+										<div class="logo-hover">
+											<a href="" class="btn-subscribe">구독</a><a href="" class="btn-news">기사보기</a>
+										</div>
+										<img src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/376.png"
+										width="65" height="20" class="logo-img" alt="동아일보">
+									</div>
+									<div class="box-logo logo-col1 logo-row1">
+										<div class="logo-hover">
+											<a href="" class="btn-subscribe">구독</a><a href="" class="btn-news">기사보기</a>
+										</div>
+										<img src="" class="logo-img" alt="뉴스타파">
+									</div>
+									<div class="box-logo logo-col1 logo-row1">
+										<div class="logo-hover">
+											<a href="" class="btn-subscribe">구독</a><a href="" class="btn-news">기사보기</a>
+										</div>
+										<img src="" class="logo-img" alt="스포츠조선">
+									</div>
+									<div class="box-logo logo-col1 logo-row1">
+										<div class="logo-hover">
+											<a href="" class="btn-subscribe">구독</a><a href="" class="btn-news">기사보기</a>
+										</div>
+										<img src="" class="logo-img" alt="한국일보">
+									</div>
+									<div class="box-logo logo-col1 logo-row1">
+										<div class="logo-hover">
+											<a href="" class="btn-subscribe">구독</a><a href="" class="btn-news">기사보기</a>
+										</div>
+										<img src="" class="logo-img" alt="경향신문">
+									</div>
+									<div class="box-logo logo-col1 logo-row1">
+										<div class="logo-hover">
+											<a href="" class="btn-subscribe">구독</a><a href="" class="btn-news">기사보기</a>
+										</div>
+										<img src="" class="logo-img" alt="한국경제TV">
+									</div>
+									<div class="box-logo logo-col1 logo-row1">
+										<div class="logo-hover">
+											<a href="" class="btn-subscribe">구독</a><a href="" class="btn-news">기사보기</a>
+										</div>
+										<img src="" class="logo-img" alt="스포츠동아">
+									</div>
+								</div>
+								<div class="logo-area"></div>
+								<div class="logo-area"></div>
+								<div class="logo-area"></div>
 							</div>
 						</div>
 					</div>
@@ -531,6 +679,22 @@
 										<a href="" class="add-member img1b">회원가입</a>
 									</div>
 								</div>
+							</div>
+						</div>
+						<div class="box-body-right2">
+							<div class="box-btn clearfix">
+								<a href="" class="btn-prev img1b"></a>
+								<a href="" class="btn-next img1b"></a>
+							</div>
+							<div class="box-issue">
+								<a href="" class="container-stock clearfix">
+									<strong class="stock-title">환율</strong>
+									<div class="box-stock">
+										<span class="name img1b">USD</span>
+										<strong class="current"></strong>
+										<span class="rate"></span>
+									</div>
+								</a>
 							</div>
 						</div>
 					</div>
