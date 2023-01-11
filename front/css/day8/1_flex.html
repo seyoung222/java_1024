@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>flex 예제</title>
+	<!-- 설명: https://heropy.blog/2018/11/24/css-flexible-box/ -->
+	<style>
+		.container{
+			border: 1px solid black; height: 500px;
+			display: flex; /*이것만쓰면 box너비100%로 하고 가로 n등분 가능함. 메뉴응용가능*/
+			flex-wrap: wrap;
+			justify-content: flex-start; /* 내용 정렬 시작방향을 정함
+			단, 주 축(가로/세로)의 끝점을 기준으로 하기에 주축에 따라서 위치가 달라짐 */
+			flex-direction: row; /* 주축 변경 : colume/row/column-reverse */
+			align-content: stretch;
+			align-items: center; /*높이가 제각각인 요소들을 한 줄에서 어떻게 놓을지*/
+		}
+		.box{
+			width: 100px; height: 50px; margin: 10px; background: teal;
+			float: left;
+		}
+		.box:nth-child(2){width: 200px; background-color: aqua; height: 100px;}
+		.box:nth-child(3){width: 300px; background-color: tomato;}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<div class="box"></div>
+		<div class="box"></div>
+		<div class="box"></div>
+	</div>
+</body>
+</html>
