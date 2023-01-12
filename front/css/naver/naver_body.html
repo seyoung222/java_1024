@@ -120,7 +120,7 @@
 		.group-menu>*{
 			float: left;
 		}
-		.group-menu{padding: 11px 270px 11px 0;}
+		.container-menu .group-menu{padding: 11px 270px 11px 0;}
 		.group-menu .item-fix-menu{ float: left;}
 		.group-menu .item-fix-menu~.item-fix-menu{margin-left: 12px;}
 		.group-menu .link-fix-menu, .group-menu .link-favority-menu{
@@ -407,8 +407,66 @@
 			background-position: -420px -118px; vertical-align: top;
 			margin-right: 7px;
 		}
-
-
+/* right 3 */
+		.box-body-right3{
+			width: 350px; height: 200px; position: relative;
+			border: 1px solid #dae1e6; box-sizing: border-box;
+		}
+		.box-body-right3 .box-ad{
+			background-image: url(https://ssl.pstatic.net/melona/libs/1428/1428568/7ef29fddbd97865c5f09_20230109153636084.jpg);
+			width: 350px; height: 200px; display: block; overflow: hidden;
+			margin: 0;
+		}
+/* left 3 */
+		.box-body-left3 .box-in{padding: 35px 0 27px;}
+		.box-body-left3 .group-title{padding-bottom: 17px; overflow: hidden;}
+		.box-body-left3 .group-title .box-title{float: left;}
+		.box-body-left3 .group-title .box-info{float: right;}
+		.box-body-left3 .box-title .main-title{
+			font-size: 14px; color: #000;
+		}
+		.box-body-left3 .box-title .sub-title{
+			font-size: 8px; color: grey; letter-spacing: -.25px;
+		}
+		.box-body-left3 .box-info .info{color: grey;}
+		.box-body-left3 .box-info .info .num{color: #000;}
+		.box-body-left3 .box-info .topic-set{
+			color: grey; position: relative; margin-left: 14px;
+		}
+		.box-body-left3 .box-info .topic-set::before{
+			width: 11px; height: 11px; display: inline-block; content: '';
+			background-position: -358px -310px; vertical-align: -1px;
+			margin-right: 4px; opacity: .7;
+		}
+		.box-body-left3 .box-info .topic-set::after{
+			position: absolute; top: 2px; left: -8px;
+			width: 1px; height: 12px; content: ''; background-color: #e4e8eb;
+		}
+		.box-body-left3 .group-menu{
+			border: 1px solid #dae1e6; line-height: 0; font-size: 0;
+		}
+		.box-body-left3 .group-menu .item-topic{
+			 position: relative; display: inline-block; width: 93px;
+			 vertical-align: top; float: left; overflow: hidden; 
+		}
+		.box-body-left3 .group-menu .link-topic{
+			 font-size: 13px; font-weight: 700; line-height: 49px; display: block;
+			text-align: center; text-decoration: none; border-right: 1px solid #dae1e6;
+			color: #202020; width: 92px;
+		}
+		.box-body-left3 .item-enter:hover .topic-enter{color: indianred;}
+		.box-body-left3 .item-enter[aria-selected="true"]{background-color: indianred;}
+		.box-body-left3 .item-enter[aria-selected="true"] .topic-enter{color: #fff;}
+		.box-body-left3 .item-sports:hover .topic-sports{color: blue;}
+		.box-body-left3 .item-sports[aria-selected="true"]{background-color: blue;}
+		.box-body-left3 .item-sports[aria-selected="true"] .topic-sports{color: #fff;}
+		.box-body-left3 .item-webtoon:hover .topic-webtoon{color: #15c654;}
+		.box-body-left3 .item-webtoon[aria-selected="true"]{background-color: #15c654;}
+		.box-body-left3 .item-webtoon[aria-selected="true"] .topic-webtoon{color: #fff;}
+		.box-body-left3 .item-beauty:hover .topic-beauty{color: purple;}
+		.box-body-left3 .item-beauty[aria-selected="true"]{background-color: purple;}
+		.box-body-left3 .item-beauty[aria-selected="true"] .topic-beauty{color: #fff;}
+		.group-topic-content .box-enter-content{height: 200px; background-color: wheat;}
 
 
 
@@ -661,6 +719,57 @@
 								<div class="logo-area"></div>
 							</div>
 						</div>
+						<!-- left 2 구현 완료 -->
+						<div class="box-body-left3">
+							<div class="box-in">
+								<div class="group-title clearfix">
+									<div class="box-title">
+										<strong class="main-title">오늘 읽을만한 글</strong>
+										<span class="sub-title">주제별로 분류된 다양한 글 모음</span>
+									</div>
+									<div class="box-info">
+										<span class="info">
+											<strong class="num">678</strong>
+											개의 글 
+										</span>
+										<a href="" class="topic-set img1a img1b">관심주제 설정</a>
+									</div>
+								</div>
+								<div class="group-btn">
+									<div class="btn-prev"></div>
+									<div class="btn-next"></div>
+								</div>
+								<ul class="group-menu clearfix">
+									<li class="item-topic item-enter" aria-selected="true">
+										<a href="" class="link-topic topic-enter">엔터</a>
+									</li>
+									<li class="item-topic item-sports" aria-selected="false">
+										<a href="" class="link-topic topic-sports">스포츠</a>
+									</li>
+									<li class="item-topic item-webtoon">
+										<a href="" class="link-topic topic-webtoon">웹툰</a>
+									</li>
+									<li class="item-topic item-beauty">
+										<a href="" class="link-topic topic-beauty">패션뷰티</a>
+									</li>
+									<li class="item-topic item-recipy">
+										<a href="" class="link-topic topic-recipy">레시피</a>
+									</li>
+									<li class="item-topic item-living">
+										<a href="" class="link-topic topic-living">리빙</a>
+									</li>
+									<li class="item-topic item-book">
+										<a href="" class="link-topic topic-book">책방</a>
+									</li>
+									<li class="item-topic item-economic">
+										<a href="" class="link-topic topic-economic">경제</a>
+									</li>
+								</ul>
+								<div class="group-topic-content">
+									<div class="box-enter-content"></div>
+								</div>
+							</div>
+						</div>
 					</div>
 					<div class="box-body-right">
 						<div class="container-login">
@@ -696,6 +805,9 @@
 									</div>
 								</a>
 							</div>
+						</div>
+						<div class="box-body-right3">
+							<iframe class="box-ad" src="" frameborder="0"></iframe>
 						</div>
 					</div>
 				</div>

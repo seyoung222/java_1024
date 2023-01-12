@@ -170,8 +170,8 @@
 		.container-menu .box-menu{position: relative;}
 		.container-menu{ box-shadow: 0 1px 3px 0 rgb(0,0,0,0.12);}
 /* 메인 */
+.container-body .inner-container{padding: 20px 30px;}
 /* left1 */
-		.container-body .inner-container{padding: 20px 30px;}
 		.box-body .box-body-left{width: 750px; float: left;}
 		.box-body .box-body-right{width: 350px; float: right;}
 		.box-body .box-body-left1{height: 135px; position: relative;}
@@ -380,10 +380,130 @@
 			z-index: 10px;
 		}
 		.box-body-left2 .btn-next:hover{background-position: 0 -296px;}
+/* right2 */
+		.box-body-right2{
+			position: relative; border: 1px solid #dae1e6; padding-right: 67px;
+			height: 47px; letter-spacing: -.25px; margin: 12px 0;
+		}
+		.box-body-right2 .box-in{
+			height: 100%; overflow: hidden;
+		}
+		.box-body-right2 .list-stock{
+			width: 400%; height: 100%;
+		}
+		.box-body-right2 .item-stock{
+			width: 25%; height: 100%; float: left;
+		}
+		.box-body-right2 .link-stock{
+			display: block; padding: 14px 0 13px 16px;
+		}
+		.box-body-right2 .news-badge{
+			float: left; border: 1px solid #202020; padding: 0 7px;
+			border-radius: 10px; font-size: 11px; line-height: 18px; color: #202020;
+			font-weight: 700;  margin-right: 8px; font-style: normal;
+		}
+		.box-body-right2 .news{
+			line-height: 20px; font-size: 13px; color: #202020; 
+			display: block; overflow: hidden;
+		}
+		.box-body-right2 .box-btn{
+			position: absolute; top: 11px; right: 10px;
+		}
+		.box-body-right2 .box-btn>*{
+			float: left; background-color: #fff; border: 1px solid #e4e8eb;
+			line-height: 0;
+		}
+		.box-body-right2 .box-btn .btn-next{margin-left: -1px;}
+		.box-body-right2 .box-btn .btn-prev .icon-prev,
+		.box-body-right2 .box-btn .btn-next .icon-next{
+		display: inline-block; width: 6px; height: 9px;
+		background-position: -162px -327px; padding: 7px 8px 6px;
+		} 
+		.box-body-right2 .box-btn .btn-next .icon-next{
+			background-position: -146px -327px;
+		}
+/* right 3 */
+		.box-body-right3{
+			height: 200px; overflow: hidden; position: relative;
+		}
+		.box-body-right3 > iframe{
+			height: 200px; width: 350px;
+		}
+/* left 3 */
+		.box-body-left3{margin: 35px 0 27px;}
+		.box-body-left3 .box-title{margin-bottom: 17px;}
+		.box-body-left3 .area-title{float: left; letter-spacing: -.25px;}
+		.box-body-left3 .area-info{float: right; letter-spacing: -.25px;}
+		.box-body-left3 .area-title .title{
+			font-size: 14px; color: #000;
+		}
+		.box-body-left3 .area-title .dsc{color: grey; margin-left: 8px;}
+		.box-body-left3 .area-info .info{color: gray;}
+		.box-body-left3 .area-info .info strong{color: #000;}
+		.box-body-left3 .area-info .btn-set{
+			color: #505050; margin-left: 14px; position: relative;
+		}
+		.box-body-left3 .area-info .btn-set::before{
+			width: 11px; height: 11px; display: inline-block; content: '';
+			background-position: -358px -310px; margin-right: 4px; vertical-align: -1px;
+			opacity: .7;
+		}
+		.box-body-left3 .area-info .btn-set:hover{text-decoration: underline;}
+		.box-body-left3 .area-info .btn-set:hover::before{opacity: 1;}
+		.box-body-left3 .area-info .btn-set::after{
+			width: 1px; height: 12px; display: inline-block; content: '';
+			position: absolute; top: 2px; left: -8px; background-color: #e4e8eb;
+		}
+		.box-body-left3 .box-menu{position: relative;}
+		.box-body-left3 .box-menu::before{
+			position: absolute; top: 0; right: 0; bottom: 0; left: 0;
+			border: 1px solid #dae1e6; content: '';
+		}
+		.box-body-left3 .box-menu .box-in{overflow: hidden;}
+		.box-body-left3 .box-menu .list-menu{
+			font-size: 0; line-height: 0; white-space: nowrap;
+		}
+		.box-body-left3 .box-menu .item-menu{
+			display: inline-block; font-size: 13px; line-height: 49px;
+			width: 94px; position: relative;
+		}
+		.box-body-left3 .box-menu .item-menu:nth-child(8n+1){width: 92px;}
+		.box-body-left3 .box-menu .btn-menu{
+			display: block; text-align: center; font-weight: 700; font-size: 13px;
+			border-right: 1px solid #dae1e6; color: #202020; letter-spacing: -.25px;
+		}
+		.box-body-left3 .box-menu .icon-middot{
+			width: 2px; height: 2px; display: inline-block; border-radius: 50%;
+			background-color: rgba(32,32,32,.8); vertical-align: 4px; margin: 0 2px;
+		}
+		.box-body-left3 .item-menu [aria-selected=true]{
+			position: relative; border-radius: 1px;
+			margin: 0 -1px; box-shadow: 0 3px 6px 0 rgb(0 0 0/16%);
+			color: #fff !important; /*우선순위지정. 호버해도 색 안변함(나중설정적용X)*/
+		}
+		.box-body-left3 .item-menu .enter:hover{color: #e65da0;}
+		.box-body-left3 .item-menu .sports:hover{color: #0147b5;}
+		.box-body-left3 .item-menu .car:hover{color: #4a94e1;}
+		.box-body-left3 .item-menu .webtoon:hover{color: #66c971;}
+		.box-body-left3 .item-menu .finance:hover{color: #35ae5e;}
+		.box-body-left3 .item-menu .myfeed:hover{color: #5290ff;}
+		.box-body-left3 .item-menu .recipe:hover{color: #ebaa00;}
+		.box-body-left3 .item-menu .living:hover{color: #c08d31;}
+		.box-body-left3 .item-menu .book:hover{color: #42be6f;}
+		.box-body-left3 .item-menu .beauty:hover{color: #8449ca;}
+		
+		.box-body-left3 .item-menu .enter[aria-selected=true]{background-color: #e65da0;}
+		.box-body-left3 .item-menu .sports[aria-selected=true]{background-color: #0147b5;}
+		.box-body-left3 .item-menu .car[aria-selected=true]{background-color: #4a94e1;}
+		.box-body-left3 .item-menu .webtoon[aria-selected=true]{background-color: #66c971;}
+		.box-body-left3 .item-menu .finance[aria-selected=true]{background-color: #35ae5e;}
+		.box-body-left3 .item-menu .myfeed[aria-selected=true]{background-color: #5290ff;}
+		.box-body-left3 .item-menu .recipe[aria-selected=true]{background-color: #ebaa00;}
+		.box-body-left3 .item-menu .living[aria-selected=true]{background-color: #c08d31;}
+		.box-body-left3 .item-menu .book[aria-selected=true]{background-color: #42be6f;}
+		.box-body-left3 .item-menu .beauty[aria-selected=true]{background-color: #8449ca;}
 
-
-
-
+ 
 
 /* 공통 */
 		.clearfix::after{
@@ -406,7 +526,10 @@
 		.box-body-left2 .box-title .icon-set,
 		.box-body-left2 .box-title .box-service [aria-selected=true] .icon-press-list,
 		.box-body-left2 .box-title .box-service [aria-selected=true] .icon-press-list,
-		.box-body-left2 .btn-prev,.box-body-left2 .btn-next{ 
+		.box-body-left2 .btn-prev, .box-body-left2 .btn-next,
+		.box-body-right2 .box-btn .btn-prev .icon-prev,
+		.box-body-right2 .box-btn .btn-next .icon-next,
+		.box-body-left3 .area-info .btn-set::before{ 
 			/*사진 불러오려고 따로씀 img1이 필요할때마다 클래스 소환*/
 			background-image: url(img/img1.png);
 			background-size: 442px 428px;
@@ -545,7 +668,7 @@
 							<span class="line line-right"></span>
 							<!-- border때문에 사이즈 밀리지 않도록 위에 선을 따로 올림 -->
 						</div>
-						<!-- 메인 왼쪽 1번째 박스 -->
+						<!-- ~메인 왼쪽 1번째 박스 -->
 						<div class="box-body-left2">
 							<div class="box-head">
 								<div class="box-in clearfix">
@@ -824,9 +947,64 @@
 								<a href="" class="btn-next"></a>
 							</div>
 						</div>
-						<!-- 메인 왼쪽 2번째 박스 -->
+						<!-- ~메인 왼쪽 2번째 박스 -->
+						<div class="box-body-left3">
+							<div class="box-title clearfix">
+								<div class="area-title">
+									<strong class="title">오늘 읽을만한 글</strong><span class="dsc">주제별로 분류된 다양한 글 모음</span>
+								</div>
+								<div class="area-info">
+									<span class="info">
+										<strong>678</strong> 개의 글
+									</span>
+									<a href="" class="btn-set">관심주제 설정</a>
+								</div>
+							</div>
+							<div class="box-menu clearfix">
+								<div class="box-btn">
+									<a href="" class="btn-prev"></a>
+									<a href="" class="btn-next"></a>
+								</div>
+								<div class="box-in">
+									<ul class="list-menu">
+										<li class="item-menu" >
+											<a href="" class="btn-menu enter">엔터</a>
+										</li>
+										<li class="item-menu">
+											<a href="" class="btn-menu sports" aria-selected=true>스포츠</a>
+										</li>
+										<li class="item-menu">
+											<a href="" class="btn-menu car">자동차</a>
+										</li>
+										<li class="item-menu">
+											<a href="" class="btn-menu webtoon">웹툰</a>
+										</li>
+										<li class="item-menu">
+											<a href="" class="btn-menu finance">경제</a>
+										</li>
+										<li class="item-menu">
+											<a href="" class="btn-menu myfeed">추천<i class="icon-middot"></i>구독</a>
+										</li>
+										<li class="item-menu">
+											<a href="" class="btn-menu recipe">레시피</a>
+										</li>
+										<li class="item-menu">
+											<a href="" class="btn-menu living">리빙</a>
+										</li>
+										<li class="item-menu">
+											<a href="" class="btn-menu book">책방</a>
+										</li>
+										<li class="item-menu">
+											<a href="" class="btn-menu beauty">패션뷰티</a>
+										</li>
+									</ul>
+								</div>
+							</div>
+							<div class="box-contents"></div>
+						</div>
+						<!-- ~메인 왼쪽 3번째 박스 -->
 					</div>
-					<!-- 메인 왼쪽 박스 -->
+					<!-- ~메인 왼쪽 박스 -->
 					<div class="box-body-right">
 						<div class="box-body-right1">
 							<div class="box-in-right1">
@@ -840,10 +1018,56 @@
 								</div>
 							</div>
 						</div>
-						<!-- 메인 오른쪽 1번째 박스 -->
-						
+						<!-- ~메인 오른쪽 1번째 박스 -->
+						<div class="box-body-right2">
+							<div class="box-in">
+								<ul class="list-stock">
+									<li class="item-stock">
+										<a href="" class="link-stock">
+											<i class="news-badge">이슈</i>
+											<span class="news">코로나바이러스감염증-19 현황</span>
+										</a>
+									</li>
+									<li class="item-stock">
+										<a href="" class="link-stock">
+											<i class="news-badge">이슈</i>
+											<span class="news">코로나바이러스감염증-19 현황</span>
+										</a>
+									</li>
+									<li class="item-stock">
+										<a href="" class="link-stock">
+											<i class="news-badge">이슈</i>
+											<span class="news">코로나바이러스감염증-19 현황</span>
+										</a>
+									</li>
+									<li class="item-stock">
+										<a href="" class="link-stock">
+											<i class="news-badge">이슈</i>
+											<span class="news">코로나바이러스감염증-19 현황</span>
+										</a>
+									</li>
+								</ul>
+								<div class="box-btn">
+									<a href="" class="btn-prev">
+										<i class="icon-prev"></i>
+									</a>
+									<a href="" class="btn-next">
+										<i class="icon-next"></i>
+									</a>
+								</div>
+							</div>
+						</div>
+						<!-- ~메인 오른쪽 2번째 박스 -->
+						<div class="box-body-right3">
+							<iframe src="add2.html" frameborder="0" width="350" height="200"></iframe>
+							<span class="line line-top"></span>
+							<span class="line line-bottom"></span>
+							<span class="line line-left"></span>
+							<span class="line line-right"></span>
+							<span class="blind">광고</span>
+						</div>
 					</div>
-					<!-- 메인 오른쪽 박스 -->
+					<!-- ~메인 오른쪽 박스 -->
 				</div>
 			</div>
 		</div>
