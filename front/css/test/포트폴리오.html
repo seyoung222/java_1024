@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>포트폴리오::김세영</title>
+	<style>
+		th{letter-spacing: -1.5px;}
+		.input-title{width: 250px; display: inline-block;}
+		.input-content{
+			font-size: 15px; width: 250px; padding-bottom: 150px;
+		}
+		.submit-row{height: 40px; vertical-align: bottom;}
+		.board tr{height: 30px;}
+		.board td{color: #424242; font-size: 14px;}
+		.board-comm{background-color: rgb(248, 245, 213);}
+		.board-ex{background-color: rgb(255, 160, 126); color: white;}
+		.col-post-num{width: 29px;}
+		.col-title{width: 500px; letter-spacing: -.5px;}
+		.link-post{
+			text-decoration: none; color: black; background-color: #e7e7e7;
+			border: 1px solid rgb(107, 107, 107); border-radius: 2px; text-align: center;
+			padding: 5px 5px; display: inline-block; color: #444444;
+		}
+		.col-writer{width: 100px;}
+		.col-date{width: 130px;}
+		.col-view{width: 50px;}
+	</style>
+</head>
+<body>
+	<form action="insert.no" method="post">
+		<fieldset>
+			<legend>공지사항 작성하기</legend>
+			<table class="form">
+				<tr>
+					<th>제목</th>
+					<td>
+						<input type="text" name="title" class="input-title" placeholder="제목을 입력하시오." required>
+					</td>
+				</tr>
+				<tr class="row2">
+					<th>내용</th>
+					<td>
+						<input type="text" name="content" class="input-content" placeholder="내용을 입력하시오." required>
+					</td>
+				</tr>
+				<tr>
+					<th>첨부파일</th>
+					<td>
+						<input type="file" name="uploadfile">
+					</td>
+				</tr>
+				<tr class="submit-row">
+					<th colspan="2">
+						<input type="submit" value="작성하기">
+					</th>
+				</tr>
+			</table>
+		</fieldset>
+	</form>
+	<br><hr><br>
+	<table border="1px solid white" class="board">
+		<tr class="board-ex">
+			<th class="col-post-num">번호</th>
+			<th colspan="2">제목</th>
+			<th class="col-writer">작성자</th>
+			<th class="col-date">작성일</th>
+			<th class="col-view">조회수</th>
+		</tr>
+		<tr class="board-comm">
+			<td>9</td>
+			<td class="col-title">공지사항 제목 9</td>
+			<td>
+				<a href="" class="link-post">바로가기</a>
+			</td>
+			<td>user01</td>
+			<td>2021-03-29</td>
+			<td>34</td>
+		</tr>
+		<tr class="board-comm">
+			<td>6</td>
+			<td class="col-title">공지사항 제목 6</td>
+			<td>
+				<a href="" class="link-post">바로가기</a>
+			</td>
+			<td>answ445</td>
+			<td>2021-03-12</td>
+			<td>67</td>
+		</tr>
+		<tr class="board-comm">
+			<td>3</td>
+			<td class="col-title">공지사항 제목 3</td>
+			<td>
+				<a href="" class="link-post">바로가기</a>
+			</td>
+			<td>testg12</td>
+			<td>2021-03-01</td>
+			<td>98</td>
+		</tr>
+		<tr class="board-comm">
+			<td>2</td>
+			<td class="col-title">공지사항 제목 2</td>
+			<td>
+				<a href="" class="link-post">바로가기</a>
+			</td>
+			<td>palwe3</td>
+			<td>2021-01-02</td>
+			<td>85</td>
+		</tr>
+		<tr class="board-comm">
+			<td>1</td>
+			<td class="col-title">공지사항 제목 1</td>
+			<td>
+				<a href="" class="link-post">바로가기</a>
+			</td>
+			<td>xml23</td>
+			<td>2020-12-24</td>
+			<td>124</td>
+		</tr>
+		<tr class="board-ex">
+			<th colspan="4">전체공지사항 갯수</th>
+			<th colspan="2">5개</th>
+		</tr>
+	</table>
+</body>
+</html>
