@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>형변환 예제</title>
+</head>
+<body>
+	<script>
+		let num = 10;
+		let str = String(num);
+		console.log(`${str} : ` + typeof str); //10 String
+		str = ''+ num;
+		console.log(`${str} : ` + typeof str); //10 String
+
+		let num1 = Number(true); //1
+		let num2 = Number(false); //0
+		let num3 = Number(undefined); //NaN
+		let num4 = Number(null); //0
+		let num5 = Number('123.34'); //123.34
+		let num6 = Number('234,123'); //Nan
+		let num7 = Number(''); //0
+		let num8 = parseInt('123.34'); //123
+		let num9 = parseInt('234,123'); //234
+		// Number()는 숫자변환 불가한 문자 있으면 NaN으로,
+		// ParseInt()는 정수변환 불가한 문자있으면 가능한 부분까지만 추출
+		console.log(`${num1} : ` + typeof num1);
+		console.log(`${num2} : ` + typeof num2);
+		console.log(`${num3} : ` + typeof num3);
+		console.log(`${num4} : ` + typeof num4);
+		console.log(`${num5} : ` + typeof num5);
+		console.log(`${num6} : ` + typeof num6);
+		console.log(`${num7} : ` + typeof num7);
+		console.log(`${num8} : ` + typeof num8);
+		console.log(`${num9} : ` + typeof num9);
+
+		console.log(Boolean(2)); //true
+		console.log(Boolean(0)); //false
+		console.log(Boolean('0')); //true
+		console.log(Boolean('')); //false
+		console.log(Boolean(' ')); //true
+		console.log(Boolean('Hello')); //true
+		console.log(Boolean(0.0)); //false
+// 숫자 0, 빈 문자열, null, undefined, NaN과 같이 직관적으로도
+// “비어있다고” 느껴지는 값들은 false
+// 그 외의 값은 true(공백 포함)
+	</script>
+</body>
+</html>

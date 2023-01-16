@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>비교연산자</title>
+</head>
+<body>
+	<script>
+		/*
+		문자열-문자열 비교
+			- 한글자씩 비교
+			- 숫자로 된 문자열은 자동으로 숫자로 변환되지 XXXXx
+			- 숫자로 한글자씩 비교해서 비교한 결과를 출력
+
+		문자열-숫자 비교 : 문자열이 숫자로 자동 변환된 후 비교
+		- 비교되는 자료형이 다를 때 숫자형으로 먼저 변환된 후 비교함.
+		*/
+		let num1 = '20', num2 = '12';
+		console.log(`${num1} > ${num2} : ${num1 > num2}`); //true
+		num1 = '3';
+		console.log(`${num1} > ${num2} : ${num1 > num2}`); //true
+		// 숫자 3과 12를 비교하는게 아니라 문자열 비교라서 첫자리 3과 1을 비교
+		// input태그로 가져온 값은 숫자만 있더라도 문자열이므로 비교시 주의
+
+		/*
+		동등 연산자(==)
+		- 자료형이 달라도 값만 같으면 됨
+
+		일치 연산자(===)
+		- 자료형과 값이 모두 같아야 true
+		*/
+		console.log(`'1' == 1 : ${'1' == 1 }`); //true
+		console.log(`'1' === 1 : ${'1' === 1 }`); //false: 자료형 다름
+
+		console.log(`null == undefined : ${null == undefined}`); //true
+		console.log(`null === undefined : ${null === undefined}`); //false
+
+		//null vs 0
+		console.log(`null > 0 : ${null > 0}`); //false.null이 0으로 형변환
+		console.log(`null == 0 : ${null == 0}`);
+				//false. 비교연산자 아니고 ==는 null 형변환 안됨
+		console.log(`null >= 0 : ${null >= 0}`);//true. null이 0으로 형변환
+		
+		//undefined : NaN은 숫자와 비교할 수 없음=>false
+		console.log(`undefined > 0 : ${undefined > 0}`);//false. NaN으로 형변환
+		console.log(`undefined == 0 : ${undefined == 0}`);
+		// undefined는 null과 undefined와 같고 그 외의 값과는 같지 않으므로 false
+		console.log(`undefined >= 0 : ${undefined >= 0}`);//false. NaN으로 형변환
+	</script>
+</body>
+</html>

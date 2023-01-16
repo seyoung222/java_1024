@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>자료형 예제</title>
+</head>
+<body>
+	<script>
+// 변수선언할때 자료형 선언할 필요없지만 자료형이라는 개념 자체는 존재
+		let num = 10.123;
+		console.log(typeof num); //number
+		let str = '10.123';
+		console.log(typeof str);//String
+		let str2 = new String(10.123);
+		console.log(typeof str2); //생성자를 통해 만들었으므로 객체(object)
+		let num2;
+		console.log(typeof num2); //undefined
+		let obj = null;
+		console.log(typeof obj); //object(null은 object임)
+		console.log(num2/2); //NaN(계산할 수 없어서 숫자 아니라 뜸)
+		console.log(typeof (num2 / 2)); //NaN의 type은 number
+		let isEven = true;
+		console.log(typeof isEven); //boolean
+	</script>
+</body>
+</html>
