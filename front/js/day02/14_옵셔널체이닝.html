@@ -31,8 +31,12 @@
 		user.authority.name = 'user';
 		user.authority.value = 9;
 		user.authority.code = 7; //이미 있는 객체에 새로운 속성 추가(문제X)
-		user?.name.firstName = '홍'; //중간 속성이 없는 경우 안전하게 접근하도록 함
-		//업데이트 버전이 달라서  . . . .안됨
+		// user?.name.firstName = '홍'; // 이건... 옵셔널체이닝으로 값을 할당할수 없는 형태
+		console.log(user.name?.firstName); //중간 속성이 없는 경우 안전하게 접근하도록 함
+		//undefined.firstName할 수 없기 때문에 에러가 뜨는데, 
+		//옵셔널체이닝을 사용하면 조회로 인한 에러를 막아줌
+		// => 있는지 없는지 헷갈리는 속성에 ?를 쓰면
+		// firstName이 있는지 확인하고 없을 경우 undefined를 반환
 		
 	</script>
 </body>
