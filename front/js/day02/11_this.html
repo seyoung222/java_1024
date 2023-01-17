@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>this 예제</title>
+</head>
+<body>
+	<script>
+		let book = {
+			title: '이것이 자바다',
+			author: '홍길동',
+			/*
+			print: function(){
+				console.log(`제목 : ${this.title}, 저자 : ${this.author}`);
+			} //this.를 붙이지 않으면 제대로 출력X
+			*/ 
+			print(){ //위를 줄여서 이렇게 써도 됨
+				console.log(`제목 : ${this.title}, 저자 : ${this.author}`);
+			}
+		}
+		book.print();
+	</script>
+</body>
+</html>

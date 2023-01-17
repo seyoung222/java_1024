@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>nullish 예제</title>
+</head>
+<body>
+	<script>
+		let age;
+		console.log(`age: ${age}, 제 나이는 ${age??20}살 입니다.`);
+		//초기화 안하면 undefined 라서 20을 반환
+		age = null;
+		console.log(`age: ${age}, 제 나이는 ${age??20}살 입니다.`);
+		age = 25;
+		console.log(`age: ${age}, 제 나이는 ${age??20}살 입니다.`);
+		/*
+		nullish 병합연산자 ??
+			- 정의
+				x = a ?? b 는 아래의 뜻과 같음
+				x = (a !== null && a !== undefined) ? a : b;
+				=> x는 a가 null도 아니고 undefined도 아니면 a, 맞으면 b이다
+				ex) alert(firstName ?? lastName ?? nickName ?? "익명의 사용자");
+			- || 와 유사해보이지만 ||는 true/false를, ??는 정의된 값을 반환
+		*/
+	</script>
+</body>
+</html>

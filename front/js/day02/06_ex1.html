@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>연습 예제</title>
+</head>
+<body>
+	<script>
+		/* ex1.
+		알림창을 통해 이름을 입력받고, 입력받은 이름을 알림창으로 확인하는 코드 작성 
+		let name = prompt('이름을 입력하세요.');
+		alert(name);
+		*/
+
+		/* 내가한거 +연습
+		let name = prompt('이름을 입력하세요.');
+		console.log(`제 이름은 ${name} 입니다.`);
+		console.log(`제 이름은 ${prompt('이름 입력')} 입니다.`);
+
+		if(name)
+		console.log(`제 이름은 ${name} 입니다.`);
+		else
+		console.log('이름을 입력하지 않았습니다.')
+		*/
+
+
+		/* ex2. 
+		알림창을 통해 두 수를 각각 입력받아 두 수의 합을 확인하는 코드 작성
+		+) 입력한 값이 숫자가 아닌 경우 0으로 대체해서 합을 구하도록 수정
+		*/
+		let num1 = prompt('첫번째 숫자 입력');
+		let num2 = prompt('두번째 숫자 입력');
+		// num1 = +num1;
+		// num2 = +num2;
+		// num1 = Number(num1);
+		// num2 = Number(num2);
+		// num1 = parseFloat(num1);
+		// num2 = parseFloat(num2);
+		// console.log(`${num1} + ${num2} = ${num1+num2}`);
+		let res = sum2(num1, num2);
+
+		console.log(`${num1} + ${num2} = ${res}`);
+
+		/* isNaN(변수) : 변수가 NaN인지 알려주는 함수 */
+		function sum(num1, num2){ //isNaN 사용하지 않는 방법
+			num1 = num1??0;
+			num2 = num2??0;
+			let tmp1 = +num1;
+			let tmp2 = +num2;
+			if(tmp1 != num1)
+				num1 = 0;
+			if(tmp2 != num2)
+				num2 = 0;
+			return +num1 + +num2;
+		}
+		function sum2(num1, num2){ //isNaN 사용하는 방법
+			num1 = num1??0;
+			num2 = num2??0;
+			num1 = isNaN(+num1) ? 0 : +num1;
+			num2 = isNaN(+num2) ? 0 : +num2;
+			return num1+num2;
+		}
+
+		/* 내가 한거
+		function sum1(num1, num2){
+			alert(+num1 + +num2);
+		}
+		let n1 = prompt('첫번째 숫자 입력');
+		let n2 = prompt('두번째 숫자 입력');
+		sum1(n1,n2);
+		*/
+
+		/* ex2-1.  내가 한거
+		function setNum(num){
+			num= +num1;
+			if(num==NaN || num==null || num==undefined)
+				return 0;
+			else
+				return num;
+		}
+		let num1 = prompt('첫번째 숫자 입력');
+		let num2 = prompt('두번째 숫자 입력');
+		num1 = setNum(num1);
+		num2 = setNum(num2);
+		console.log(`${num1} + ${num2} = ${num1+num2}`);
+		*/
+	</script>
+</body>
+</html>

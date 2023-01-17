@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>옵셔널 체이닝 예제</title>
+</head>
+<body>
+	<script>
+		/*
+		let 객체 = {
+			속성1 : 값,
+			속성2 : 값,
+			속성3: {
+				속성31 : 값
+				속성32 : 값
+			}
+		}
+		객체.속성3.속성31 = 새로운 값;
+		객체.속성4.속성41 = 새로운 값; //존재하지 않는 객체에 접근 시 에러
+		*/
+		let user = {
+			id : '123',
+			pw : '345',
+			authority : {
+				name : 'admin',
+				value : 10
+			}
+		}
+		user.authority.name = 'user';
+		user.authority.value = 9;
+		user.authority.code = 7; //이미 있는 객체에 새로운 속성 추가(문제X)
+		user?.name.firstName = '홍'; //중간 속성이 없는 경우 안전하게 접근하도록 함
+		//업데이트 버전이 달라서  . . . .안됨
+		
+	</script>
+</body>
+</html>

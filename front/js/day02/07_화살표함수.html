@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>화살표 함수 예제</title>
+</head>
+<body>
+	<script>
+		/*
+		화살표 함수는 
+		1. 함수 표현식으로 함수를 만들 때
+		2. 콜백 함수를 익명으로 만들어서 재사용하지 않을 때
+		*/
+		let callbackTest = function(str, func){
+			func(str);
+		}
+		callbackTest('안녕하세요.', console.log); //1번 경우
+		// callbackTest('Hi', alert); 확인 누르기 귀찮아서 꺼둠
+		callbackTest('Hello', function(){ //2번 경우
+			console.log('익명 함수');
+		})
+
+		let arrowFunc1 = (str, func)=>{
+			func(str);
+		};
+		arrowFunc1('Arrow : Hi', console.log);
+		//함수의 매개변수가 1개이면 () 생략가능, 실행문이 1줄이면 {} 생략가능
+		let arrowFunc2 = str => console.log(str);
+		arrowFunc2('Arrow2 : Hi'); //실행코드가 간결할수록 화살표함수가 돋보임
+		let sum = (num1, num2) => num1 + num2;
+		debugger;
+		console.log(sum(1,2));
+	</script>
+</body>
+</html>

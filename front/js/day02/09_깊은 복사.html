@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>깊은 복사 예제</title>
+</head>
+<body>
+	<script>
+		let user1 = {
+			id: 'abc',
+			pw: 'qwe'
+		}
+		let user2 = {}; //초기화 안하면 undefined라서 .. 빈객체 생성
+		// user2 = user1; //=> 공유(=얕은 복사) 
+		//깊은 복사
+		//방법1. 반복문 이용
+		for(key in user1){  
+			user2[key] = user1[key];
+		}
+		//방법2. Object.assign();
+		//여러 객체가 같이 올수 있는데,
+		//겹치는 속성들은 나중에 나오는 객체로 덮어씌워짐
+		Object.assign(user2, user1, {name : '홍길동'}, {name:'임꺽정', age:21});
+
+		user2.id = 'qwe';
+		console.log(user1);
+		console.log(user2);
+	</script>
+</body>
+</html>

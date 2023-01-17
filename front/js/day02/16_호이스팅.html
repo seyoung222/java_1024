@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>호이스팅 예제</title>
+</head>
+<body>
+		<script>
+			/*
+			- 호이스팅
+				- js가 실행 전, var로 된 변수나 함수들을 위로 끌어올리는 작업
+				- let 변수는 호이스팅이 일어나지X
+			*/
+			x = 10;
+			var x;
+			console.log(x); //뒤늦게 선언했는데도 undefined 안나오고 잘 뜸
+			/* 
+			호이스팅에 의한 실제 동작 순서 : 
+			var x;
+			x = 10;
+			console.log(x);
+			*/
+
+			// y = 20;
+			let y;
+			console.log(y); //let은 에러 발생. 호이스팅 일어나지 않아서.
+
+
+// 함수 선언식
+			test1();
+			function test1(){ console.log('Hi') };
+			/*
+			호이스팅에 의해 
+			function test1(){ console.log('Hi') }; 가 가장 위로 올라오고
+			test1(); 이 실행됨
+			-> 선언 순서에 상관없이 함수를 사용할 수 있게됨
+			*/
+
+
+
+// 함수 표현식
+			test2();
+			var test2 = function(){
+				console.log('Hello');
+			}
+			/* 호이스팅 일어났을 때.. 메소드명만 먼저 따로 올라가서 에러
+			var test2; (let은 호이스팅 자체도 안되기 때문에 당연히 에러)
+			test2();
+			test2 = function(){
+				console.log('Hello');
+			}
+			*/
+		</script>
+</body>
+</html>

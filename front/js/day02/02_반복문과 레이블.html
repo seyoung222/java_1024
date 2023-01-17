@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>반복문과 레이블 예제</title>
+</head>
+<body>
+	<script>
+		// 반복문에 레이블을 지정한 후, break 또는 continue를 이용할 때 레이블명과
+		//같이 사용되면 해당 레이블로 건너뛸 수 있다.
+		let i, j;
+		out: for(i=0; i<10; i++){
+			for(j=0; j<10; j++){
+				console.log(`${i}, ${j}`);
+				if(confirm('중지할까요?')){ //사용자가 확인누르면 중단
+					break out; //break 뒤에 반복문 이름을 붙이면 바로 거기까지 탈출가능
+					//break; 하면 반복문 하나만 탈출
+				}
+			}
+		}
+	/*
+		outer: for (let i = 0; i < 3; i++) {
+			for (let j = 0; j < 3; j++) {
+				let input = prompt(`(${i},${j})의 값`, '');
+				if (!input) break outer;  
+				// 이건 사용자가 아무것도 입력하지 않거나 Cancel 버튼을 누를때 중단
+			}
+		}
+	*/
+	</script>
+</body>
+</html>
