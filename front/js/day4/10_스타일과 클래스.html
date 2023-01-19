@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>스타일과 클래스</title>
+	<style>
+		.test{
+			background-color: red; color: #fff;
+		}
+	</style>
+</head>
+<body>
+	<div class="box">상자1</div>
+	<div class="box box2">상자2</div>
+	<button onclick="test()">클릭</button>
+	<!-- onclick = 클릭했을때 실행할 함수 -->
+	<script>
+		let e1 = document.body.firstElementChild;
+		let e2 = e1.nextElementSibling;
+		e1.className = 'box box1'; //class 부분추가아니고 통째로 교체함
+		e1.classList.add('test'); //list를 이용하면 하나만 추가하거나 삭제가능
+		e1.classList.toggle('test'); //toggle : 있으면 지우고 없으면 추가함
+		e1.classList.toggle('test'); //여기선 추가됨
+		e1.classList.remove('test'); //삭제
+		console.log(e1.classList.contains('test')); //해당 클래스 포함여부
+		console.log(e1.className);
+		console.log(e2.className);
+
+		//CSS 적용된 style 변경할 때 카멜표기법으로 적어야함!!!!!
+		e2.style.color = 'red';
+		e2.style.backgroundColor = 'yellow'; //= CSS의 background-color
+
+
+		//onclick 함수
+		function test(){ //클릭할때마다 test 클래스가 적용됐다 안됐다하게함
+			e1.classList.toggle('test');
+		}
+
+
+	</script>
+</body>
+</html>

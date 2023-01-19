@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>속성과 프로퍼티</title>
+</head>
+<body>
+	<input type="text" value="123" data-num="456">
+	<div value="123">123</div>
+	<script>
+		/*
+		- html코드에서 태그 안에 있는 속성들이 DOM 객체를 통해 가져와질 때
+			프로퍼티로 전환됨
+		- 이 때, 태그마다 표준 속성이 다름
+		- 표준 속성은 프로퍼티로 자동추가되지만 비표준 속성은 프로퍼티로 전환되지X
+		*/
+		let e1 = document.querySelector('input'); 
+		let e2 = document.querySelector('div'); 
+		
+		console.log(`input.value : ${e1.value}`);//input은 value가 표준속성
+		console.log(`div.value : ${e2.value}`);//undefined. div는 value가 표준속성 아님
+		console.log(`div. getAttribute : ${e2.getAttribute('value')}`);
+		//비표준속성은 .getAttribute() 통해서 추가
+		console.log(`input.data-set : ${e1.dataset.num}`);
+
+
+
+		/* 추가 필기
+
+속성과 프로퍼티
+- class, id, name과 같은 html의 속성을, DOM에서 프로퍼티라 칭함.
+- 요소(태그)마다 표준 속성(태그사용할 때 자동으로 같이 뜨는 href, name 같은 것들)이 다름
+- DOM에서 .으로 이어사용하려면 표준 속성이어야하며, 표준 속성은 자동완성으로 붙음.    (ex) document.body.id
+- 비표준 속성 관련 메소드 
+elem.hasAttribute(name) – 속성 존재 여부 확인
+elem.getAttribute(name) – 속성값을 가져옴
+elem.setAttribute(name, value) – 속성값을 변경함
+elem.removeAttribute(name) – 속성값을 지움
+- dataset : data- 로 들어가는 속성들을 가져올 때 사용. 
+  - data- 란? : 화면상 보이는 정보는 아니지만 정보전달을 위해 적어야하는 data들을 여기에 적음. 비표준속성.
+ex) 
+<body data-about="Elephants"> 
+==> <script>에서 alert(document.body.dataset.about); 로 가져옴
+		*/
+	</script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>합 예제</title>
+</head>
+<body>
+	<input type="text" name="num1">
+	+
+	<input type="text" name="num2">
+	=
+	<input type="text" name="res" readonly>
+	<br>
+	<button onclick="sum()">계산</button>
+	<!-- onclick : 해당 버튼을 클릭하면 일어날 이벤트함수를 넣음 -->
+	<script>
+		function sum(){
+			/*첫번째 input값과 두번째 input값을 읽어와서 더한 결과를
+			세번째 input값에 넣어주는 작업을 작성*/
+
+		//name이 num1인 요소의 값(value)를 가져오는 방법
+		//방법1)
+			let num1 = document.getElementsByName('num1')[0].value;
+			//[0]을 써줘야하는 이유 : getElementsByname은 요소들을 컬렉션으로 반환
+			//-> 여러 개로 묶어서 보내줌. 요소가 1개여도 묶어보냄.
+		//방법2)
+			num1 = document.body.firstElementChild.value;
+		//방법3)
+			num1 = document.querySelector('[name=num1]').value;
+			//querySelector는 최대 1개를 반환 => [0]가 필요X
+		//방법4)
+			num1 = document.querySelectorAll('[name=num1]')[0].value;
+			//querySelectorAll은 여러개 올 수 있어서 컬렉션으로 반환 => [번지]필요
+
+			let num2 = document.body.firstElementChild.nextElementSibling.value;
+			let res = +num1 + +num2;
+			console.log(num1);
+			console.log(num2);
+			document.querySelector('[name=res]').value = res;
+		}
+	</script>
+</body>
+</html>

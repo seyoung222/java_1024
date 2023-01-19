@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>DOM 탐색</title>
+</head>
+<body>
+	<script>
+		/*
+		window.onload
+		- 브라우저가 다 로딩되면 실행되는 메소드
+		- 사용하는 이유는 script 태그가 body태그에 있든 head 태그에 있든
+			동일하게 동작시키기 위해 사용
+		- window.onload는 여러번 선언하면 안됨
+		- 아래 코드가 window.onload없이 head 태그 안에 있으면
+			body태그가 null로 출력되지만 window.onload가 있으면 정상적으로 출력
+		*/
+		window.onload = function(){
+			//html태그 : document.documentElement;
+			let htmlTag = document.documentElement;
+			// console.log(htmlTag.innerHTML);
+			//body태그 : document.body;
+			let bodyTag = document.body;
+			// console.log(bodyTag);
+			//head태그 : document.head;
+			let headTag = document.head;
+			// console.log(headTag);
+
+			/*
+			노드 : 요소(element)와 텍스트 노드를 포함
+			childNodes, firstChild, lastChild : 자식 노드 탐색
+			- childNodes
+				- 자식 노드들 전체를 컬렉션으로 반환
+			- firstChild
+				- 첫번째 자식 노드를 반환
+			- lastChild
+				- 마지막 자식 노드를 반환
+			*/
+			let bodyChildNodes = bodyTag.childNodes;
+			for(let childNode of bodyChildNodes){
+				console.log(childNode);
+			}
+			console.log('====================');
+			console.log(bodyTag.firstChild);
+			console.log('====================');
+			console.log(bodyTag.lastChild);
+			console.log('====================');
+
+
+			/*
+			요소 : 태그로 된 요소들, 텍스트 노드 제외
+			children, firstElementChild, lastElementChild : 요소 탐색
+			- children : 자식 요소들을 컬렉션으로 반환
+			- firstElementChild : 첫번째 자식 요소를 반환
+			- lastElementChild : 마지막 자식 요소를 반환
+			*/
+			let bodyChildElements = bodyTag.children;
+			for(let element of bodyChildElements){
+				console.log(element);
+			}
+			console.log('====================');
+			console.log(bodyTag.firstElementChild);
+			console.log('====================');
+			console.log(bodyTag.lastElementChild);
+			console.log('====================');
+
+			/*
+			DOM 컬렉션은 읽는 것만 가능
+			- 컬렉션 자체로 수정할 수 없음
+			  => 컬렉션으로 가져온 요소를 직접 =을 통해 다른 내용으로 바꿀 수 X
+				=> 내용을 통째로 바꾸려면 inner/outer/textContent같은 것들 사용해야함
+			- innerHTML과 같은 속성으로 수정할 수는 있음
+			*/
+
+
+
+			/* 추가 필기
+			DON (Document Object Model, 문서 객체 모델)
+			- 웹페이지 내의 모든 콘텐츠를 객체로 나타냄.
+			- document객체는 페이지의 기본 '진입점' 역할을 하며, 이 객체를 이용해
+				페이지 내 그 무엇이든 변경할 수 있고, 원하는 것을 만들 수 있다.
+
+			- 모든 HTML 태그는 객체.
+
+			
+			*/
+		}
+	</script>
+</body>
+</html>
