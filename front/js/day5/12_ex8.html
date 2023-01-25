@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>이전,다음페이지</title>
+	<style>
+		.container-box{width: 300px; height: 100px; border: 1px solid black;}
+		.page-box>*{
+			float: left; text-align: center; display: inline-block;
+			margin: 0;
+		}
+		.page-box{
+			clear: both; display: block; content: '';
+		margin: 20px 0 0 110px;}
+		.prev-btn, .next-btn{
+			width: 20px;
+		}
+	</style>
+</head>
+<body>
+	<div class="container-box">
+		<div class="page-box">
+			<button class="prev-btn"><</button> 
+			<p class="page">1</p>
+			<p>/</p>
+			<p class="total-page">6</p> 
+			<button class="next-btn">></button>
+		</div>
+	</div>
+	<script>
+		let page = document.querySelector('.page');
+		let totalPage = document.querySelector('.total-page');
+		document.querySelector('.prev-btn').onclick = ()=>{
+			if(page.textContent<=1){
+				page.textContent = totalPage.textContent;
+				return;
+			}
+			page.innerHTML--;
+		};
+		document.querySelector('.next-btn').onclick = ()=>{
+			if(page.textContent>=totalPage.textContent){
+				page.textContent = 1;
+				return;
+			}
+			page.innerHTML++;
+		};
+
+	</script>
+</body>
+</html>

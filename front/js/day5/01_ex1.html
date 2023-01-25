@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>script태그 위치</title>
+	<!-- 
+		script 접근. 
+		둘 중 하나만 할 수 있다.
+		script의 위치에 따라 동작이 달라질 수 있으므로
+		외부접근은 head맨 아래에, 내부접근은 body제일 아래에 적는 걸 추천
+	-->
+	<!-- 1. 외부 접근(src를 통해 가져옴): head아래에 작성 -->
+	<script src=""></script> 
+	<!-- 2. 내부 접근(script태그를 통해 직접 작성): body아래에 작성 -->
+	<script>
+	</script>
+</head>
+<body>
+	<div class="box1 box">1</div>
+
+	<script>
+		//box클래스를 가진 요소들의 글자색을 red로 수정하는 스크립트
+		let arr1 = document.querySelectorAll('.box')
+		//querySelectorAll은 정적쿼리. 실행당시 선택된 요소만 arr1에 저장
+		//box 클래스를 가진 요소들의 글자 크기를 30px로 수정하는 스크립트
+		let arr2 = document.getElementsByClassName('box');
+		//getElementsBy어쩌구는 동적쿼리. 실행문 이후에 요소가 변경되어도 다 반영됨 
+	</script>
+
+<!-- 명령어에 따라 태그위치에 따른 결과가 달라질 수 있으므로 가급적 항상 아래에 적도록 하자 -->
+	<div class="box2 box">2</div>
+
+	<script>
+		for(item of arr1){
+			item.style.color = 'red';
+		}
+		for(item of arr2){
+			item.style.fontSize = '30px';
+		}
+	</script>
+		
+</body>
+</html>

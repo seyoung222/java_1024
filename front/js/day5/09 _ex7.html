@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>toggle 예제</title>
+	<style>
+		.list-menu{
+			border: 3px solid black; list-style: none; padding: 0;
+		}
+		.list-menu::after{
+			content: ''; clear: both; display: block;
+		}
+		.item-menu{ width: 33.33%; float: left; height: 50px;}
+		.item-menu+.item-menu{border-left: 3px solid black; margin-left: -3px;}
+		.link-menu{
+			display: block; text-align: center; line-height: 50px; font-size: 20px;
+			text-decoration: none; color: black;
+		}
+		.bg-y{background-color: yellow;}
+		/* 
+		.box{ float: left;
+			width: 100px; height: 50px; background-color: bisque;
+			border: 2px solid black;
+		}
+		.box~.box{margin-left: -2px;}
+		.box2{background-color: blueviolet;}
+		 */
+	</style>
+</head>
+<body>
+	<ul class="list-menu" id="menu1">
+		<li class="item-menu">
+			<a href="#" class="link-menu">메뉴1</a>
+		</li>
+		<li class="item-menu">
+			<a href="#" class="link-menu">메뉴2</a>
+		</li>
+		<li class="item-menu">
+			<a href="#" class="link-menu">메뉴3</a>
+		</li>
+	</ul>
+	
+	<ul class="list-menu" id="menu2">
+		<li class="item-menu">
+			<a href="#" class="link-menu">메뉴1</a>
+		</li>
+		<li class="item-menu">
+			<a href="#" class="link-menu">메뉴2</a>
+		</li>
+		<li class="item-menu">
+			<a href="#" class="link-menu">메뉴3</a>
+		</li>
+	</ul>
+	<!-- 
+	<div class="box" onclick="changeBackground(this)"></div>
+	<div class="box" onclick="changeBackground(this)"></div>
+	<div class="box" onclick="changeBackground(this)"></div>
+	 -->
+	<script>
+// 방법1(list1)
+		let list1 = document.querySelectorAll('#menu1>li');
+		list1.forEach((item)=>{
+			item.onclick = () => {
+				//li태그 전체에 bg-y를 전부 제거
+				list1.forEach((item)=>{item.classList.remove('bg-y')});
+				//선택한 요소에 bg-y를 추가
+				item.classList.add('bg-y');
+			}
+		});
+
+// 방법2(list2)
+		let list2 = document.querySelectorAll('#menu2>li');
+		//전역 변수로 이전에 선택한 요소를 기억
+		let selectedItem;
+		list2.forEach((item)=>{
+			item.onclick = () => {
+			//이전에 선택한 요소에 bg-y를 제거
+			if(selectedItem)
+				selectedItem.classList.remove('bg-y');
+			//선택한 요소에 bg-y를 추가
+			selectedItem = item;
+			selectedItem.classList.add('bg-y');
+			}
+		});
+		/*
+		function changeBackground(box){
+			if(box.classList.contains('box2')){
+				return;
+			}else{
+				document.querySelectorAll('.box').forEach(item=>item.classList.remove('box2'));
+				box.classList.toggle('box2');
+			}
+		}
+		*/
+	</script>
+</body>
+</html>

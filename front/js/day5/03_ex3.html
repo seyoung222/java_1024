@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+	<div id="box1">1</div>
+	<div id="box2" src="3" alt="없음">2</div>
+	<img id="img" src="없음.jpg" alt="없음">
+	<script>
+		/* 
+		//java_1024/front/js/day4/06_프로퍼티.html
+		element.innerHTML
+		- 요소 안에 있는 html 코드를 가져옴
+		element.innerHTML = 'html코드'
+		- 요소 안의 html코드를 삭제하고 새로운 html 코드를 추가(코드를 바꾼단 뜻)
+
+		element.outerHTML
+		- 요소를 포함한 html 코드를 가져옴
+		element.outerHTML = 'html코드'
+		- 요소를 삭제하고 새로운 html 코드를 추가(코드를 바꾼단 뜻)
+
+		element.textContent
+		- 요소 안에 있는 텍스트를 가져옴(태그 제외)
+		element.textContent = '텍스트'
+		- 요소 안에 있는 텍스트를 지우고 새로운 텍스트를 추가
+		- 이 때 텍스트가 태그로 되어있어도 텍스트로 들어감(코드여도 반영X)
+
+		element.value
+		- 요소의 value값을 가져옴
+		- input/select/textarea 태그에서 사용할 수 있음
+		element.value = '값'
+		- 요소의 value를 수정
+		*/
+		box1.innerHTML = '<button>2</button>'; //본인태그 안의 내용을 바꿈
+		box1.innerHTML += '<button>3</button>';
+		// box1.innerHTML = box1.innerHTML + '<button>3</button>'; 와 같음
+		box1.outerHTML = '<span>1</span>'; //본인(div)을 통째로 span으로 바꿈
+		
+		/*
+		//java_1024/front/js/day4/09_속성과 프로퍼티.html
+		- 태그마다 표준 속성이 다름
+			=> img 태그 : id, class, src, alt
+			=> div 태그 : id, class
+		- elem.프로퍼티 : 를 이용하여 속성 값을 가져올 수 있음
+			- 단, 표준 속성만 프로퍼티로 가져옴
+		*/
+		console.log(img.src);//img태그는 src속성이 표준
+		console.log(box2.src); //div태그는 src속성이 표준이 아님=>undefined
+		console.log(box2.getAttribute('src')); //비표준속성은 추가해야함
+	</script>
+</body>
+</html>
