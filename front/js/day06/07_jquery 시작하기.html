@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<!-- script src= 태그는 무조건 script태그보다 위에 있어야함!
+	아래에 있을 경우 $ is not defined 에러가 발생함 -->
+	<script src="../js/jquery.min.js"></script>
+</head>
+<body>
+	<div class="box">1</div>
+	<div class="box">2</div>
+	<div class="box">3</div>
+
+
+	
+	<script>
+		$(document).ready(function(){
+			console.log(123);
+		});
+/*
+		jquery의 기본 형태 : $(selector).action()
+		action()에 클릭 등의 여러 동작이 들어감
+		*/
+
+		// let boxes = document.querySelectorAll('.box');
+		// boxes.forEach((item)=>{console.log(item.textContent)});
+		$('.box').click(function(){
+			console.log($(this).text());
+		}); 
+			//jquery쓰면 위처럼 반복문 안써도 됨. 이벤트 등록이 쉽다.
+		
+		</script>
+</body>
+</html>

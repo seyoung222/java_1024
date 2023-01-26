@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>this 예제</title>
+	<script src="../js/jquery.min.js"></script>
+</head>
+<body>
+	<button class="btn">클릭</button>
+	<div class="box" style="height: 100px; background-color: cadetblue;"></div>
+	<script>
+		$('.btn').click(function(){
+			console.log($(this).text()); //'클릭'이 출력됨
+			// 이 때 this는 이벤트가 발생한 .btn 요소
+			$('.box').slideToggle(1000,function(){
+				console.log($(this).text()); //공란이 출력
+				//이 때 this는 slideToggle을 실행하는 .box 요소
+				//callback 위치에 들어가는 this는 효과에 부여된.. 요소...
+			});
+		});
+	</script>
+</body>
+</html>

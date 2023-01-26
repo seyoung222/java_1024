@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>메뉴 slide</title>
+	<script src="../js/jquery.min.js"></script>
+	<style>
+		.list-menu, .list-content{
+			list-style: none; padding: 0; margin: 0;
+			width: 304px; height: 50px;
+		}
+		.list-menu::after, .list-content::after{
+			display: block; clear: both; content: '';
+		}
+		.item-menu{
+			float: left; width: 100px; height: 48px; border: 1px solid black;
+			text-align: center;
+		}
+		.item-menu~.item-menu{margin-left: -1px;}
+		.link-menu{
+			width: 100px; height: 48px; line-height: 48px; display: block;
+			text-decoration: none; color: black; background-color: antiquewhite;
+		}
+		.item-content{
+			float: left; width: 100px; height: 200px; border: 1px solid black;
+			text-align: center; display: none;
+		}
+		.item-content~.item-content{margin-left: -1px;}
+		.link-content{
+			width: 100px; height: 200px; line-height: 48px;
+			text-decoration: none; color: black; 
+		}
+	</style>
+</head>
+<body>
+	<div class="menu-box">
+		<ul class="list-menu">
+			<li class="item-menu">
+				<a href="" class="link-menu">1</a>
+			</li>
+			<li class="item-menu">
+				<a href="" class="link-menu">2</a>
+			</li>
+			<li class="item-menu">
+				<a href="" class="link-menu">3</a>
+			</li>
+		</ul>
+	</div>
+	<div class="content-box">
+		<ul class="list-content">
+			<li class="item-content">
+				<a href="" class="link-content">내용1</a>
+			</li>
+			<li class="item-content">
+				<a href="" class="link-content">내용2</a>
+			</li>
+			<li class="item-content">
+				<a href="" class="link-content">내용3</a>
+			</li>
+		</ul>
+	</div>
+	<script>
+		$('.link-menu').click(()=>$('.item-content').slideToggle('slow'));
+	</script>
+</body>
+</html>
