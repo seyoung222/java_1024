@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>jquery로 페이지넘기기</title>
+	<style>
+		.container:after{clear: both;display: block;content: '';}
+		.container>*{float: left;}
+		.box-page{ margin: 5px 5px;}
+		.btn-prev, .btn-next{
+			width: 30px; height: 30px; line-height: 30px; text-align: center;
+			text-decoration: none; border: 1px solid black;
+		}
+	</style>
+	<script src="../js/jquery.min.js"></script>
+</head>
+<body>
+	<div class="container">
+		<a href="#" class="btn-prev">&lt;</a>
+		<div class="box-page">
+			<span class="current" data-page="1">1</span>
+			<span>/</span>
+			<span class="max" data-max="6">6</span>
+		</div>
+		<a href="#" class="btn-next">&gt;</a>
+	</div>
+	<script>
+		$('.btn-prev').click(()=>{
+			let curPage = $('.current').text(); //.data('page'); 해도됨
+			let maxPage = $('.max').text(); //.data('max'); 해도됨
+			curPage = +curPage;
+			curPage = --curPage == 0 ? maxPage : curPage;
+			$('.current').text(curPage);
+		});
+		$('.btn-next').click(()=>{
+			let curPage = $('.current').text(); //.data('page'); 해도됨
+			let maxPage = $('.max').text(); //.data('max'); 해도됨
+			curPage = +curPage;
+			curPage = ++curPage > maxPage ? 1 : curPage;
+			$('.current').text(curPage);
+		});
+		
+		// $('.btn-next').click(()=>{
+		// 	let current =	+$('.current').text();
+		// 	let max =	+$('.max').text();
+		// 	current = ++current > max ? 1 : current;
+		// 	$('.current').text(current);
+		// });
+		
+	</script>
+</body>
+</html>

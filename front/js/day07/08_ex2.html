@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<!-- 체크된 과일들만 출력하는 코드 작성 -->
+	<style>
+		.box{
+			width: 200px; height: 50px; text-align: center; 
+			border: 1px solid black; line-height: 50px; font-size: 20px;
+		}
+	</style>
+	<script src="../js/jquery.min.js"></script>
+</head>
+<body>
+	<!-- 
+	<label for="">
+		<input type="checkbox" value="사과"> 사과</label>
+	<label for="">
+		<input type="checkbox" value="바나나"> 바나나</label>
+	<label for="">
+		<input type="checkbox" value="오렌지"> 오렌지</label><br>
+	<button class="btn">클릭</button>
+	 -->
+	 <div class="box"></div>
+	 <label for="">
+		<input type="checkbox" name="fruit" value="사과">사과
+	 </label>
+	 <label for="">
+		<input type="checkbox" name="fruit" value="바나나">바나나
+	 </label>
+	 <label for="">
+		<input type="checkbox" name="fruit" value="오렌지">오렌지
+	 </label>
+	 <br>
+	 <button class="btn">클릭</button>
+	<script>
+		/* jQuery에서 반복문 쓰기
+		let list = $('[name=fruit');
+		//반복문 방법1.
+		for(let i=0; i<list.length; i++)
+		console.log(list.eq(i).val());
+		//반복문 방법2.
+		list.each(function(){
+			console.log($(this).val());
+		});
+		*/
+
+		//ex1) 클릭누르면 체크한 과일이 콘솔에 출력되게 하는 코드
+		$('.btn').click(()=>{
+			/*
+			$('[name=fruit]').each(function(){
+				if($(this).prop('checked'))
+					console.log($(this).val());
+			});
+			*/
+			$('[name=fruit]:checked').each(function(){ //선택자를 바꾸면 더 간단한 코드
+				console.log($(this).val());
+			})
+		});
+
+		/* 맨처음 내가 한 거
+		$('.btn').click(()=>{
+			let print = '';
+			if($('input').eq(0).prop('checked'))
+				print+=$('input').eq(0).val()+' ';
+			if($('input').eq(1).prop('checked'))
+				print+=$('input').eq(1).val()+' ';
+			if($('input').eq(2).prop('checked'))
+				print+=$('input').eq(2).val();
+			alert(print);
+		}); */
+
+		//ex2) 클릭 누르면 체크한 과일이 네모박스에 뜨게 하는 코드 (예시: 사과,바나나)
+		$('.btn').click(()=>{
+			let arr = [];
+			$('[name=fruit]:checked').each(function(){
+				//이 때 값을 배열에 저장
+				arr.push($(this).val());
+			});
+			//배열에 저장된 값을 ,를 기준으로 하나의 문자열로 생성 후
+			let str = arr.join(', ');
+			//원하는 요소에 출력
+			$('.box').text(str);
+		});
+		/*
+		$('.btn').click(()=>{
+			let str='';                                            
+			$('[name=fruit]:checked').each(function(){
+				if(str != '')
+					str += ', ';
+				str += $(this).val();
+			});
+			$('.box').text(str);
+		}); */
+
+		//주말과제) 세개의 칸이 있고 선택한 요소들이 칸 안에 들어가도록
+
+		
+	</script>
+</body>
+</html>

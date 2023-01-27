@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>연습 예제</title>
+	<style>
+		*{padding: 0; margin: 0;}
+		ul{list-style: none;}
+		a{text-decoration: none;}
+		.list-menu{
+			display: flex;
+		}
+		.item-menu{
+			width: 100%; height: 50px;
+		}
+		.link-menu{
+			display: block; height: 100%; text-align: center;
+			line-height: 50px; border: 3px solid black;
+		}
+		.item-menu+.item-menu{margin-left: -3px;}
+		.list-sub{
+			border: 3px solid black; margin-top: -3px; display: none;
+		}
+		.list-sub .link-sub{
+			height: 50px; line-height: 50px; text-align: center; display: block;
+		}
+		.list-sub .item-sub+.item-sub{
+			border: 3px solid black;
+		}
+		
+	</style>
+	<script src="../js/jquery.min.js"></script>
+</head>
+<body>
+	<ul class="list-menu">
+		<li class="item-menu menu1">
+			<a href="#" class="link-menu">메뉴1</a>
+			<ul class="list-sub sub1">
+				<li class="item-sub">
+					<a href="#">메뉴1-1</a>
+				</li>
+				<li class="item-sub">
+					<a href="#">메뉴1-2</a>
+				</li>
+			</ul>
+		</li>
+		<li class="item-menu menu2">
+			<a href="#" class="link-menu">메뉴2</a>
+			<ul class="list-sub sub2">
+				<li class="item-sub">
+					<a href="#">메뉴2-1</a>
+				</li>
+				<li class="item-sub">
+					<a href="#">메뉴2-2</a>
+				</li>
+			</ul>
+		</li>
+		<li class="item-menu menu3">
+			<a href="#" class="link-menu">메뉴3</a>
+			<ul class="list-sub sub3">
+				<li class="item-sub">
+					<a href="#">메뉴3-1</a>
+				</li>
+				<li class="item-sub">
+					<a href="#">메뉴3-2</a>
+				</li>
+			</ul>
+		</li>
+	</ul>
+	<script>
+		/*
+		$('.menu1').click(()=>$('.sub1').toggle());
+		$('.menu2').click(()=>$('.sub2').toggle());
+		$('.menu3').click(()=>$('.sub3').toggle());
+		*/
+		$('.item-menu').click(function(){
+			// $(A).B(C).toggle();
+			//클릭된 요소에 자식(자손)요소들 중에서 서브메뉴를 선택하여 toggle()
+			// $(this).children('ul').toggle();
+			$(this).children('.list-sub').toggle();
+			$(this).children('.list-sub').stop().slideToggle();
+		})
+		$('.link-menu').click((e)=>e.preventDefault());
+	</script>
+</body>
+</html>
