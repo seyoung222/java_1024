@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<script src="../js/jquery.min.js"></script>
+	<style>
+		.box1, .box2{
+			height: 100px; border: 1px solid black;
+			text-align: center; font-size: 20px; line-height: 100px;
+
+		}
+	</style>
+</head>
+<body>
+	<!-- 
+		1. HTML코드를 이용하여 버튼을 생성할 수 있는가?
+		2. jquery를 이용하여 요소를 선택할 수 있는가?
+		3. jquery를 이용하여 이벤트를 등록할 수 있는가?
+		4. jquery를 이용하여 요소 안에 글자를 설정할 수 있는가?
+		5. jquery를 이용하여 효과를 줄 수 있는가?
+		show()/hide()/toggle() 
+			: 너비,높이가 0,0에서 지정된 값으로 변경. 너비,높이가 0이면 display:none
+		fadeIn()/fadeOut()/fadeToggle()/fadeTo() 
+			: 투명도변경. 투명도 0이면 display:none
+		slideDown()/slideUp()/slideToggle() :
+			 높이가 0에서 지정된 값으로 변경. 높이가 0이면 display:none
+	 -->
+	<button class="btn1">문제3</button>
+	<div class="box1"></div>
+	<button class="btn2">문제4</button>
+	<div class="box2" hidden></div>
+	
+
+	<script>
+		/* ex3)버튼을 생성하고, 버튼을 클릭했을 때 빈 박스에 hello라는 글자가
+	출력되는 코드 작성 */
+	$('.btn1').click(()=>{
+		let text = 'hello';
+		$('.box1').text(text);
+	})
+	/* ex4)버튼을 생성하고, 버튼을 클릭했을 때 박스와 함께 hello라는 글자가
+	출력되는 코드 작성 */
+	$('.btn2').click(()=>{
+		$('.box2').prop('hidden',false);
+		$('.box2').slideToggle(1000);
+		$('.box2').text('hello');
+	})
+	</script>
+</body>
+</html>

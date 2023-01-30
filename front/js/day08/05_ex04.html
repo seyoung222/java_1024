@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<style>
+		.text-box{ 
+			width: 300px; height: 100px; border: 1px solid black;
+			font-size: 30px; line-height: 100px; text-align: center;
+		}
+	</style>
+	<script src="../js/jquery.min.js"></script>
+</head>
+<body>
+	<div class="text-box"></div>
+	<label>
+		<input type="checkbox" name="fruit" value="바나나">바나나
+	</label>
+	<script>
+		/* 
+		체크박스, 텍스트박스를 배치하고, 체크박스 선택하면 바나나가 텍스트박스에 추가
+		체크해제하면 바나나 텍스트가 텍스트 박스에서 삭제되도록 코드 작성
+		1. jquery를 이용하여 속성정보를 가져올수 있는가?
+			- prop(), attr()
+			prop() : 표준속성인 경우 사용 추천
+			attr() : 비표준속성인 경우 사용 추천
+		2. jquery를 이용하여 값을 가져올 수 있는가?
+			- val()
+		*/
+		$('[name=fruit]').click(function(){
+			let text = '';
+			if($(this).prop('checked'))
+				text = $(this).val();
+			$('.text-box').text(text);
+
+			/* 내거
+			if($(this).prop('checked'))
+				$('.text-box').text($(this).val());//input은 단일태그라서 .text() 사용불가함
+			else
+				$('.text-box').text(''); */
+		});
+	</script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<style>
+		.box{ width: 100px; height: 100px; background-color: aquamarine;
+		border: 3px solid sandybrown; position: absolute;}
+	</style>
+	<script src="../js/jquery.min.js"></script>
+</head>
+<body>
+	<!-- 
+		1. HTML코드를 이용하여 버튼을 생성할 수 있는가?
+		2. jquery를 이용하여 요소를 선택할 수 있는가?
+		3. jquery를 이용하여 이벤트를 등록할 수 있는가? 
+	-->
+	<button class="btn">문제5</button>
+	<div class="box"></div>
+	<script>
+		/* ex5) 버튼과 박스를 배치하고, 버튼을 클릭하면 박스가 아래로 100px씩
+		천천히 내려가게하는 코드 작성*/
+		$('.btn').click(()=>{
+			$('.box').animate(
+				{top: '+=100px'}, 1000);
+			}
+		);
+	</script>
+</body>
+</html>

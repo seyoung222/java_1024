@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>예제1</title>
+	<script src="../js/jquery.min.js"></script>
+</head>
+<body>
+	<button class="btn1">문제1</button>
+	<button class="btn2">문제2</button>
+	<script>
+		/* ex1) 버튼을 배치하고, 버튼을 클릭했을때 alert('Hello')가 뜨도록 코드 작성 */
+		$('.btn1').click(()=> alert('Hello'));
+
+		/* ex2) 버튼을 배치하고, 
+		버튼을 클릭했을때 버튼 속 글자가 alert로 뜨도록 코드 작성 */
+		// $('.btn2').click(()=>alert($(this).text()));//this쓸때는 화살표 함수 안됨
+		$('.btn2').click(function(){alert($(this).text())});
+		/*
+		- text(): 요소 안의 글자를 가져옴(자손포함) 단, 단일 태그는 제외
+		- hml() : 요소 안의 html코드를 가져옴(자손 포함). 단, 단일 태그는 제외
+		- val() : 요소 안의 value를 가져옴. 
+		 					input태그, select태그, textarea태그만 가능
+		*/
+		</script>
+</body>
+</html>
