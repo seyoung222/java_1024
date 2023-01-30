@@ -24,6 +24,8 @@
 	<button class="btn btn-prependTo">prependTo</button>
 	<button class="btn btn-after">after</button>
 	<button class="btn btn-before">before</button>
+	<button class="btn btn-remove">remove</button>
+	<button class="btn btn-empty">empty</button>
 	<div class="box base-box">
 		<div class="child-box">base</div>
 	</div>
@@ -52,14 +54,14 @@
 		let appendCount = 1;
 		$('.btn-append').click(function(){
 			// $('.base-box').append('<div class="child-box">append</div>')
-			$('.base-box').append(`<div class="child-box">append${appendCount++}</div>`)
+			$('.base-box').append(`<div class="child-box">append${appendCount++}</div>`);
 		});
 		$('.btn-appendTo').click(function(){
 			$(`<div class="child-box">append${appendCount++}</div>`).appendTo($('.base-box'));
 		});
 		let prependCount = 1;
 		$('.btn-prepend').click(function(){
-			$('.base-box').prepend(`<div class="child-box">prepend${prependCount++}</div>`)
+			$('.base-box').prepend(`<div class="child-box">prepend${prependCount++}</div>`);
 		});
 		$('.btn-prependTo').click(function(){
 			$(`<div class="child-box">prepend${prependCount++}</div>`).prependTo($('.base-box'))
@@ -69,11 +71,14 @@
 			$('.base-box').before(`<div class="box">before${beforeCount++}</div>`);
 		})
 		let afterCount = 1;
-		$('.btn-after).click(function(){
-			$('.base-box').after(`<div class="box">after${afterCount++}</div>`)
+		$('.btn-after').click(function(){
+			$('.base-box').after(`<div class="box">after${afterCount++}<div>`);
 		});
-		$('.btn-remove).click(function(){
-			$('.btn-remove').remove(`<div class="box">after${afterCount++}</div>`)
+		$('.btn-remove').click(function(){
+			$('.base-box').remove();
+		});
+		$('.btn-empty').click(function(){
+			$('.base-box').empty();
 		});
 
 	</script>

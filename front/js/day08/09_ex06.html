@@ -79,8 +79,7 @@
 	<script>
 		//다음 버튼 클릭 이벤트 등록
 		$('.btn-next').click(function(){
-			let curObj = $('.item-menu.selected')
-
+			let curObj = $('.item-menu.selected');
 			//방법1. 현재 요소의 selected 클래스 제거
 			// curObj.removeClass('selected');
 			// //방법2. 모든 메뉴의 selected 클래스 제거
@@ -94,8 +93,7 @@
 		})
 		
 		$('.btn-prev').click(function(){
-			let curObj = $('.item-menu.selected')
-
+			let curObj = $('.item-menu.selected');
 			//현재 요소의 이전 요소에 selected 클래스 추가
 			if(curObj.prev().length != 0)
 				curObj = curObj.prev();
@@ -112,12 +110,22 @@
 				el.addClass('selected');
 		}
 		
-		$('.item-menu').click(function(){
-			$(this).each(item, index, i){
 
-			};
-		});
+		// $('.link-menu').click((index)=>{
+		// 	getContentBox($(this));
+		// });
 
+		function getContentBox(index){
+			$('.item-box').each((item, i)=>{
+					item.prop('hidden',true);
+					item.removeClass('selected');
+				if(index == i){
+					item.prop('hidden',false);
+					item.addClass('selected');
+				}
+			});
+		}
+		
 
 		/* 내가한거
 		$('.link-menu').click(function(){
