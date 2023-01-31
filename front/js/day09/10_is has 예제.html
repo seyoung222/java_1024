@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>is 예제</title>
+	<script src="../js/jquery.min.js"></script>
+</head>
+<body>
+	<div class="box">
+		<span>안녕하세요</span>
+		<p class="title">제 이름은 홍길동입니다.</p>
+		<input type="checkbox" name="fruit" value="바나나">바나나
+	</div>
+	<button class="btn-is">is(:checked)</button>
+	<button class="btn-has">has(:checked)</button>
+</body>
+	<script>
+		/*
+		is()
+		- 결과가 true/false
+		- 특정 상태를 확인할 때 사용
+		- 체크 여부, 애니메이션 진행여부
+		has()
+		- 요소 안에 '선택자'가 있으면 해당 요소들을 반환
+		*/
+		$('.btn-is').click(function(){
+			alert($('[name=fruit]').is(':checked'));
+			//is 응용 - 애니메이션이 누적되지 않고 반복되게 함
+			//애니메이션이 모두 끝나면(애니메이션 중이 아니면) 애니메이션 실행하라
+			if(!$().is(':animated')) {
+				$().animate({});
+			}
+		})
+		$('.btn-has').click(function(){
+			alert($('.box').has('span').length);
+		})
+	</script>
+</body>
+</html>

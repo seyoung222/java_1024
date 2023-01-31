@@ -117,11 +117,12 @@
 
 		function getContentBox(index){
 			$('.item-box').each((item, i)=>{
-					item.prop('hidden',true);
-					item.removeClass('selected');
 				if(index == i){
 					item.prop('hidden',false);
 					item.addClass('selected');
+				}else{
+					item.prop('hidden',true);
+					item.removeClass('selected'); 
 				}
 			});
 		}

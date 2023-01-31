@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>ready 예제</title>
+	<script src="../js/jquery.min.js"></script>
+</head>
+<body>
+
+	<script>
+		$(document).ready(function(){ 
+			//문서가 준비가 되면 실행하라는 의미(현 스크립트 상황에서는 btn을 실행하지 않음)
+			//window.on은 하나만 있어야하는데 document.ready는 여러개 쓸 수 있음
+			//이벤트는 ready()안에, 일반 함수는 바깥에 배치할 것.
+			$('.btn').click(function(){
+				alert('안녕하세요');
+			});
+		})
+		//$(document).ready(function(){});와 같은 의미
+		$(function(){
+		});
+		
+	</script>
+	<button class="btn">클릭</button>
+</body>
+</html>

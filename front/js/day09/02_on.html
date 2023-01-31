@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>on 예제</title>
+</head>
+<body>
+	<button class="btn">버튼 추가1</button>
+	<button class="btn">버튼 추가2</button>
+	<script src="../js/jquery.min.js"></script>
+	<script>
+		/*
+		$(selector).on(event, childSelector, data, function, map)
+			- event : 이벤트명, 필수
+			- childSelcter: 이벤트를 등록할 자식 선택자, 선택
+			- data : 함수에 전달할 매개변수들. 선택
+			- function : 이벤트가 발생하면 실행할 함수. 필수
+			- map : 이벤트와 이벤트 함수로 된 map
+		#(selector).on(event, function);
+		#(selector).on(event, childSelector, function);
+			-	 on을 반드시 사용해야 하는 경우
+				- jqurey에 등록된 이벤트가 아닌 이벤트를 실행해야하는 경우
+				- html(),append()/prepend()/after()/before()을 통해서 요소가 추가된 경우,
+				 해당요소에 자동으로 이벤트가 등록되게 하고 싶을 때
+
+
+		이벤트 해제는 off()
+		*/
+		$('.btn').click(function(){
+			/*
+			해당 클릭으로 만들어진 새 버튼은 눌러도 버튼 추가가 되지않음
+			=> 한번 더 이벤트를 추가해줘야함
+			=> 만들어진 버튼에 의해 만들어진 건 또 작동안함 
+				=> 함수 생성
+
+			$('.btn').last().after('<button class="btn">버튼 추가</button>');
+			$('.btn').last().click(function(){
+				$('.btn').last().after('<button class="btn">버튼 추가</button>');
+			})
+			*/
+			btnClick(); //이 함수로 처리
+		})
+		function btnClick(){
+			$('.btn').last().after('<button class="btn">버튼 추가</button>');
+			$('.btn').last().click(function(){
+				btnClick();
+			});
+		}
+
+
+		$(document).on('click','.btn',function(){
+			$('.btn').last().after('<button class="btn">버튼 추가</button>');
+		}) 
+		//위에가 요소에 이벤트를 추가하는거라면 .on은 문서에 이벤트를 추가하는 것이므로
+		//추가된 요소도 기존과 동일하게 동작하도록 만들 수 있음
+	</script>
+</body>
+</html>

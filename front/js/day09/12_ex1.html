@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>자동으로 슬라이스 넘어가는 페이지</title>
+	<style>
+		*{padding: 0; margin: 0;}
+		a{text-decoration: none;}
+		ul{list-style: none;}
+		.container{
+			height: 50px; margin-top: 30px; border: 3px solid black;
+			overflow: hidden;
+		}
+		.item-menu{
+			height: 50px; line-height: 50px; padding-left: 20px;
+			background-color: steelblue;
+		}
+		.item-menu:nth-child(2n){background-color: aquamarine;}
+	</style>
+	<script src="../js/jquery.min.js"></script>
+</head>
+<body>
+	<div class="container">
+		<ul class="list-menu">
+			<li class="item-menu">
+				<a href="#" class="link-menu">안녕하세요1</a>
+			</li>
+			<li class="item-menu">
+				<a href="#" class="link-menu">안녕하세요2</a>
+			</li>
+			<li class="item-menu">
+				<a href="#" class="link-menu">안녕하세요3</a>
+			</li>
+			<li class="item-menu">
+				<a href="#" class="link-menu">안녕하세요4</a>
+			</li>
+			<li class="item-menu">
+				<a href="#" class="link-menu">안녕하세요5</a>
+			</li>
+		</ul>
+	</div>
+	<script>
+		/*
+		setInterval()
+		animate()
+		*/
+		setInterval(function(){
+			if(!$('.item-menu').first().is(':animated')){
+			//애니메이션 반복하다보면 오류나서 이걸 꼭 넣어줘야함
+				$('.item-menu').first().animate({
+				marginTop : '-=50px'
+				//첫번째 걸 올리면 알아서 뒤에거는 딸려올라옴
+				},900,function(){
+					//첫번째 요소를 떼서 ul태그 자식요소 끝 다음에 추가 후 style 제거
+					//detach()
+					// $(this).detach().appendTo('list-menu').attr(style,'')
+					$(this).detach().appendTo('.list-menu').removeAttr('style');
+				});
+			}
+		},1000);
+		
+	</script>
+</body>
+</html>
