@@ -76,15 +76,7 @@
 
 		// 마우스 호버하면 애니메이션 멈추도록 만들기
 		//hover 이벤트를 등록
-		$('.container').hover(function(){
-		//container나 ul태그 까지는 괜찮은데 li태그는 안됨(넘어갈때 hover2번됨)
-			//마우스가 요소 안으로 들어오면
-			//애니메이션이 진행중인 setInterval를 해제 => clearInteval
-			clearInterval(id);
-		}, function(){
-			//마우스가 요소를 빠져나가면 setInterval를 통해 애니메이션이 진행되도록 작업
-			id=rolling();
-		})
+		
 
 	</script>
 </body>

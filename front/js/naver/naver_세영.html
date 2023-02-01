@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>NAVER</title>
+	<link rel="stylesheet" href="../bootstrap/bootstrap.min.css">
+	<script src="../bootstrap/jquery.js"></script>
+	<script src="../bootstrap/popper.min.js"></script>
+	<script src="../bootstrap/bootstrap.bundle.min.js"></script>
+	<style>
+		/* 기본세팅 */
+		*{margin: 0; padding: 0;}
+		ul,ol{ list-style: none;}
+		a{text-decoration: none;}
+
+		#body{min-width: 1190px; height: 200px; background: rgb(189, 212, 190);
+			font-family: -apple-system,BlinkMacSystemFont,"Malgun Gothic","맑은 고딕",helvetica,"Apple SD Gothic Neo",sans-serif;
+			line-height: 16px; font-size: 12px; color: #202020;
+		}
+		.inner-container{
+			width: 1130px; margin: 0 auto; /*box-sizing:border 추가하거나 패딩만큼 가로 줄임*/
+			padding: 0 30px; background: white;
+		}
+		.box-search{padding: 7px 0; height: 30px; position: relative;}
+
+		.top-menu-list{
+			height: 16px; position: absolute; right: -3px;
+		}
+		.top-menu-item{float: left; font-size: 11px; color: #404040;}
+		.box-search #start-naver-home:hover{text-decoration: underline;}
+		#start-naver-home::after{
+			display: inline-block;
+			width: 26px; height: 26px; 
+			background-image: url(img/img1.png);
+			background-size: 442px 428px; background-repeat: no-repeat;
+			content: ''; background-position: -382px -213px;
+			vertical-align: top; margin: -4px 0;
+		}
+		.top-menu-item~.top-menu-item{margin-left: 12px;}
+		.top-menu-item .bar{
+			width: 1px; height: 10px; background: #e4e8e6;
+			float: left; margin: 3px 0 3px 7px;
+		}
+		.box-search .ico-jrnaver{
+			width: 60px; height: 10px; display: inline-block;
+			background: url(img/img1.png); background-size: 442px 428px;
+			background-position: -264px -296px;
+		}
+		.box-search .ico-jrnaver:hover{
+			width: 60px; height: 10px; display: inline-block;
+			background: url(img/img1.png); background-size: 442px 428px;
+			background-position: -326px -296px;
+		}
+		.box-search .ico-happybin{
+			width: 34px; height: 11px;  display: inline-block;
+			background: url(img/img1.png); background-size: 442px 428px;
+			background-position: -365px -245px; margin: 2px 0;
+		}
+		.box-search .ico-happybin:hover{
+			width: 34px; height: 11px;  display: inline-block;
+			background: url(img/img1.png); background-size: 442px 428px;
+			background-position: -380px -199px; margin: 2px 0;
+		}
+
+		.inner-container .search-bar{
+			width: 582px; height: 52px; background: white; 
+			border: 2px solid #19ce60; border-radius: 2px;
+			position: relative;
+		}
+		.inner-container .search-bar #search-input{
+			width: 444px; height: 24px;
+			padding: 1px 15px; line-height: 24px;
+			font-size: 18px; font-weight: 700; 
+			margin: 12px 0; outline: none; 
+			border: 0; border-radius: 0;
+		}
+		.inner-container .search-bar #search-button{
+			width: 56px; 
+			border: 0; background: #19ce60;
+			position: absolute; top: -2px; right: -2px; bottom: -2px;
+			border-radius: 0 2px 2px 0;
+		}
+		.inner-container .search-bar .ico-search-submit{
+			width: 22px; height: 22px; display: inline-block;
+			background: url(img/img1.png); background-size: 442px 428px;
+			background-position: -420px -24px
+		}
+		.inner-container .search-bar .keyboard .ico-keyboard{
+			width: 20px; height: 12px; display: inline-block;
+			background: url(img/img1.png); background-size: 442px 428px;
+			background-position: -398px -267px;
+			margin-left: 6px;
+		}
+
+		
+		.blind{
+			position: absolute;
+			width: 1px; height: 1px; margin: -1px; overflow: hidden;
+		}
+	</style>
+</head>
+<body>
+	<div id="body">
+		<div class="container-search">
+			<div class="inner-container">
+				<div class="box-search">
+					<div class="top-menu-list">
+						<div class="top-menu-item">
+						<a href="https://help.naver.com/service/30016/contents/18042?osType=PC&lang=ko" 
+						target="_self" class="top-menu-item" id="start-naver-home">네이버를 시작페이지로</a>
+						<i class="bar"></i>
+						<a href="https://jr.naver.com/?logout=true" target="_self" id="junior-naver-home"
+						class="top-menu-item">
+							<i class="ico-jrnaver"></i>
+							<span class="blind">쥬니어네이버</span>
+						</a>
+						<a href="https://happybean.naver.com/" target="_self" id="happybin-home"
+						class="top-menu-item">
+							<i class="ico-happybin"></i>
+							<span class="blind">해피빈</span>
+						</a>
+						</div>
+					</div>
+					<div class="search-bar">
+						<input type="text" id="search-input">
+						<span class="keyboard">
+							<i class="ico-keyboard"></i>
+							<span class="blind">가상키보드</span>
+						</span>
+						<span class="auto-complete">
+							<i class="ico-auto-complete"></i>
+							<span class="blind">자동완성</span>
+						</span>
+						<button type="submit" id="search-button">
+							<i class="ico-search-submit"></i>
+							<span class="blind">검색</span>
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="container-menu"></div>
+		<div class="container-body"></div>
+		<footer class="container-footer"></footer>
+	</div>
+</body>
+</html>

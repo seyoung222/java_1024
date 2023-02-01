@@ -1,0 +1,1118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>NAVER</title>
+	<script src="../js/jquery.min.js"></script>
+	<script src="naver.js"></script>
+	<style>
+		/* 기본세팅 */
+		*{margin: 0; padding: 0;}
+		ul,ol{ list-style: none;}
+		a{text-decoration: none;}
+
+		#body{
+			min-width: 1190px; height: 1000px;
+			font-family: -apple-system,BlinkMacSystemFont,"Malgun Gothic","맑은 고딕",helvetica,"Apple SD Gothic Neo",sans-serif;
+			line-height: 16px; font-size: 12px; color: #202020;
+		}
+		.inner-container{
+			width: 1130px; margin: 0 auto; /*box-sizing:border 추가하거나 패딩만큼 가로 줄임*/
+			padding: 0 30px;
+		}
+		.box-search{ position: relative; height: 160px; 
+			/* background-color: bisque; */ }
+		.box-search .box-service{
+			position: absolute; right: -3px; top: 12px;
+		}
+		.box-search .link-start-page{
+			font-size: 11px; color: #404040;
+			float: left; /*엔터공백 없애고 글자사이즈 다를 때 어긋나지 말라고 띄움*/
+		}
+		.box-search .link-start-page:hover{text-decoration: underline;}
+		.box-search .link-start-page::after{
+			content: ''; /* after/before하면 content는 무조건 써야함. 비면 ''라도~! */
+			width: 26px; height: 26px; display: inline-block;
+			background-position: -382px -213px;
+			vertical-align: top; margin: -3px 0 0 3px;
+		}
+		.box-search .icon-bar{
+			float: left; width: 1px; height: 10px; margin: 3px 7px;
+			background: #e4e8eb;
+		}
+		.box-search .link-jrnaver{
+			float: left;
+		}
+		.box-search .link-jrnaver .icon-jrnaver{
+			width: 60px; height: 10px; background-position: -264px -296px;
+			display: inline-block; vertical-align: top; margin: 3px;
+		}
+		.box-search .link-jrnaver:hover .icon-jrnaver{
+			background-position: -326px -296px;
+		}
+		.box-search .link-happybean{
+			float: left; margin-left: 6px;
+		}
+		.box-search .link-happybean .icon-happybean{
+			width: 34px; height: 11px; background-position: -365px -245px;
+			display: inline-block; vertical-align: top; margin: 3px 3px 2px;
+		}
+		.box-search .link-happybean:hover .icon-happybean{
+			background-position: -380px -199px;
+		}
+/* 검색창 */
+		.box-search .box-search-area{
+			position: absolute; top: 50%; left: 238px;
+			margin-top: -28px;
+		}
+		.box-search .form-search{
+			width: 582px; height: 52px; border: 2px solid #19ce60;
+			border-radius: 2px;
+		}
+		.box-search .input-search{
+			width: 444px; height: 24px; padding: 13px 15px;
+			margin: 1px; background: white;
+			font-size: 18px; line-height: 24px; color: black;
+			font-weight: bold; outline: 0; border: 0;
+		}
+		.box-search .btn-search{
+			position: absolute; top: 0; right: 0; bottom: 0;
+			width: 56px; background-color: #19ce60;
+			border: 0; outline: 0; 
+			border-radius: 0 2px 2px 0; cursor: pointer;
+		}
+		.box-search .icon-search{
+			width: 22px; height: 22px; display: inline-block;
+			vertical-align: top; background-position: -420px -24px;
+		}
+		.box-search .btn-kbd{
+			position: absolute; top: 0; bottom: 0; right: 84px;
+			width: 36px; 
+		}
+		.box-search .icon-kbd{
+			display: inline-block; width: 20px; height: 12px;
+			background-position: -398px -267px;
+			position: absolute; top: 50%; left: 50%; 
+			margin: -6px 0 0 -10px;
+		}
+		.box-search .btn-auto-complete{
+			position: absolute; top: 0; bottom: 0; right: 64px;
+			width: 22px;
+		}
+		.box-search .icon-auto-complete{
+			display: inline-block; width: 10px; height: 5px;
+			background-position: -158px -151px;
+			position: absolute; top: 50%; left: 50%; 
+			margin: -2px 0 0 -5px;
+		}
+		.box-search .icon-naver-logo{
+			width: 222px; height: 52px; display: inline-block;
+			vertical-align: top; background-position: 0 -158px;
+		}
+		.box-search .link-naver-logo{
+			position: absolute; top: 50%; left: -9px;
+			margin-top: -32px;
+			/* 보통 가운데놓을때 top50%으로 두고 요소의 높이(52px)의 반만큼 위로 올림
+			여기선 검색창이랑 맞추려고 더 높혀서 -32px */
+		}
+		.container-search{ border-bottom: 1px solid #e4e8eb;}
+/* 메뉴 */
+		.group-menu>*{
+			float: left;
+		}
+		.group-menu{padding: 11px 270px 11px 0;}
+		.group-menu .item-fix-menu{ float: left;}
+		.group-menu .item-fix-menu~.item-fix-menu{margin-left: 12px;}
+		.group-menu .link-fix-menu, .group-menu .link-favority-menu{
+			color: #03c75a; display: block; font-size: 15px;
+			line-height: 30px; font-weight: bold; letter-spacing: -.3px;
+		}
+		.group-menu .icon-mail{
+			width: 21px; height: 21px; display: inline-block;
+			background-position: -420px -73px; margin: 3px 9px 0 0;
+			vertical-align: top;
+		}
+		.group-menu .icon-shopping{
+			width: 24px; height: 20px; display: inline-block;
+			background-position: -76px -386px; vertical-align: top;
+		}
+		.group-menu .icon-shopping-live{
+			width: 54px; height: 20px; display: inline-block;
+			background-position: -209px -267px; vertical-align: top;
+		}
+		.group-menu .item-fix-menu:nth-child(5),
+		.group-menu .item-fix-menu:nth-child(6){ padding: 5px 0;}
+		.group-menu .item-fix-menu:nth-child(5) a,
+		.group-menu .item-fix-menu:nth-child(6) a{line-height: 0;}
+		.group-menu .icon-tv{
+			width: 12px; height: 14px; display: inline-block;
+			background-position: -256px -212px; vertical-align: top;
+			margin: 9px 2px 0 0;
+		}
+		.group-menu .list-favority-menu{margin-left: 12px;}
+		.group-menu .item-favority-menu{ float: left;}
+		.group-menu .item-favority-menu~.item-favority-menu{margin-left: 12px;}
+		.group-menu .link-favority-menu{color: #000;}
+		.group-menu .btn-more{
+			margin-left: 17px; font-size: 13px; line-height: 30px;
+			color: #202020;
+		}
+		.group-menu .icon-more{
+			width: 11px; height: 7px; display: inline-block;
+			background-position: -402px -296px; vertical-align: 2px;
+			margin-left: 7px;
+		}
+		.group-weather{
+			width: 270px; height: 52px; 
+			position: absolute; top: 0; right: 0; bottom: 0;
+			overflow: hidden; text-align: right; background-color: #03c75a;
+		}
+		.container-menu .box-menu{position: relative;}
+		.container-menu{ box-shadow: 0 1px 3px 0 rgb(0,0,0,0.12);}
+/* 메인 */
+.container-body .inner-container{padding: 20px 30px;}
+/* left1 */
+		.box-body .box-body-left{width: 750px; float: left;}
+		.box-body .box-body-right{width: 350px; float: right;}
+		.box-body .box-body-left1{height: 135px; position: relative;}
+		.box-body .box-body-left1 .frame{
+			height: 135px; width: 750px;
+		}
+		.box-body .line{
+			position: absolute; background-color: #000; opacity: .07;
+		}
+		.box-body .line-top{height: 1px; top: 0; left: 0; right: 0;}
+		.box-body .line-bottom{height: 1px; bottom: 0; left: 0; right: 0;}
+		.box-body .line-left{width: 1px; top: 0; bottom: 0; left: 0;}
+		.box-body .line-right{width: 1px; top: 0; bottom: 0; right: 0;}
+/* right1 */
+		.box-body-right1{
+			padding: 16px 16px 12px 17px; border: 1px solid #dae1e6; background-color: #f7f9fa;
+		}
+		.box-body-right1 .box-title{
+			font-size: 12px; line-height: 16px; letter-spacing: -.2px;
+			color: grey; padding-left: 3px;
+		}
+		.box-body-right1 .link-login{
+			display: block; padding: 15px 0; font-size: 13px; text-align: center;
+			margin-top: 11px; border-radius: 2px; border: 1px solid #15c654;
+			background-color: #19ce60; font-weight: bold; color: #fff;
+		}
+		.box-body-right1 .icon-login{
+			width: 60px; height: 12px; display: inline-block;
+			background-position: -202px -296px; vertical-align: top;
+			margin: 2px 5px 0 0;
+		}
+		.box-body-right1 .box-service{
+			margin: 14px 8px 0 4px; letter-spacing: -.2px;
+		}
+		.box-body-right1 .link-find-id{
+			letter-spacing: -.2px; color: #404040;}
+		.box-body-right1 .box-service::before{
+			width: 10px; height: 14px; display: inline-block;
+			background-position: -408px -55px; vertical-align: top;
+			margin: -1px 1px 1px; content: '';
+		}
+		.box-body-right1 .link-find-pw{
+			letter-spacing: -.2px; color: #404040;}
+		.box-body-right1 .link-find-pw::before{
+			width: 3px; height: 3px; display: inline-block;
+			background-color: #d7dce0; vertical-align: 3px; border-radius: 50%;
+			margin: 0 5px 0 6px; content: '';
+		}
+		.box-body-right1 .link-signup{
+			float: right;letter-spacing: -.2px; color: #505050;}
+		.box-body-right1 .link-signup::before{
+			width: 11px; height: 11px; display: inline-block;
+			background-position: -401px -245px; vertical-align: top;
+			margin: 2px 5px 0 0; content: '';
+		}
+		.box-body-right1 .box-service>*:hover{text-decoration: underline;}
+/* left2 */
+	/* left 2-1 */
+		.box-body .box-body-left2{margin-top: 12px;}
+		.box-body-left2 .box-head{
+			border: 1px solid #dae1e6; padding: 12px 15px 11px 15px;
+			background-color: #f7f9fa; line-height: 24px; 
+		}
+		.box-body-left2 .box-contents{ float: left;}
+		.box-body-left2 .box-head .box-service{float: right;}
+		.box-body-left2 .link-media{
+			letter-spacing: -.3px; float: left; 
+			font-size: 13px; font-weight: 700; padding-right: 12px;
+			margin-right: 7px; position: relative; color: #000;
+		}
+		.box-body-left2 .link-media::after{
+			width: 6px; height: 10px; display: inline-block; content: '';
+			background-position: -262px -112px; vertical-align: top;
+			position: absolute; top: 7px; right: 0;			
+		}
+		.box-body-left2 .list-issue{width: 310px; height: 24px; overflow: hidden;}
+		.box-body-left2 .link-issue{
+			display: block; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;
+			color: #202020; font-size: 13px; letter-spacing: -.2px;
+		}
+		.box-body-left2 .item-issue:hover .link-issue{text-decoration: underline;}
+		.box-body-left2 .box-head .box-service>*{
+			float: left; line-height: 24px; font-size: 13px; color: #202020;
+			letter-spacing: -.2px; font-weight: 700; margin: 0 4px 0 7px;
+		}
+		.box-body-left2 .box-head .box-service>.link-news-home{
+			margin: 0; color: #3565c9;
+		}
+		.box-body-left2 .box-head .box-service>.link-news-home::after{
+			width: 3px; height: 3px; display: inline-block; content: '';
+			vertical-align: 3px; margin-left: 8px; border-radius: 50%; background-color: #c8ccd1;	
+		}
+	/* left 2-1 */
+		.box-body-left2 .box-title{
+			padding: 22px 0 16px; font-size: 14px; line-height: 18px;
+		}
+		.box-body-left2 .box-title .box-news-stand{float: left;}
+		.box-body-left2 .box-title .link-news-stand{
+			float: left; color: #000; font-weight: 700; letter-spacing: -.2px;
+		}
+		.box-body-left2 .box-title .link-news-stand::before{
+			width: 27px; height: 24px; display: inline-block; content: '';
+			background-position: -272px -342px; vertical-align: top;
+			margin: -6px 1px 0 0;
+		}
+		.box-body-left2 .box-title .link-news-stand::after{
+			width: 7px; height: 11px; display: inline-block; content: '';
+			background-position: -410px -213px; vertical-align: -1px;
+			margin-left: 6px;
+		}
+		.box-body-left2 .box-title .box-service{float: right;}
+		.box-body-left2 .box-title .box-list{float: left; margin-left: 10px;}
+		.box-body-left2 .box-title .btn-my-list,
+		.box-body-left2 .box-title .btn-all-list{
+			font-size: 14px; color: #505050; letter-spacing: -.2px;
+		}
+		.box-body-left2 .box-title .btn-all-list{margin-left: 0;}
+		.box-body-left2 .box-title .btn-my-list[aria-selected=true],
+		.box-body-left2 .box-title .btn-all-list[aria-selected=true]{
+			font-weight: bold; color: #000;
+		}
+		.box-body-left2 .box-title .btn-all-list::before{
+			width: 4px; height: 4px; display: inline-block; content: '';
+			background-color: #c7ccd1; border-radius: 50%; vertical-align: 3px;
+			margin: 0 8px 0 4px;
+		}
+		.box-body-left2 .box-title .box-service>*{
+			float: left; padding: 0 9px;
+		}
+		.box-body-left2 .box-title .icon-press-list{
+			width: 14px; height: 13px; display: inline-block; content: '';
+			background-position: -244px -310px; vertical-align: top; opacity: 0.7;
+		}
+		.box-body-left2 .box-title .icon-press-thumb{
+			width: 13px; height: 13px; display: inline-block; content: '';
+			background-position: -291px -310px; vertical-align: top; opacity: 0.7;
+		}
+		.box-body-left2 .box-title .icon-set{
+			width: 15px; height: 15px; display: inline-block; content: '';
+			background-position: -102px -386px; vertical-align: top; opacity: 0.7;
+			margin: -1px 0 1px;
+		}
+		.box-body-left2 .box-title .box-service>a:hover i{opacity: 1;}
+		.box-body-left2 .box-title .box-service [aria-selected=true] .icon-press-list{
+			opacity: 1; background-position: -260px -310px;
+		}
+		.box-body-left2 .box-title .box-service [aria-selected=true] .icon-press-thumb{
+			opacity: 1; background-position: -276px -310px;
+		}
+		/* left 2-3 */
+		.box-body-left2 .box-body{
+			border: 1px solid #dae1e6; border-width: 1px 0; height: 260px;
+			position: relative;
+		}
+		.box-body-left2 .box-body .item-press{
+			float: left; width: 16.66%; height: 65px; position: relative;
+		}
+		.box-body-left2 .box-body .box-thumb{
+			width: 100%; padding: 23px 0 22px; text-align: center;
+			display: block; /* 이걸해야 너비랑 높이가 할당됨 */
+		}
+		.box-body-left2 .box-body .item-press:hover .popup-wrap{display: block;}
+		.box-body-left2 .box-body .popup-wrap{
+			display: none; position: absolute; top: 0; bottom: 0; left: 0; right: 0;
+			/* position:absolute로 위에 걍 덮는거임.... */
+			background-color: #f7f9fa; font-size: 0; line-height: 0; text-align: center;
+			padding: 19px 0 18px;
+		}
+		.box-body .popup-wrap a{
+			padding: 7px 8px 5px; border: 1px solid #dae1e6; background-color: #fff;
+			font-size: 12px; line-height: 16px; color: #505050; display: inline-block;
+		}
+		.box-body-left2 .popup-wrap a+a{margin-left: -1px;}
+		.box-body-left2 .popup-wrap{
+			border-color: #bec8d8; position: relative;
+		}
+		.box-body-left2 .list-press{
+			border: 1px solid #dae1e6; border-width: 0 1px;
+		}
+		.box-body-left2 .box-line [class^=line-to-]{
+			position: absolute; background-color: #e4e8eb;
+		}
+		.box-body-left2 .box-line [class^=line-to-right]{
+			left: 0; right: 0; height: 1px;
+		}
+		.box-body-left2 .box-line .line-to-right1{top: 65px;}
+		.box-body-left2 .box-line .line-to-right2{top: 130px;}
+		.box-body-left2 .box-line .line-to-right3{top: 195px;}
+		.box-body-left2 .box-line [class^=line-to-bottom]{
+			top: 0; bottom: 0; width: 1px;
+		}
+		.box-body-left2 .box-line .line-to-bottom1{left: 124px;}
+		.box-body-left2 .box-line .line-to-bottom2{left: 248px;}
+		.box-body-left2 .box-line .line-to-bottom3{left: 372px;}
+		.box-body-left2 .box-line .line-to-bottom4{left: 497px;}
+		.box-body-left2 .box-line .line-to-bottom5{left: 622px;}
+		.box-body-left2 .btn-prev{
+			position: absolute; width: 44px; height: 44px;
+			top: 109px; left: -27px; background-position: -224px -158px;
+			z-index: 10px;
+		}
+		.box-body-left2 .btn-prev:hover{background-position: -46px -296px;}
+		.box-body-left2 .btn-next{
+			position: absolute; width: 44px; height: 44px;
+			top: 109px; right: -13px; background-position: -92px -296px;
+			z-index: 10px;
+		}
+		.box-body-left2 .btn-next:hover{background-position: 0 -296px;}
+/* right2 */
+		.box-body-right2{
+			position: relative; border: 1px solid #dae1e6; padding-right: 67px;
+			height: 47px; letter-spacing: -.25px; margin: 12px 0;
+		}
+		.box-body-right2 .box-in{
+			height: 100%; overflow: hidden;
+		}
+		.box-body-right2 .list-stock{
+			width: 400%; height: 100%;
+		}
+		.box-body-right2 .item-stock{
+			width: 25%; height: 100%; float: left;
+		}
+		.box-body-right2 .link-stock{
+			display: block; padding: 14px 0 13px 16px;
+		}
+		.box-body-right2 .news-badge{
+			float: left; border: 1px solid #202020; padding: 0 7px;
+			border-radius: 10px; font-size: 11px; line-height: 18px; color: #202020;
+			font-weight: 700;  margin-right: 8px; font-style: normal;
+		}
+		.box-body-right2 .news{
+			line-height: 20px; font-size: 13px; color: #202020; 
+			display: block; overflow: hidden;
+		}
+		.box-body-right2 .box-btn{
+			position: absolute; top: 11px; right: 10px;
+		}
+		.box-body-right2 .box-btn>*{
+			float: left; background-color: #fff; border: 1px solid #e4e8eb;
+			line-height: 0;
+		}
+		.box-body-right2 .box-btn .btn-next{margin-left: -1px;}
+		.box-body-right2 .box-btn .btn-prev .icon-prev,
+		.box-body-right2 .box-btn .btn-next .icon-next{
+		display: inline-block; width: 6px; height: 9px;
+		background-position: -162px -327px; padding: 7px 8px 6px;
+		} 
+		.box-body-right2 .box-btn .btn-next .icon-next{
+			background-position: -146px -327px;
+		}
+/* right 3 */
+		.box-body-right3{
+			height: 200px; overflow: hidden; position: relative;
+		}
+		.box-body-right3 > iframe{
+			height: 200px; width: 350px;
+		}
+/* left 3 */
+		.box-body-left3{margin: 35px 0 27px;}
+		.box-body-left3 .box-title{margin-bottom: 17px;}
+		.box-body-left3 .area-title{float: left; letter-spacing: -.25px;}
+		.box-body-left3 .area-info{float: right; letter-spacing: -.25px;}
+		.box-body-left3 .area-title .title{
+			font-size: 14px; color: #000;
+		}
+		.box-body-left3 .area-title .dsc{color: grey; margin-left: 8px;}
+		.box-body-left3 .area-info .info{color: gray;}
+		.box-body-left3 .area-info .info strong{color: #000;}
+		.box-body-left3 .area-info .btn-set{
+			color: #505050; margin-left: 14px; position: relative;
+		}
+		.box-body-left3 .area-info .btn-set::before{
+			width: 11px; height: 11px; display: inline-block; content: '';
+			background-position: -358px -310px; margin-right: 4px; vertical-align: -1px;
+			opacity: .7;
+		}
+		.box-body-left3 .area-info .btn-set:hover{text-decoration: underline;}
+		.box-body-left3 .area-info .btn-set:hover::before{opacity: 1;}
+		.box-body-left3 .area-info .btn-set::after{
+			width: 1px; height: 12px; display: inline-block; content: '';
+			position: absolute; top: 2px; left: -8px; background-color: #e4e8eb;
+		}
+		.box-body-left3 .box-menu{position: relative;}
+		.box-body-left3 .box-menu::before{
+			position: absolute; top: 0; right: 0; bottom: 0; left: 0;
+			border: 1px solid #dae1e6; content: '';
+		}
+		.box-body-left3 .box-menu .box-in{overflow: hidden;}
+		.box-body-left3 .box-menu .list-menu{
+			font-size: 0; line-height: 0; white-space: nowrap;
+		}
+		.box-body-left3 .box-menu .item-menu{
+			display: inline-block; font-size: 13px; line-height: 49px;
+			width: 94px; position: relative;
+		}
+		.box-body-left3 .box-menu .item-menu:nth-child(8n+1){width: 92px;}
+		.box-body-left3 .box-menu .btn-menu{
+			display: block; text-align: center; font-weight: 700; font-size: 13px;
+			border-right: 1px solid #dae1e6; color: #202020; letter-spacing: -.25px;
+		}
+		.box-body-left3 .box-menu .icon-middot{
+			width: 2px; height: 2px; display: inline-block; border-radius: 50%;
+			background-color: rgba(32,32,32,.8); vertical-align: 4px; margin: 0 2px;
+		}
+		.box-body-left3 .item-menu [aria-selected=true]{
+			position: relative; border-radius: 1px;
+			margin: 0 -1px; box-shadow: 0 3px 6px 0 rgb(0 0 0/16%);
+			color: #fff !important; /*우선순위지정. 호버해도 색 안변함(나중설정적용X)*/
+		}
+		.box-body-left3 .item-menu .enter:hover{color: #e65da0;}
+		.box-body-left3 .item-menu .sports:hover{color: #0147b5;}
+		.box-body-left3 .item-menu .car:hover{color: #4a94e1;}
+		.box-body-left3 .item-menu .webtoon:hover{color: #66c971;}
+		.box-body-left3 .item-menu .finance:hover{color: #35ae5e;}
+		.box-body-left3 .item-menu .myfeed:hover{color: #5290ff;}
+		.box-body-left3 .item-menu .recipe:hover{color: #ebaa00;}
+		.box-body-left3 .item-menu .living:hover{color: #c08d31;}
+		.box-body-left3 .item-menu .book:hover{color: #42be6f;}
+		.box-body-left3 .item-menu .beauty:hover{color: #8449ca;}
+		
+		.box-body-left3 .item-menu .enter[aria-selected=true]{background-color: #e65da0;}
+		.box-body-left3 .item-menu .sports[aria-selected=true]{background-color: #0147b5;}
+		.box-body-left3 .item-menu .car[aria-selected=true]{background-color: #4a94e1;}
+		.box-body-left3 .item-menu .webtoon[aria-selected=true]{background-color: #66c971;}
+		.box-body-left3 .item-menu .finance[aria-selected=true]{background-color: #35ae5e;}
+		.box-body-left3 .item-menu .myfeed[aria-selected=true]{background-color: #5290ff;}
+		.box-body-left3 .item-menu .recipe[aria-selected=true]{background-color: #ebaa00;}
+		.box-body-left3 .item-menu .living[aria-selected=true]{background-color: #c08d31;}
+		.box-body-left3 .item-menu .book[aria-selected=true]{background-color: #42be6f;}
+		.box-body-left3 .item-menu .beauty[aria-selected=true]{background-color: #8449ca;}
+
+ 
+
+/* 공통 */
+		.clearfix::after{
+			clear: both; display: block; content: '';
+		}
+		.blind{
+			position: absolute;
+			width: 1px; height: 1px; margin: -1px; overflow: hidden;
+		}
+		.img1::after, .icon-jrnaver.img1, .icon-happybean.img1,
+		.icon-search.img1, .icon-kbd.img1, .icon-auto-complete.img1,
+		.icon-naver-logo.img1, .icon-mail.img1, .icon-shopping.img1,
+		.icon-shopping-live.img1, .icon-tv.img1, .icon-more.img1,
+		.icon-login.img1, .box-body-right1 .box-service::before,
+		.box-body-right1 .link-signup::before, .link-media::after,
+		.box-body-left2 .box-title .link-news-stand::before,
+		.box-body-left2 .box-title .link-news-stand::after,
+		.box-body-left2 .box-title .icon-press-list,
+		.box-body-left2 .box-title .icon-press-thumb,
+		.box-body-left2 .box-title .icon-set,
+		.box-body-left2 .box-title .box-service [aria-selected=true] .icon-press-list,
+		.box-body-left2 .box-title .box-service [aria-selected=true] .icon-press-list,
+		.box-body-left2 .btn-prev, .box-body-left2 .btn-next,
+		.box-body-right2 .box-btn .btn-prev .icon-prev,
+		.box-body-right2 .box-btn .btn-next .icon-next,
+		.box-body-left3 .area-info .btn-set::before{ 
+			/*사진 불러오려고 따로씀 img1이 필요할때마다 클래스 소환*/
+			background-image: url(img/img1.png);
+			background-size: 442px 428px;
+		}
+	</style>
+</head>
+<body>
+	<!-- 한번만 사용하는 요소는 id, 재사용가능성 있는 요소는 class로 지정하는게 좋음 -->
+	<div id="body">
+		<div class="container-search">
+			<div class="inner-container">
+				<div class="box-search">
+					<div class="box-service">
+						<a href="https://help.naver.com/service/30016/contents/18042?osType=PC&lang=ko"
+						 class="link-start-page img1">네이버를 시작페이지로</a>
+						<i class="icon-bar"></i>
+						<a href="https://jr.naver.com/" class="link-jrnaver">
+							<i class="icon-jrnaver img1"></i>
+							<span class="blind">쥬니어네이버</span>
+						</a>
+						<a href="https://happybean.naver.com/" class="link-happybean">
+							<i class="icon-happybean img1"></i>
+							<span class="blind">해피빈</span>
+						</a>
+					</div>
+					<!-- 우측 상단 서비스 페이지 구현 완료 -->
+					<div class="box-search-area">
+						<form action="" class="form-search">
+							<input type="text" class="input-search">
+							<button class="btn-search">
+								<i class="icon-search img1"></i>
+								<span class="blind">검색</span>
+							</button>
+							<a href="#" class="btn-kbd">
+								<i class="icon-kbd img1"></i>
+								<span class="blind">가상키보드</span>
+							</a>
+							<a href="#" class="btn-auto-complete">
+								<i class="icon-auto-complete img1"></i>
+								<span class="blind">자동완성</span>
+							</a>
+						</form>
+					</div>
+					<!-- 검색창 구현 완료 -->
+					<a href="http://www.naver.com" class="link-naver-logo">
+						<i class="icon-naver-logo img1"></i>
+						<span class="blind">네이버 로고</span>
+					</a>
+					<!-- NAVER 로고 구현 완료 -->
+				</div>
+			</div>
+		</div>
+		<div class="container-menu">
+			<div class="inner-container">
+				<div class="box-menu">
+					<div class="group-menu clearfix">
+						<ul class="list-fix-menu clearfix">
+							<li class="item-fix-menu">
+								<a href="#" class="link-fix-menu">
+									<i class="icon-mail img1"></i>메일
+								</a>
+							</li>
+							<li class="item-fix-menu">
+								<a href="#" class="link-fix-menu">카페</a>
+							</li>
+							<li class="item-fix-menu">
+								<a href="#" class="link-fix-menu">블로그</a>
+							</li>
+							<li class="item-fix-menu">
+								<a href="#" class="link-fix-menu">지식iN</a>
+							</li>
+							<li class="item-fix-menu">
+								<a href="#" class="link-fix-menu">
+									<i class="icon-shopping img1"></i>
+									<span class="blind">쇼핑</span>
+								</a>
+							</li>
+							<li class="item-fix-menu">
+								<a href="#" class="link-fix-menu">
+									<i class="icon-shopping-live img1"></i>
+									<span class="blind">쇼핑live</span>
+								</a>
+							</li>
+							<li class="item-fix-menu">
+								<a href="#" class="link-fix-menu">Pay</a>
+							</li>
+							<li class="item-fix-menu">
+								<a href="#" class="link-fix-menu">
+									<i class="icon-tv img1"></i>TV
+								</a>
+							</li>
+						</ul>
+						<!-- fix메뉴 구현 완료 -->
+						<ul class="list-favority-menu clearfix">
+							<li class="item-favority-menu">
+								<a href="" class="link-favority-menu">사전</a>
+							</li>
+							<li class="item-favority-menu">
+								<a href="" class="link-favority-menu">뉴스</a>
+							</li>
+							<li class="item-favority-menu">
+								<a href="" class="link-favority-menu">증권</a>
+							</li>
+							<li class="item-favority-menu">
+								<a href="" class="link-favority-menu">부동산</a>
+							</li>
+							<li class="item-favority-menu">
+								<a href="" class="link-favority-menu">지도</a>
+							</li>
+							<li class="item-favority-menu">
+								<a href="" class="link-favority-menu">VIBE</a>
+							</li>
+							<li class="item-favority-menu">
+								<a href="" class="link-favority-menu">도서</a>
+							</li>
+							<li class="item-favority-menu">
+								<a href="" class="link-favority-menu">웹툰</a>
+							</li>
+						</ul>
+						<!-- favority 메뉴 구현 완료 -->
+						<a href="#" class="btn-more">더보기<i class="icon-more img1"></i></a>
+					</div>
+					<div class="group-weather"></div>
+				</div>
+			</div>
+		</div>
+		<div class="container-body">
+			<div class="inner-container">
+				<div class="box-body clearfix">
+					<div class="box-body-left">
+						<div class="box-body-left1">
+							<iframe src="add1.html" frameborder="0" class="frame"></iframe>
+							<span class="line line-top"></span>
+							<span class="line line-bottom"></span>
+							<span class="line line-left"></span>
+							<span class="line line-right"></span>
+							<!-- border때문에 사이즈 밀리지 않도록 위에 선을 따로 올림 -->
+						</div>
+						<!-- ~메인 왼쪽 1번째 박스 -->
+						<div class="box-body-left2">
+							<div class="box-head">
+								<div class="box-in clearfix">
+									<div class="box-contents">
+										<a href="" class="link-media">연합뉴스</a>
+										<ul class="list-issue">
+											<li class="item-issue">
+												<a href="" class="link-issue">1계절 거슬러가는 날씨…내일 낮 기온 대부분 지역서 10도 넘어</a>
+											</li>
+											<li class="item-issue">
+												<a href="" class="link-issue">2계절 거슬러가는 날씨…내일 낮 기온 대부분 지역서 10도 넘어</a>
+											</li>
+										</ul>
+									</div>
+									<div class="box-service">
+										<a href="" class="link-news-home">뉴스홈</a>
+										<a href="" class="link-entertain">연예</a>
+										<a href="" class="link-sports">스포츠</a>
+										<a href="" class="link-economic">경제</a>
+									</div>
+								</div>
+							</div>
+							<div class="box-title clearfix">
+								<div class="box-news-stand">
+									<a href="" class="link-news-stand">뉴스스탠드</a>
+									<div class="box-list">
+										<a href="" class="btn-my-list" aria-selected="false">구독한 언론사</a>
+										<a href="" class="btn-all-list" aria-selected="true">전체언론사</a>
+									</div>
+								</div>
+								<div class="box-service">
+									<a href="" class="btn-press-list" aria-selected="false">
+										<i class="icon-press-list"></i>
+										<span class="blind">리스트형</span>
+									</a>
+									<a href="" class="btn-press-thumb" aria-selected="true">
+										<i class="icon-press-thumb"></i>
+										<span class="blind">썸네일형</span>
+									</a>
+									<a href="" class="list-news-set">
+										<i class="icon-set"></i>
+										<span class="blind">설정버튼</span>
+									</a>
+								</div>
+							</div>
+							<div class="box-body">
+								<ul class="list-press clearfix">
+									<li class="item-press">
+										<a href="" class="box-thumb">
+											<img height="20" src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/311.png" alt="언론사">
+										</a>
+										<span class="popup-wrap">
+											<a href="" class="btn-subscribe">구독</a>
+											<a href="" class="link-view-news">기사보기</a>
+										</span>
+									</li>
+									<li class="item-press">
+										<a href="" class="box-thumb">
+											<img height="20" src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/311.png" alt="언론사">
+										</a>
+										<span class="popup-wrap">
+											<a href="" class="btn-subscribe">구독</a>
+											<a href="" class="link-view-news">기사보기</a>
+										</span>
+									</li>
+									<li class="item-press">
+										<a href="" class="box-thumb">
+											<img height="20" src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/311.png" alt="언론사">
+										</a>
+										<span class="popup-wrap">
+											<a href="" class="btn-subscribe">구독</a>
+											<a href="" class="link-view-news">기사보기</a>
+										</span>
+									</li>
+									<li class="item-press">
+										<a href="" class="box-thumb">
+											<img height="20" src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/311.png" alt="언론사">
+										</a>
+										<span class="popup-wrap">
+											<a href="" class="btn-subscribe">구독</a>
+											<a href="" class="link-view-news">기사보기</a>
+										</span>
+									</li>
+									<li class="item-press">
+										<a href="" class="box-thumb">
+											<img height="20" src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/311.png" alt="언론사">
+										</a>
+										<span class="popup-wrap">
+											<a href="" class="btn-subscribe">구독</a>
+											<a href="" class="link-view-news">기사보기</a>
+										</span>
+									</li>
+									<li class="item-press">
+										<a href="" class="box-thumb">
+											<img height="20" src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/311.png" alt="언론사">
+										</a>
+										<span class="popup-wrap">
+											<a href="" class="btn-subscribe">구독</a>
+											<a href="" class="link-view-news">기사보기</a>
+										</span>
+									</li>
+									<li class="item-press">
+										<a href="" class="box-thumb">
+											<img height="20" src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/311.png" alt="언론사">
+										</a>
+										<span class="popup-wrap">
+											<a href="" class="btn-subscribe">구독</a>
+											<a href="" class="link-view-news">기사보기</a>
+										</span>
+									</li>
+									<li class="item-press">
+										<a href="" class="box-thumb">
+											<img height="20" src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/311.png" alt="언론사">
+										</a>
+										<span class="popup-wrap">
+											<a href="" class="btn-subscribe">구독</a>
+											<a href="" class="link-view-news">기사보기</a>
+										</span>
+									</li>
+									<li class="item-press">
+										<a href="" class="box-thumb">
+											<img height="20" src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/311.png" alt="언론사">
+										</a>
+										<span class="popup-wrap">
+											<a href="" class="btn-subscribe">구독</a>
+											<a href="" class="link-view-news">기사보기</a>
+										</span>
+									</li>
+									<li class="item-press">
+										<a href="" class="box-thumb">
+											<img height="20" src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/311.png" alt="언론사">
+										</a>
+										<span class="popup-wrap">
+											<a href="" class="btn-subscribe">구독</a>
+											<a href="" class="link-view-news">기사보기</a>
+										</span>
+									</li>
+									<li class="item-press">
+										<a href="" class="box-thumb">
+											<img height="20" src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/311.png" alt="언론사">
+										</a>
+										<span class="popup-wrap">
+											<a href="" class="btn-subscribe">구독</a>
+											<a href="" class="link-view-news">기사보기</a>
+										</span>
+									</li>
+									<li class="item-press">
+										<a href="" class="box-thumb">
+											<img height="20" src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/311.png" alt="언론사">
+										</a>
+										<span class="popup-wrap">
+											<a href="" class="btn-subscribe">구독</a>
+											<a href="" class="link-view-news">기사보기</a>
+										</span>
+									</li>
+									<li class="item-press">
+										<a href="" class="box-thumb">
+											<img height="20" src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/311.png" alt="언론사">
+										</a>
+										<span class="popup-wrap">
+											<a href="" class="btn-subscribe">구독</a>
+											<a href="" class="link-view-news">기사보기</a>
+										</span>
+									</li>
+									<li class="item-press">
+										<a href="" class="box-thumb">
+											<img height="20" src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/311.png" alt="언론사">
+										</a>
+										<span class="popup-wrap">
+											<a href="" class="btn-subscribe">구독</a>
+											<a href="" class="link-view-news">기사보기</a>
+										</span>
+									</li>
+									<li class="item-press">
+										<a href="" class="box-thumb">
+											<img height="20" src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/311.png" alt="언론사">
+										</a>
+										<span class="popup-wrap">
+											<a href="" class="btn-subscribe">구독</a>
+											<a href="" class="link-view-news">기사보기</a>
+										</span>
+									</li>
+									<li class="item-press">
+										<a href="" class="box-thumb">
+											<img height="20" src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/311.png" alt="언론사">
+										</a>
+										<span class="popup-wrap">
+											<a href="" class="btn-subscribe">구독</a>
+											<a href="" class="link-view-news">기사보기</a>
+										</span>
+									</li>
+									<li class="item-press">
+										<a href="" class="box-thumb">
+											<img height="20" src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/311.png" alt="언론사">
+										</a>
+										<span class="popup-wrap">
+											<a href="" class="btn-subscribe">구독</a>
+											<a href="" class="link-view-news">기사보기</a>
+										</span>
+									</li>
+									<li class="item-press">
+										<a href="" class="box-thumb">
+											<img height="20" src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/311.png" alt="언론사">
+										</a>
+										<span class="popup-wrap">
+											<a href="" class="btn-subscribe">구독</a>
+											<a href="" class="link-view-news">기사보기</a>
+										</span>
+									</li>
+									<li class="item-press">
+										<a href="" class="box-thumb">
+											<img height="20" src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/311.png" alt="언론사">
+										</a>
+										<span class="popup-wrap">
+											<a href="" class="btn-subscribe">구독</a>
+											<a href="" class="link-view-news">기사보기</a>
+										</span>
+									</li>
+									<li class="item-press">
+										<a href="" class="box-thumb">
+											<img height="20" src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/311.png" alt="언론사">
+										</a>
+										<span class="popup-wrap">
+											<a href="" class="btn-subscribe">구독</a>
+											<a href="" class="link-view-news">기사보기</a>
+										</span>
+									</li>
+									<li class="item-press">
+										<a href="" class="box-thumb">
+											<img height="20" src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/311.png" alt="언론사">
+										</a>
+										<span class="popup-wrap">
+											<a href="" class="btn-subscribe">구독</a>
+											<a href="" class="link-view-news">기사보기</a>
+										</span>
+									</li>
+									<li class="item-press">
+										<a href="" class="box-thumb">
+											<img height="20" src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/311.png" alt="언론사">
+										</a>
+										<span class="popup-wrap">
+											<a href="" class="btn-subscribe">구독</a>
+											<a href="" class="link-view-news">기사보기</a>
+										</span>
+									</li>
+									<li class="item-press">
+										<a href="" class="box-thumb">
+											<img height="20" src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/311.png" alt="언론사">
+										</a>
+										<span class="popup-wrap">
+											<a href="" class="btn-subscribe">구독</a>
+											<a href="" class="link-view-news">기사보기</a>
+										</span>
+									</li>
+									<li class="item-press">
+										<a href="" class="box-thumb">
+											<img height="20" src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/311.png" alt="언론사">
+										</a>
+										<span class="popup-wrap">
+											<a href="" class="btn-subscribe">구독</a>
+											<a href="" class="link-view-news">기사보기</a>
+										</span>
+									</li>
+								</ul>
+								<div class="box-line">
+									<div class="line-to-right1"></div>
+									<div class="line-to-right2"></div>
+									<div class="line-to-right3"></div>
+									<div class="line-to-bottom1"></div>
+									<div class="line-to-bottom2"></div>
+									<div class="line-to-bottom3"></div>
+									<div class="line-to-bottom4"></div>
+									<div class="line-to-bottom5"></div>
+								</div>
+								<a href="" class="btn-prev"></a>
+								<a href="" class="btn-next"></a>
+							</div>
+						</div>
+						<!-- ~메인 왼쪽 2번째 박스 -->
+						<div class="box-body-left3">
+							<div class="box-title clearfix">
+								<div class="area-title">
+									<strong class="title">오늘 읽을만한 글</strong><span class="dsc">주제별로 분류된 다양한 글 모음</span>
+								</div>
+								<div class="area-info">
+									<span class="info">
+										<strong>678</strong> 개의 글
+									</span>
+									<a href="" class="btn-set">관심주제 설정</a>
+								</div>
+							</div>
+							<div class="box-menu clearfix">
+								<div class="box-btn">
+									<a href="" class="btn-prev"></a>
+									<a href="" class="btn-next"></a>
+								</div>
+								<div class="box-in">
+									<ul class="list-menu">
+										<li class="item-menu" >
+											<a href="" class="btn-menu enter">엔터</a>
+										</li>
+										<li class="item-menu">
+											<a href="" class="btn-menu sports" aria-selected=true>스포츠</a>
+										</li>
+										<li class="item-menu">
+											<a href="" class="btn-menu car">자동차</a>
+										</li>
+										<li class="item-menu">
+											<a href="" class="btn-menu webtoon">웹툰</a>
+										</li>
+										<li class="item-menu">
+											<a href="" class="btn-menu finance">경제</a>
+										</li>
+										<li class="item-menu">
+											<a href="" class="btn-menu myfeed">추천<i class="icon-middot"></i>구독</a>
+										</li>
+										<li class="item-menu">
+											<a href="" class="btn-menu recipe">레시피</a>
+										</li>
+										<li class="item-menu">
+											<a href="" class="btn-menu living">리빙</a>
+										</li>
+										<li class="item-menu">
+											<a href="" class="btn-menu book">책방</a>
+										</li>
+										<li class="item-menu">
+											<a href="" class="btn-menu beauty">패션뷰티</a>
+										</li>
+									</ul>
+								</div>
+							</div>
+							<div class="box-contents"></div>
+						</div>
+						<!-- ~메인 왼쪽 3번째 박스 -->
+					</div>
+					<!-- ~메인 왼쪽 박스 -->
+					<div class="box-body-right">
+						<div class="box-body-right1">
+							<div class="box-in-right1">
+								<p class="box-title">네이버를 더 안전하고 편리하게 이용하세요</p>
+								<a href="" class="link-login">
+									<i class="icon-login img1"></i>로그인
+								</a>
+								<div class="box-service clearfix">
+									<a href="" class="link-find-id"> 아이디</a><a href="" class="link-find-pw">비밀번호찾기</a>
+									<a href="" class="link-signup">회원가입</a>
+								</div>
+							</div>
+						</div>
+						<!-- ~메인 오른쪽 1번째 박스 -->
+						<div class="box-body-right2">
+							<div class="box-in">
+								<ul class="list-stock">
+									<li class="item-stock">
+										<a href="" class="link-stock">
+											<i class="news-badge">이슈</i>
+											<span class="news">1코로나바이러스감염증-19 현황</span>
+										</a>
+									</li>
+									<li class="item-stock">
+										<a href="" class="link-stock">
+											<i class="news-badge">이슈</i>
+											<span class="news">2코로나바이러스감염증-19 현황</span>
+										</a>
+									</li>
+									<li class="item-stock">
+										<a href="" class="link-stock">
+											<i class="news-badge">이슈</i>
+											<span class="news">3코로나바이러스감염증-19 현황</span>
+										</a>
+									</li>
+									<li class="item-stock">
+										<a href="" class="link-stock">
+											<i class="news-badge">이슈</i>
+											<span class="news">4코로나바이러스감염증-19 현황</span>
+										</a>
+									</li>
+								</ul>
+								<div class="box-btn">
+									<a href="" class="btn-prev">
+										<i class="icon-prev"></i>
+									</a>
+									<a href="" class="btn-next">
+										<i class="icon-next"></i>
+									</a>
+								</div>
+							</div>
+						</div>
+						<!-- ~메인 오른쪽 2번째 박스 -->
+						<div class="box-body-right3">
+							<iframe src="add2.html" frameborder="0" width="350" height="200"></iframe>
+							<span class="line line-top"></span>
+							<span class="line line-bottom"></span>
+							<span class="line line-left"></span>
+							<span class="line line-right"></span>
+							<span class="blind">광고</span>
+						</div>
+					</div>
+					<!-- ~메인 오른쪽 박스 -->
+				</div>
+			</div>
+		</div>
+		<footer class="container-footer"></footer>
+	</div>
+	<script>
+		/*
+		let id=rollingRight();
+		$('.box-body-right2').hover(function(){
+			clearInterval(id);
+		}, function(){
+			id=rollingRight();
+		})
+		$('.box-body-right2 .btn-next').click(function(){
+			moveLeft();
+		})
+		$('.box-body-right2 .btn-prev').click(function(){
+			moveRight();
+		})
+		function moveLeft(){
+			let width = $('.box-body-right2 .item-stock').first().innerWidth();
+			if(!$('.box-body-right2 .item-stock').first().is(':animated')){
+				$('.box-body-right2 .item-stock').first().animate({
+					marginLeft : `-${width}px`
+				},1000,function(){
+					$(this).detach().appendTo('.box-body-right2 .list-stock').removeAttr('style');
+				})
+			}
+		}
+		function moveRight(){
+			let width = $('.box-body-right2 .item-stock').first().innerWidth();
+			if(!$('.box-body-right2 .item-stock').first().is(':animated')){
+				$('.box-body-right2 .item-stock').last()
+					.detach().prependTo('.box-body-right2 .list-stock')
+					.css('marginLeft',`-${width}px`)
+					.animate({marginLeft:'0px'},1000);
+			}
+		}
+		function rollingRight(){
+			return setInterval(moveLeft,1500);
+		}
+		*/
+
+	</script>
+</body>
+</html>
