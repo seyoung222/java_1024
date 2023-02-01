@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>회원가입</title>
+	<title>회원가입-정규표현식</title>
 	<script src="../js/jquery.min.js"></script>
 	<style>
 		.form{
@@ -56,6 +56,7 @@
 		/*
 		- 아이디는 5~13자, 영문, 숫자만 가능
 		- 비밀번호는 8~20자, 영문,숫자,!@#$%만 가능
+		사이트 regex101
 		*/
 		$('.form').submit(function(){
 			let id = $('[name=id]').val();
@@ -64,19 +65,33 @@
 				$('[name=id]').focus();
 				return false;
 			};
+			let idRegex = /^[a-zA-Z0-9]{5,13}$/;
+			if(!idRegex.text(id)){
+				alert('아이디는 5~13자, 영문, 숫자가 가능합니다.');
+				$('[name=id]').focus();
+				return false;
+			}
+
 			let pw = $('[name=pw]').val();
 			if(pw.length == 0){
 				alert('비밀번호는 필수 항목입니다.')
 				$('[name=pw]').focus();
 				return false;
 			};
+			let pwRegex = /^[a-zA-Z0-9!@#$%]{8,20}$/;
+			if(!pwRegex.text(pw)){
+				alert('비밀번호는 8~20자, 영문,숫자,!@#$%만 가능합니다.')
+				$('[name=pw]').focus();
+				return false;
+			};
+
 			let pw2 = $('[name=pw2]').val();
 			if(pw != pw2){
 				alert('비밀번호와 비밀번호 확인이 일치하지 않습니다.')
 				$('[name=pw]').focus();
 				return false;
 			};
-
+			
 			if($('[name=gender]:checked').length == 0)
 				alert('성별은 필수 항목입니다.');
 				$('[name=gender]').focus();

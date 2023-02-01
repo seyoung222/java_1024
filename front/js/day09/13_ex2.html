@@ -76,6 +76,16 @@
 
 		// 마우스 호버하면 애니메이션 멈추도록 만들기
 		//hover 이벤트를 등록
+			//마우스가 요소 안으로 들어오면
+			//애니메이션이 진행중인 setInterval을 해제 => clearInterval
+
+			//마우스가 요소를 빠져나가면
+			//setInterval을 통해 애니메이션이 진행되도록 작업
+		$('.container').hover(function(){
+			clearInterval(id);
+		},function(){
+			id=rolling();
+		})
 		
 
 	</script>
