@@ -36,8 +36,8 @@
 			<label>
 				<input type="radio" name="gender" value="여성">여성
 			</label>
-			<button type="submtit" class="btn-submit">회원가입</button>
 		</div>
+		<button type="submtit" class="btn-submit">회원가입</button>
 	</form>
 	<!-- 
 		<form action="">
@@ -66,7 +66,7 @@
 				return false;
 			};
 			let idRegex = /^[a-zA-Z0-9]{5,13}$/;
-			if(!idRegex.text(id)){
+			if(!idRegex.test(id)){
 				alert('아이디는 5~13자, 영문, 숫자가 가능합니다.');
 				$('[name=id]').focus();
 				return false;
@@ -79,7 +79,7 @@
 				return false;
 			};
 			let pwRegex = /^[a-zA-Z0-9!@#$%]{8,20}$/;
-			if(!pwRegex.text(pw)){
+			if(!pwRegex.test(pw)){
 				alert('비밀번호는 8~20자, 영문,숫자,!@#$%만 가능합니다.')
 				$('[name=pw]').focus();
 				return false;
