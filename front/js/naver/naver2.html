@@ -178,6 +178,33 @@
 		.group-menu .link-favority-menu{
 			color: #000;
 		}
+		/*
+		.group-menu .list-empty-box { float: left; margin: 0 0 0 12px;}
+		.group-menu .item-box{
+			font-size: 15px; line-height: 30px; font-weight: 700; color: #000;
+			letter-spacing: -1px;
+			width: 68px; height: 28px; border-radius: 2px; border: 1px solid #dae1e6; 
+			display: inline-block; background-color: #f7f9fa;
+		}
+		.group-menu .item-box+.item-box{ margin-left: 4px;}
+		.group-menu .item-box.select{
+			border-color: #19ce60; background-color: #fff;
+		}*/
+		.group-menu .list-empty-box { float: left; margin-left:12px;}
+		.group-menu .item-box{
+			font-size: 15px; line-height: 30px; font-weight: bold; color: #000;
+			letter-spacing: -1px; float: left;
+		}
+		.group-menu .item-box+.item-box{ margin-left: 8px;}
+		.group-menu .item-box.select{
+			border: 1px solid #19ce60; background-color: #fff;
+			width: 68px; height: 28px; border-radius: 2px;
+		}
+		.group-menu .item-box.select~.item-box{
+			border:1px solid #dae1e6; background-color:#f7f9fa ;
+			width: 68px; height: 28px; border-radius: 2px;
+		}
+		/* 메뉴 - 더보기 */
 		.group-menu .btn-more{
 			margin-left: 17px; font-size: 13px; line-height: 30px;
 			color: #202020;
@@ -195,6 +222,27 @@
 		.group-menu .btn-more .text-fold{display: none; color: #0ecd5a;}
 		.group-menu .btn-more.fold .text-fold{display: inline;}
 		.group-menu .btn-more.fold .text-more{display: none;}
+		.group-menu .box-btn-area{
+			position: absolute; top: 0; right: 0; width: 270px; padding: 11px 0;
+			background-color: white; text-align: right; z-index: 10; display: none;
+		}
+		.group-menu .box-btn-area .btn{
+			display: inline-block; padding: 7px 13px 5px; margin-left: 3px; background-color: white;
+			border: 1px solid #dae1e6; border-radius: 15px; color: inherit;
+		}
+		.group-menu .box-btn-area .btn:hover{text-decoration: underline;}
+		.group-menu .box-btn-area .btn-set::before{
+			content: ''; display: inline-block; width: 11px; height: 11px;
+			background-position: -332px -310px; vertical-align: top; margin: 2px 5px 0 0;
+		}
+		.group-menu .box-btn-area .btn-reset::before{
+			content: ''; display: inline-block; width: 10px; height: 13px;
+			background-position: -408px -71px; vertical-align: top; margin-right: 6px;
+		}
+		.group-menu .box-btn-area .btn-save{
+			background-color: #19ce60; border-color: #00c73c; color: #fff;
+		}
+
 		.group-weather{
 			width: 270px; height: 52px; top: 0; right: 0; 
 			bottom: 0; overflow: hidden; text-align: right;
@@ -205,9 +253,66 @@
 		}
 		.container-menu{
 			box-shadow: 0 1px 3px 0 rgba(0,0,0,0.12);
+			position:relative;
 		}
+		/* 더보기-접기 새메뉴창 */
+		.container-menu .container-service{
+			position: absolute; top: 52px; left: 0; right: 0;
+			border-top: 1px solid #e4e8eb; box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.12);
+			background-color: white; z-index: 100; display: none;
+			padding: 20px 30px 22px;
+		}
+		.container-menu .group-service{
+			margin: 0 auto; width: 1128px; border: 1px solid #e4e8eb;
+			border-width: 0 1px; display: table; table-layout: fixed;
+		}
+		.container-menu .list-service{
+			font-size: 13px; letter-spacing: -.25px; line-height: 26px; padding: 0 14px 0 15px;
+			display: table-cell; 
+		}
+		.container-menu .list-service+.list-service{border-left: 1px solid #e4e8eb;}
+		.container-menu .list-service .service-title{
+			color: #000; font-weight: bold; margin-bottom: 3px;
+		}
+		.container-menu .list-service .service-data a{color: inherit;}
+		.container-menu .list-service .service-data .link-dic{
+			display: inline-block; margin-top: 5px; color: gray;
+		}
+		.container-menu .list-service .service-data a:hover{text-decoration: underline;}
+		.container-menu .list-service .service-data .link-dic::after{
+			content: ''; display: inline-block; width: 6px; height: 10px;
+			background-position: -262px -124px; margin-left: 7px; vertical-align: 0;
+		}
+		.container-menu .list-service label{ position: relative;}
+		.container-menu .list-service .service-data [type=checkbox]{
+			position: absolute; top: 0; left: 0; opacity: 0; width: 16px; height: 16px;
+		}
+		.container-menu .list-service .service-data [type=checkbox]:focus{opacity: 1;}
+		.container-menu .list-service .service-data [type=checkbox]:checked+.icon-check{
+			background-position: -420px -365px;
+		}
+		.container-menu .list-service .service-data .icon-check{
+			display: inline-block; width: 16px; height: 16px; 
+			background-position: -420px -347px; vertical-align: top;
+			margin: 4px 9px 0 0; 
+		}
+		/*
+		.container-menu .service-btn-box{
+			position: absolute; top: 0; right: 0; width: 270px; text-align: right;
+			padding: 11px 0; z-index: 10; background-color: white;
+		}
+		.container-menu .service-btn-box a{
+			border: 1px solid #dae1e6; border-radius: 15px; display: inline-block;
+			padding: 7px 13px 5px; margin-left: 3px; background-color: white;
+			color: inherit;
+		}
+		.container-menu .service-btn-box .setting-menu::before{
+			content: ''; display: inline-block; width: 11px; height: 11px;
+			background-position: -332px -310px; vertical-align: top;
+			margin: 2px 5px 0 0;
+		}*/
 
-		/* 메인 */
+/* 메인 */
 		.container-body .inner-container{
 			padding: 20px 30px;
 		}
@@ -775,6 +880,7 @@
 		
 
 		/* 공통 */
+		.display-none{display: none !important;}
 		.clearfix::after{
 			clear: both; display: block; content: '';
 		}
@@ -801,7 +907,8 @@
 		.box-body-right2 .box-btn .btn-prev .icon-prev,
 		.box-body-right2 .box-btn .btn-next .icon-next,
 		.box-body-left3 .area-info .btn-set::before,
-		.img1-after::after, .img1-before::before, .icon-img{
+		.img1-after::after, .img1-before::before, .icon-img,
+		.container-menu .list-service .service-data .icon-check{
 			background-image: url(img/img1.png);
 			background-size: 442px 428px;
 		}
@@ -925,9 +1032,349 @@
 								<a href="#" class="link-favority-menu">웹툰</a>
 							</li>
 						</ul>
+						<ul class="list-empty-box display-none">
+							<li class="item-box select"></li>
+							<li class="item-box"></li>
+							<li class="item-box"></li>
+							<li class="item-box"></li>
+						</ul>
+						<ul class="list-selected-menu display-none"></ul>
 						<a href="#" class="btn-more"><span class="text-more">더보기</span><span class="text-fold">접기</span><i class="icon-more img1"></i></a>
+						<div class="box-btn-area">
+							<a href="#" class="btn btn-favorite-all">서비스 전체보기</a>
+							<a href="#" class="btn btn-set img1-before">메뉴설정</a>
+							<a href="#" class="btn btn-reset img1-before display-none">초기화</a>
+							<a href="#" class="btn btn-save display-none">저장</a>
+						</div>
 					</div>
 					<div class="group-weather"></div>
+				</div>
+				<div class="container-service">
+					<div class="group-service">
+						<dl class="list-service">
+							<dt class="service-title">ㄱ-ㅁ</dt>
+							<dd class="service-data">
+								<a href="#">구독</a>
+							</dd>
+							<dd class="service-data">
+								<a href="#">날씨</a>
+							</dd>
+							<dd class="service-data">
+								<a href="#">네이버 MY CAR</a>
+							</dd>
+							<dd class="service-data">
+								<a href="#">네이버 게임</a>
+							</dd>
+							<dd class="service-data">
+								<a href="#">네이버 예약</a>
+							</dd>
+							<dd class="service-data">
+								<a href="#">네이버 프리미엄콘텐츠</a>
+							</dd>
+							<dd class="service-data">
+								<a href="#">네이버플러스 멤버십</a>
+							</dd>
+							<dd class="service-data">
+								<a href="#">뉴스</a>
+							</dd>
+							<dd class="service-data">
+								<a href="#">데이터랩</a>
+							</dd>
+							<dd class="service-data">
+								<a href="#">도서</a>
+							</dd>
+							<dd class="service-data">
+								<a href="#">메모</a>
+							</dd>
+						</dl>
+						<dl class="list-service">
+							<dt class="service-title">ㅂ-ㅅ</dt>
+							<dd class="service-data">
+								<a href="#">밴드</a>
+							</dd>
+							<dd class="service-data">
+								<a href="#">부동산</a>
+							</dd>
+							<dd class="service-data">
+								<a href="#">스포츠</a>
+							</dd>
+							<dd class="service-data">
+								<a href="#">시리즈</a>
+							</dd>
+							<dd class="service-data">
+								<a href="#">시리즈온</a>
+							</dd>
+						</dl>
+						<dl class="list-service">
+							<dt class="service-title">ㅇ</dt>
+							<dd class="service-data">
+								<a href="#">엑스퍼트</a>
+							</dd>
+							<dd class="service-data">
+								<a href="#">영화</a>
+							</dd>
+							<dd class="service-data">
+								<a href="#">오디오클립</a>
+							</dd>
+							<dd class="service-data">
+								<a href="#">오피스</a>
+							</dd>
+							<dd class="service-data">
+								<a href="#">웨일</a>
+							</dd>
+							<dd class="service-data">
+								<a href="#">웹소설</a>
+							</dd>
+							<dd class="service-data">
+								<a href="#">웹툰</a>
+							</dd>
+							<dd class="service-data">
+								<a href="#">인플루언서</a>
+							</dd>
+						</dl>
+						<dl class="list-service">
+							<dt class="service-title">ㅈ-ㅊ</dt>
+							<dd class="service-data">
+								<a href="#">주소록</a>
+							</dd>
+							<dd class="service-data">
+								<a href="#">증권</a>
+							</dd>
+							<dd class="service-data">
+								<a href="#">지도</a>
+							</dd>
+							<dd class="service-data">
+								<a href="#">지식백과</a>
+							</dd>
+						</dl>
+						<dl class="list-service">
+							<dt class="service-title">ㅋ-ㅎ</dt>
+							<dd class="service-data">
+								<a href="#">캘린더</a>
+							</dd>
+							<dd class="service-data">
+								<a href="#">클로바더빙</a>
+							</dd>
+							<dd class="service-data">
+								<a href="#">파파고</a>
+							</dd>
+							<dd class="service-data">
+								<a href="#">포스트</a>
+							</dd>
+							<dd class="service-data">
+								<a href="#">학술정보</a>
+							</dd>
+							<dd class="service-data">
+								<a href="#">항공권</a>
+							</dd>
+							<dd class="service-data">
+								<a href="#">호텔</a>
+							</dd>
+						</dl>
+						<dl class="list-service">
+							<dt class="service-title">A-Z</dt>
+							<dd class="service-data">
+								<a href="#">Keep</a>
+							</dd>
+							<dd class="service-data">
+								<a href="#">modoo!</a>
+							</dd>
+							<dd class="service-data">
+								<a href="#">MYBOX</a>
+							</dd>
+							<dd class="service-data">
+								<a href="#">TV연예</a>
+							</dd>
+							<dd class="service-data">
+								<a href="#">VIBE</a>
+							</dd>
+						</dl>
+						<dl class="list-service">
+							<dt class="service-title">사전</dt>
+							<dd class="service-data">
+								<a href="#">사전</a>
+							</dd>
+							<dd class="service-data">
+								<a href="#">국어사전</a>
+							</dd>
+							<dd class="service-data">
+								<a href="#">영어/영영사전</a>
+							</dd>
+							<dd class="service-data">
+								<a href="#">일본어사전</a>
+							</dd>
+							<dd class="service-data">
+								<a href="#">중국어사전</a>
+							</dd>
+							<dd class="service-data">
+								<a href="#">한자사전</a>
+							</dd>
+							<dd class="service-data">
+								<a href="#" class="link-dic img1-after">사전 더보기</a>
+							</dd>
+						</dl>
+					</div>
+					<div class="group-service display-none">
+						<dl class="list-service">
+							<dt class="service-title">ㄱ-ㅁ</dt>
+							<dd class="service-data">
+								<label><input type="checkbox" value="구독"><i class="icon-check"></i>구독</label>
+							</dd>
+							<dd class="service-data">
+								<label><input type="checkbox" value="날씨"><i class="icon-check"></i>날씨</label>
+							</dd>
+							<dd class="service-data">
+								<label><input type="checkbox" value="MY CAR"><i class="icon-check"></i>네이버 MY CAR</label>
+							</dd>
+							<dd class="service-data">
+								<label><input type="checkbox" value="네이버 게임"><i class="icon-check"></i>네이버 게임</label>
+							</dd>
+							<dd class="service-data">
+								<label><input type="checkbox" value="예약"><i class="icon-check"></i>네이버 예약</label>
+							</dd>
+							<dd class="service-data">
+								<label><input type="checkbox" value="프리미엄콘텐츠"><i class="icon-check"></i>프리미엄콘텐츠</label>
+							</dd>
+							<dd class="service-data">
+								<label><input type="checkbox" value="네이버플러스"><i class="icon-check"></i>네이버플러스</label>
+							</dd>
+							<dd class="service-data">
+								<label><input type="checkbox" value="뉴스"><i class="icon-check"></i>뉴스</label>
+							</dd>
+							<dd class="service-data">
+								<label><input type="checkbox" value="데이터랩"><i class="icon-check"></i>데이터랩</label>
+							</dd>
+							<dd class="service-data">
+								<label><input type="checkbox" value="도서"><i class="icon-check"></i>도서</label>
+							</dd>
+							<dd class="service-data">
+								<label><input type="checkbox" value="메모"><i class="icon-check"></i>메모</label>
+							</dd>
+						</dl>
+						<dl class="list-service">
+							<dt class="service-title">ㅂ-ㅅ</dt>
+							<dd class="service-data">
+								<label><input type="checkbox" value="밴드"><i class="icon-check"></i>밴드</label>
+							</dd>
+							<dd class="service-data">
+								<label><input type="checkbox" value="부동산"><i class="icon-check"></i>부동산</label>
+							</dd>
+							<dd class="service-data">
+								<label><input type="checkbox" value="스포츠"><i class="icon-check"></i>스포츠</label>
+							</dd>
+							<dd class="service-data">
+								<label><input type="checkbox" value="시리즈"><i class="icon-check"></i>시리즈</label>
+							</dd>
+							<dd class="service-data">
+								<label><input type="checkbox" value="시리즈온"><i class="icon-check"></i>시리즈온</label>
+							</dd>
+						</dl>
+						<dl class="list-service">
+							<dt class="service-title">ㅇ</dt>
+							<dd class="service-data">
+								<label><input type="checkbox" value="엑스퍼트"><i class="icon-check"></i>엑스퍼트</label>
+							</dd>
+							<dd class="service-data">
+								<label><input type="checkbox" value="영화"><i class="icon-check"></i>영화</label>
+							</dd>
+							<dd class="service-data">
+								<label><input type="checkbox" value="오디오클립"><i class="icon-check"></i>오디오클립</label>
+							</dd>
+							<dd class="service-data">
+								<label><input type="checkbox" value="오피스"><i class="icon-check"></i>오피스</label>
+							</dd>
+							<dd class="service-data">
+								<label><input type="checkbox" value="웨일"><i class="icon-check"></i>웨일</label>
+							</dd>
+							<dd class="service-data">
+								<label><input type="checkbox" value="웹소설"><i class="icon-check"></i>웹소설</label>
+							</dd>
+							<dd class="service-data">
+								<label><input type="checkbox" value="웹툰"><i class="icon-check"></i>웹툰</label>
+							</dd>
+							<dd class="service-data">
+								<label><input type="checkbox" value="인플루언서"><i class="icon-check"></i>인플루언서</label>
+							</dd>
+						</dl>
+						<dl class="list-service">
+							<dt class="service-title">ㅈ-ㅊ</dt>
+							<dd class="service-data">
+								<label><input type="checkbox" value="주소록"><i class="icon-check"></i>주소록</label>
+							</dd>
+							<dd class="service-data">
+								<label><input type="checkbox" value="증권"><i class="icon-check"></i>증권</label>
+							</dd>
+							<dd class="service-data">
+								<label><input type="checkbox" value="지도"><i class="icon-check"></i>지도</label>
+							</dd>
+							<dd class="service-data">
+								<label><input type="checkbox" value="지식백과"><i class="icon-check"></i>지식백과</label>
+							</dd>
+						</dl>
+						<dl class="list-service">
+							<dt class="service-title">ㅋ-ㅎ</dt>
+							<dd class="service-data">
+								<label><input type="checkbox" value="캘린더"><i class="icon-check"></i>캘린더</label>
+							</dd>
+							<dd class="service-data">
+								<label><input type="checkbox" value="클로바더빙"><i class="icon-check"></i>클로바더빙</label>
+							</dd>
+							<dd class="service-data">
+								<label><input type="checkbox" value="파파고"><i class="icon-check"></i>파파고</label>
+							</dd>
+							<dd class="service-data">
+								<label><input type="checkbox" value="포스트"><i class="icon-check"></i>포스트</label>
+							</dd>
+							<dd class="service-data">
+								<label><input type="checkbox" value="학술정보"><i class="icon-check"></i>학술정보</label>
+							</dd>
+							<dd class="service-data">
+								<label><input type="checkbox" value="항공권"><i class="icon-check"></i>항공권</label>
+							</dd>
+							<dd class="service-data">
+								<label><input type="checkbox" value="호텔"><i class="icon-check"></i>호텔</label>
+							</dd>
+						</dl>
+						<dl class="list-service">
+							<dt class="service-title">A-Z</dt>
+							<dd class="service-data">
+								<label><input type="checkbox" value="Keep"><i class="icon-check"></i>Keep</label>
+							</dd>
+							<dd class="service-data">
+								<label><input type="checkbox" value="modoo!"><i class="icon-check"></i>modoo!</label>
+							</dd>
+							<dd class="service-data">
+								<label><input type="checkbox" value="MYBOX"><i class="icon-check"></i>MYBOX</label>
+							</dd>
+							<dd class="service-data">
+								<label><input type="checkbox" value="TV연예"><i class="icon-check"></i>TV연예</label>
+							</dd>
+							<dd class="service-data">
+								<label><input type="checkbox" value="VIBE"><i class="icon-check"></i>VIBE</label>
+							</dd>
+						</dl>
+						<dl class="list-service">
+							<dt class="service-title">사전</dt>
+							<dd class="service-data">
+								<label><input type="checkbox" value="사전"><i class="icon-check"></i>사전</label>
+							</dd>
+							<dd class="service-data">
+								<label><input type="checkbox" value="국어사전"><i class="icon-check"></i>국어사전</label>
+							</dd>
+							<dd class="service-data">
+								<label><input type="checkbox" value="영어/영영사전"><i class="icon-check"></i>영어/영영사전</label>
+							</dd>
+							<dd class="service-data">
+								<label><input type="checkbox" value="일본어사전"><i class="icon-check"></i>일본어사전</label>
+							</dd>
+							<dd class="service-data">
+								<label><input type="checkbox" value="중국어사전"><i class="icon-check"></i>중국어사전</label>
+							</dd>
+							<dd class="service-data">
+								<label><input type="checkbox" value="한자사전"><i class="icon-check"></i>한자사전</label>
+							</dd>
+						</dl>
+					</div>
 				</div>
 			</div>
 		</div>

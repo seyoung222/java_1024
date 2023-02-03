@@ -124,8 +124,63 @@ $(function(){
 	$('.group-menu .btn-more').click(function(e){
 		e.preventDefault();
 		$(this).toggleClass('fold');
+		$('.container-menu .container-service').toggle(); //더보기 누르면 아래 메뉴창뜨게
+		$('.group-menu .box-btn-area').toggle(); //더보기 누르면 전체보기 설정뜨게
+		setMenuServiceBtn(true); //더보기 펼치면 무조건 전체보기가 보이도록
+	})
+	$('.group-menu .box-btn-area .btn-set').click(function(e){
+		e.preventDefault();
+		setMenuServiceBtn();//flag를 생략하면 undefined가 돼서 자동 false처리
 	})
 })
+function setMenuServiceBtn(flag){
+	$('.group-menu .box-btn-area .btn').removeClass('display-none');
+	$('.container-service .group-service').removeClass('display-none');
+	$('.container-menu .list-favority-menu').removeClass('display-none');
+	$('.container-menu .list-empty-box').removeClass('display-none');
+	if(flag){ 
+		$('.group-menu .box-btn-area .btn-reset').addClass('display-none');
+		$('.group-menu .box-btn-area .btn-save').addClass('display-none');
+		$('.container-service .group-service').last().addClass('display-none');
+		$('.container-menu .list-empty-box').addClass('display-none');
+	}else{
+		$('.group-menu .box-btn-area .btn-set').addClass('display-none');
+		$('.group-menu .box-btn-area .btn-favorite-all').addClass('display-none');
+		$('.container-service .group-service').first().addClass('display-none');
+		$('.container-menu .list-favority-menu').addClass('display-none');
+	}
+}
+/* 메뉴 즐겨찾기 설정 관련 이벤트(주말과제) */
+$(function(){
+	$('.container-service .group-service input').click(function(){
+		if($(this).is(':checked')){
+			if($('.group-menu .item-box.select').next().length==0){
+				alert('4개 까지만 선택 가능합니다.')
+				return;
+			}
+			$('.group-menu .item-box.select').text($(this).val());
+			tmpArr.push($(this).val());
+			console.log(tmpArr);
+			$('.group-menu .item-box.select').next().addClass('select');
+			$('.group-menu .item-box.select').first().removeClass('select');
+		}else{ //클릭한걸 다시 누르면 지워지도록 해야함 
+			$('.group-menu .item-box.select').text('');
+			tmpArr.push($(this).val());
+			console.log(tmpArr);
+			$('.group-menu .item-box.select').next().addClass('select');
+			$('.group-menu .item-box.select').first().removeClass('select');
+		}
+		
+	});
+	$('.group-menu .btn-save')
+	$('.group-menu .btn-fold').click(function(){
+		
+	})
+})
+let tmpArr = [];
+let arr = [];
+
+
 
 
 let liRight2 = '.box-body-right2 .item-stock';
