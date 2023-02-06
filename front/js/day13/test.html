@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>UI구현 test-김세영</title>
+	<style>
+		.fieldset{ width: 420px;}
+		td{padding: 3px;}
+		.btn-reset, .btn-signup{float: right;}
+		.btn-reset{margin-right: 4px;}
+		</style>
+	<script src="../js/jquery.min.js"></script>
+</head>
+<body>
+	<form action="" method="">
+		<fieldset class="fieldset">
+			<legend>회원 가입 양식</legend>
+			<table class="table">
+				<tr>
+					<td class="col1">아이디</td>
+					<td class="col2"><input type="text" name="id"></td>
+					<td class="col3"><button type="button" class="btn-idCheck">중복확인</button></td>
+				</tr>
+				<tr>
+					<td>비밀번호</td>
+					<td><input type="password" name="pw"></td>
+				</tr>
+				<tr>
+					<td>비밀번호확인</td>
+					<td><input type="password" name="pw2"></td>
+				</tr>
+				<tr>
+					<td>지역</td>
+					<td>
+						<label>서울<input type="radio" name="region" value="서울"></label>
+						<label>부산<input type="radio" name="region" value="부산"></label>
+						<label>대구<input type="radio" name="region" value="대구"></label>
+					</td>
+				</tr>
+				<tr>
+					<td></td>
+					<td>
+						<button type="submit" class="btn-signup">회원가입</button>
+						<button type="reset" class="btn-reset">초기화</button>
+					</td>
+				</tr>
+			</table>
+		</fieldset>
+	</form>
+	<script>
+		const idRegex = /^[a-z][a-zA-Z0-9!@#]{5,11}$/;
+		$('.btn-idCheck').click(function(){
+			if(idRegex.test($('[name=id]').val())){
+				$('[name=id]').css('background-color','green');
+			}else{
+				$('[name=id]').css('background-color','red');
+			}
+		})
+		$('form').submit(function(){
+			if($('[name=region]:checked').length == 0){
+				alert('지역을 선택해주세요.');
+				return false;
+			}
+		})
+	</script>
+</body>
+</html>

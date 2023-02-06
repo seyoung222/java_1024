@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>회원가입 복습</title>
+	<script src="../js/jquery.min.js"></script>
+	<style>
+		.fieldset{width: 200px;}
+		.btn-idCheck, .btn-signup{width: 177px;}
+	</style>
+</head>
+<body>
+	<form action="">
+		<fieldset class="fieldset">
+			<input type="text" name="id" placeholder="아이디"><br>
+			<button type="button" class="btn-idCheck">중복확인</button>
+			<br><br>
+			<button type="submit" class="btn-signup">회원가입</button>
+		</fieldset>
+	</form>
+	<script>
+		/*
+		ex1. 중복확인버튼을 통해 아이디가 영어,숫자 5~8자인지 확인하고,
+		맞으면 회원가입이 진행되고 아니면 회원가입이 진행되지 않도록 코드 작성
+
+		- 중복확인 버튼으로 중복확인하지않고 회원가입을 진행하면 통과못하게 막아줘야함
+		- 중복확인을 했더라도 아이디가 바뀌면 회원가입이 진행되지않게 막아야함
+		*/
+		let idRegex = /^[a-zA-Z0-9]{5,8}$/;
+		let idCheck;
+		$('.btn-idCheck').click(function(){
+			if(idRegex.test($('[name=id]').val())){
+				alert('사용가능한 아이디입니다.');
+				idCheck = true;
+			}else{
+				alert('아이디는 5~8자 이내여야 합니다.')
+				idCheck = false;
+			}
+		});
+		$('[name=id]').change(function(){
+			idCheck = null;
+		});
+		$('form').submit(function(){
+			if(idCheck == null){
+				alert('아이디 중복확인을 하세요.');
+				return false;
+			}else if(idCheck)
+				return true;
+			else{
+				alert('아이디 양식이 잘못되었습니다. 중복확인을 만족하세요.');
+				return false;
+			}
+		})
+	</script>
+</body>
+</html>
