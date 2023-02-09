@@ -1,6 +1,6 @@
-package kr.kh.spring;
+package kr.kh.spring.controller;
 
-public class InfoVO {
+public class InfoVO_ {
 	private String name;
 	private int num;
 	public String getName() {

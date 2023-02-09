@@ -1,18 +1,79 @@
-package kr.kh.spring;
+package kr.kh.spring.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+
+import kr.kh.spring.service.MemberService;
 
 
 @Controller
 //controller는 이름이 컨트롤러가 아니라 어노테이션이 붙어야 역할을 함
 public class HomeController {
 	
+	@Autowired 
+	//원래 = new MemberService로 객체만들었던걸 자동으로 객체 만들어주는 어노테이션
+	//단 ServiceImp 파일의 위에 꼭 @Service 가 붙어있어야함
+	MemberService memberService;
 	
-	@RequestMapping(value = "/"/*, method = RequestMethod.GET*/)
+	@RequestMapping(value = "/") 
+	public ModelAndView home(ModelAndView mv) {
+		mv.setViewName("/main/home");
+		return mv;
+	}
+	
+	@RequestMapping(value = "/ex1") 
+	public ModelAndView ex1(ModelAndView mv, String name, Integer age) {
+		//매개변수 int형으로 하면 기본 /ex1들어갈때 int에 null을 넣을 수 없어서 에러남.=>Integer쓸것
+		System.out.println("예제1 - 화면에서 전달한 이름 :" + name);
+		System.out.println("예제1 - 화면에서 전달한 나이 :" + age);
+		mv.setViewName("/main/ex1");
+		return mv;
+	}
+	@RequestMapping(value = "/ex2") 
+	public ModelAndView ex2(ModelAndView mv, String name, Integer age) {
+		System.out.println("예제2 - 화면에서 전달한 이름 :" + name);
+		System.out.println("예제2 - 화면에서 전달한 나이 :" + age);
+		mv.setViewName("/main/ex2");
+		return mv;
+	}
+	@RequestMapping(value = "/ex3") 
+	public ModelAndView ex3(ModelAndView mv) {
+		mv.setViewName("/main/ex3");
+		return mv;
+	}
+	@RequestMapping(value = "/ex3/{name}/{age}") 
+	//url에 데이터를 보내는 방법
+	public ModelAndView exNameAge3(ModelAndView mv,
+			@PathVariable("name")String name, @PathVariable("age")int age) {
+		System.out.println("예제3 - 화면에서 전달한 이름 :" + name);
+		System.out.println("예제3 - 화면에서 전달한 나이 :" + age);
+		mv.setViewName("/main/ex3");
+		return mv;
+	}
+	@RequestMapping(value = "/ex4") 
+	//서버에서 화면으로 이름과 나이를 전송
+	//- 화면에서 호출할 이름(변수명)과 값을 지정 => addObject메소드 이용
+	public ModelAndView ex4(ModelAndView mv) {
+		mv.addObject("name", "둘리");
+		mv.addObject("age", 10000);
+		mv.setViewName("/main/ex4");
+		return mv;
+	}
+	@RequestMapping(value = "/ex5") 
+	public ModelAndView ex5(ModelAndView mv,String num) {
+		String name = memberService.getNameByNum(num);
+		mv.addObject("name", name);
+		mv.addObject("num", num);
+		mv.setViewName("/main/ex5");
+		return mv;
+	}
+	
+/*
+//	@RequestMapping(value = "/", method = RequestMethod.GET)
+	@RequestMapping(value = "/")
 	//RequestMethod.GET는 get방식만 처리가능. .POST로 바꿔야 post방식 처리 가능
 	//직접쳐서 들어가는 웹사이트는 모두 get방식이지만 둘다 처리하고 싶게하려면 method란을 걍 지우면 됨
 	//tip) post방식은 다르게 처리하고 싶으면 메소드 하나 더 만들고 같은 처리방식이면 지우면 됨
@@ -40,7 +101,7 @@ public class HomeController {
 		return mv;
 	}
 	@RequestMapping(value = "/test")
-	public ModelAndView test(ModelAndView mv, InfoVO info) {
+	public ModelAndView test(ModelAndView mv, InfoVO_ info) {
 		//여러 데이터 세트를 한번에 보내줄 경우 객체(클래스)에 담아서 VO를 하나만 넘겨줌
 		//url에 들어가는 변수명과 필드명이 일치하는 클래스 필드에 값을 넣어줌. getter, setter필요
 		//기본생성자 역할을 함. => 기본생성자 없이 생성자만 있을 경우 500번 에러 발생
@@ -56,7 +117,7 @@ public class HomeController {
 	화면 : login.jsp
 	- 아이디, 비번을 입력해서 서버로 전송하도록 화면 구성
 	- 화면에서 전송한 아이디 비번을 콘솔에 출력
-	 * */
+	 * *
 	@RequestMapping(value = "/login", method=RequestMethod.GET) //get방식
 	public ModelAndView login(ModelAndView mv) {
 		mv.setViewName("login");
@@ -70,6 +131,8 @@ public class HomeController {
 		mv.setViewName("login");
 		return mv;
 	}
+
+*/
 }
 
 
