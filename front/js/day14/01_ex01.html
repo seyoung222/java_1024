@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>let,var,클로저</title>
+</head>
+<body>
+	<script>
+		// var를 이용한 클로저 예시
+		var x = 10;
+		console.log(x);
+		if(x > 0){
+			var y = 20;
+			console.log(y);
+		}
+		console.log(y);
+		//let 선언시 블록 안에서만 사용 가능하므로 콘솔출력X
+		//클로저 : 가까운 변수의 값을 가져옴(var 선언시 변수가 범위를 빠져나감)
+
+		let num1 = 10;
+		let num2 = 20;
+		if(num1 > 0){
+			let num2 = 30; //블락 안에서만 사용 가능한 let 선언
+			console.log(`num2=${num2}`);//30
+		}
+		console.log(`num2=${num2}`);//20
+
+		var num3 = 10;
+		var num4 = 20;
+		if(num3 > 0){
+			var num4 = 30; 
+			console.log(`num4=${num4}`);//30
+		}
+		console.log(`num4=${num4}`);//30 가까운 num4의 값이 실행됨
+	</script>
+</body>
+</html>
