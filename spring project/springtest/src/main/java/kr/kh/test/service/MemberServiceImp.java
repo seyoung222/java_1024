@@ -9,5 +9,12 @@ import kr.kh.test.dao.MemberDAO;
 public class MemberServiceImp implements MemberService {
 	
 	@Autowired
-	MemberDAO memverDao;
+	MemberDAO memberDao;
+
+	@Override
+	public String selectMemberName(Integer num) {
+		if(num == null)
+			return null;
+		return memberDao.selectMemberName(num);
+	}
 }
