@@ -13,7 +13,7 @@
 
 	/* border */
 	--border_basic: 3px solid #020a17;
-	--border_light: 1px solid #bfbfbf;
+	--border_light: 2px solid #bfbfbf;
 
 	/* border-radius */
 	--border_radius_1: 50%;
@@ -46,9 +46,9 @@ body {
 }
 .blind {
 	position: absolute;
-	width: 1px;
-	height: 1px;
-	margin: -1px;
+	width: 2px;
+	height: 2px;
+	margin: -2px;
 	overflow: hidden;
 }
 .display_none{
@@ -57,8 +57,26 @@ body {
 .clearfix::after{
 	clear: both; display: block; content: '';
 }
-
 a{color: #000;}
+.btn_home {
+	display: flex;
+	width: 66px;
+	height: 50px;
+	font-size: 14px;
+	font-weight: 800;
+	line-height: 80px;
+	overflow: hidden;
+}
+.btn_home .icon_home {
+	width: 40px;
+	height: 51px;
+	background-size: 60px 60px;
+	background-position: -10px -5px;
+	background-image: url(../img/rlab_logo.png);
+	background-repeat: no-repeat;
+}
+
+
 .container{
 	width: 1200px; margin: 0 auto;
 }
@@ -90,17 +108,17 @@ a{color: #000;}
 .search_container .box_seat_detail{
 	margin: 50px 0 0;
 }
-.box_seat_detail .btn_ticket, .box_seat_detail .btn-reserve{
-	border: 1px solid black; border-radius: 50px; padding: 15px 25px;
+.box_seat_detail .btn_ticket, .box_seat_detail .btn-direct{
+	border: 2px solid black; border-radius: 50px; padding: 15px 25px;
 	font-weight: 700;
 }
 .box_seat_detail .btn_ticket{background-color: var(--color_yellow);}
-.box_seat_detail .btn-reserve{
+.box_seat_detail .btn-direct{
 	margin-left: 5px; background-color: var(--color_blue);
 }
 .search_container .filter_area{ margin-top: 35px; vertical-align: top;}
 .search_container .choose_region{
-	width: 220px; height: 25px; border: 1px solid black; border-radius: 8px;
+	width: 220px; height: 25px; border: 2px solid black; border-radius: 8px;
 	background-color: var(--color_beige); line-height: 25px; padding: 10px 15px;
 	font-size: 14px; font-weight: 700; display: inline-block;
 	position: relative;
@@ -109,10 +127,47 @@ a{color: #000;}
 
 }
 .filter_area .search_box{
-	width: 250px; height: 25px; border: 1px solid black; border-radius: 8px;
+	width: 250px; height: 25px; border: 2px solid black; border-radius: 8px;
 	background-color: var(--color_beige); line-height: 25px; padding: 10px 15px;
 	font-size: 14px; font-weight: 700; display: inline-block; outline: 0;
 }
+
+/* 이용권 선택 섹션 */
+.ticket_list_box{
+	background-color: grey; 
+	margin-top: 30px;
+}
+.seat_container .list_container{
+	display: flex;
+}
+.seat_container .item_container{
+	width: 100%;
+	padding: 50px; 
+	text-align: center;
+	border: 2px solid black;
+	border-radius: 20px;
+	box-shadow: 2px 2px;
+
+}
+.seat_container .item_container+.item_container{
+	margin-left: 30px;
+}
+.seat_container .list_ticket{
+	font-size: 20px;
+	padding-bottom: 10px;
+}
+.seat_container .item_ticket{
+	font-size: 15px;
+}
+
+
+
+
+
+
+
+
+
 /* 지점 카드 섹션 */
 .spot_card_container{
 	margin-top: 60px;
@@ -153,3 +208,75 @@ a{color: #000;}
 	line-height: 30px; font-size: 20px; color: #020a17;
 }
 .spot_card_container .page_number+.page_number{margin-left: 12px;}
+
+/* header */
+header {
+	display: flex;
+	justify-content: center;
+}
+header #header_container {
+	display: flex;
+	justify-content: space-between;
+	width: var(--body_size);
+	padding: 10px 0;
+	border-radius: var(--border_radius_3);
+
+	box-sizing: border-box;
+	font-weight: 800;
+}
+#header_container .header_left{
+	display: flex;
+	gap: 30px;
+}
+#header_container .header_left .btn_home {
+	display: flex;
+	width: 66px;
+	height: 50px;
+	font-size: 14px;
+	font-weight: 800;
+	line-height: 80px;
+	overflow: hidden;
+	/* border: 1px solid #000; */
+}
+.btn_home .icon_home {
+	width: 40px;
+	height: 51px;
+	background-size: 60px 60px;
+	background-position: -10px -5px;
+	background-image: url(../img/rlab_logo.png);
+	background-repeat: no-repeat;
+}
+.top_menu_container{
+	width: 230px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	font-size: 15px;
+	/* border: 1px solid #000; */
+}
+#header_container .header_right{
+	display: flex;
+	align-items: center;
+}
+.mypage_container .mypage .icon_mypage{
+	display: flex;
+	width: 40px;
+	height: 40px;
+	border: 2px solid var(--color_mint);
+	border-radius: var(--border_radius_1);
+	background-size: 60px 40px;
+	background-position: -10px 0;
+	background-image: url(../img/profile_img.png);
+	background-repeat: no-repeat;
+}
+
+
+
+
+/* footer */
+footer{
+	background-color: #01f3a3;
+}
+.info_container{
+background-color: #66a0e2;
+}
