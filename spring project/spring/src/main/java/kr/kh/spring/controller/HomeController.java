@@ -4,9 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.kh.spring.service.MemberService;
+import kr.kh.spring.vo.MemberVO;
 
 
 @Controller
@@ -23,6 +25,31 @@ public class HomeController {
 		mv.setViewName("/main/home");
 		return mv;
 	}
+	@RequestMapping(value = "/signup", method=RequestMethod.GET) 
+	public ModelAndView signup(ModelAndView mv) {
+		mv.setViewName("/member/signup");
+		//views에 연결된 폴더/파일명을 연결함
+		return mv;
+	}
+	@RequestMapping(value = "/signup", method=RequestMethod.POST) 
+	public ModelAndView signupPost(ModelAndView mv, MemberVO member) {
+		boolean isSignup = memberService.signup(member);
+		if(isSignup) {
+			mv.setViewName("redirect:/");	
+		}else {
+			mv.setViewName("redirect:/signup");			
+			//redirect: - 작업을 끝낸 뒤에 /signup 링크로 보내라(다른 url로 보낼 때 사용)
+			//로그인 성공하면 메인으로, 실패하면 다시 원래 페이지로 오게함
+		}
+		return mv;
+	}
+	
+	
+	
+	
+	
+	
+	
 	
 	@RequestMapping(value = "/ex1") 
 	public ModelAndView ex1(ModelAndView mv, String name, Integer age) {
@@ -62,6 +89,8 @@ public class HomeController {
 		mv.setViewName("/main/ex4");
 		return mv;
 	}
+	
+	/* 관련 메소드 지웠음..
 	@RequestMapping(value = "/ex5") 
 	public ModelAndView ex5(ModelAndView mv,String num) {
 		String name = memberService.getNameByNum(num);
@@ -69,7 +98,7 @@ public class HomeController {
 		mv.addObject("num", num);
 		mv.setViewName("/main/ex5");
 		return mv;
-	}
+	}*/
 	
 /*
 //	@RequestMapping(value = "/", method = RequestMethod.GET)
