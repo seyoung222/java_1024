@@ -32,8 +32,10 @@
 		<button class="btn btn-outline-success col-12">회원가입</button>
 	</form>	
 </div>
+<!-- 유효성 검사 -->
 <script src="<c:url value='/resources/js/jquery.validate.min.js'></c:url>"></script>
 <script src="<c:url value='/resources/js/additional-methods.min.js'></c:url>"></script>
+<!-- datapicker -->
 <script src="<c:url value='/resources/js/jquery-ui.min.js'></c:url>"></script>
 <script>
 	$('form').validate({

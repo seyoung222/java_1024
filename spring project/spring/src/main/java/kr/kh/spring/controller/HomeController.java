@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.kh.spring.service.MemberService;
+import kr.kh.spring.vo.MemberOKVO;
 import kr.kh.spring.vo.MemberVO;
 
 
@@ -37,13 +38,41 @@ public class HomeController {
 		if(isSignup) {
 			//아이디가 주어지면 주어진 아이디의 인증번호를 발급하고,
 			//발급한 인증번호를 DB에 저장하고, 이메일로 인증번호가 있는 링크를 전송하는 기능
-			memberService.emailAuthentication(member.getMe_id());
+			memberService.emailAuthentication(member.getMe_id(),member.getMe_email());
 			mv.setViewName("redirect:/");	
 		}else {
 			mv.setViewName("redirect:/signup");			
 			//redirect: - 작업을 끝낸 뒤에 /signup 링크로 보내라(다른 url로 보낼 때 사용)
 			//로그인 성공하면 메인으로, 실패하면 다시 원래 페이지로 오게함
 		}
+		return mv;
+	}
+	@RequestMapping(value = "/email", method=RequestMethod.GET) 
+	public ModelAndView email(ModelAndView mv, MemberOKVO mok) {
+//		System.out.println("인증정보: "+mok); //메소드에 데이터(mok)가 잘 들어왔는지 먼저 확인해야함
+		if(memberService.emailAuthenticationConfirm(mok)) {
+			System.out.println("인증 성공");
+		}else {
+			System.out.println("인증 실패");
+		}
+		mv.setViewName("redirect:/");
+		return mv;
+	}
+	@RequestMapping(value = "/login", method=RequestMethod.GET) 
+	public ModelAndView login(ModelAndView mv) {
+		mv.setViewName("/member/login");
+		return mv;
+	}
+	@RequestMapping(value = "/login", method=RequestMethod.POST) 
+	public ModelAndView loginPost(ModelAndView mv, MemberVO member) {
+		MemberVO user = memberService.login(member);
+		//member는 입력받은 데이터, user는 그걸 통해 DB에서 찾아서 가져온 데이터
+		mv.addObject("user",user);
+		if(user != null)
+			mv.setViewName("redirect:/");
+		else
+			mv.setViewName("redirect:/login");
+		System.out.println(user);//정상로그인되면 객체 뜸
 		return mv;
 	}
 	
