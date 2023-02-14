@@ -70,14 +70,76 @@ a{color: #000;}
 .btn_home .icon_home {
 	width: 40px;
 	height: 51px;
-	background-size: 60px 60px;
-	background-position: -10px -5px;
+	background-size: 58px 58px;
+	background-position: -10px -4px;
 	background-image: url(../img/rlab_logo.png);
 	background-repeat: no-repeat;
 }
 
 
-.container{
+/* header */
+header {
+	display: flex;
+	justify-content: center;
+}
+header #header_container {
+	display: flex;
+	justify-content: space-between;
+	width: var(--body_size);
+	padding: 10px 0;
+	border-radius: var(--border_radius_3);
+
+	box-sizing: border-box;
+	font-weight: 800;
+}
+#header_container .header_left{
+	display: flex;
+	gap: 30px;
+}
+#header_container .header_left .btn_home {
+	display: flex;
+	width: 66px;
+	height: 50px;
+	font-size: 14px;
+	font-weight: 800;
+	line-height: 80px;
+	overflow: hidden;
+	/* border: 1px solid #000; */
+}
+.btn_home .icon_home {
+	width: 40px;
+	height: 51px;
+	background-size: 60px 60px;
+	background-position: -10px -5px;
+	background-image: url(../img/rlab_logo.png);
+	background-repeat: no-repeat;
+}
+.top_menu_container{
+	width: 230px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	font-size: 15px;
+	/* border: 1px solid #000; */
+}
+#header_container .header_right{
+	display: flex;
+	align-items: center;
+}
+.mypage_container .mypage .icon_mypage{
+	display: flex;
+	width: 40px;
+	height: 40px;
+	border: 2px solid var(--color_mint);
+	border-radius: var(--border_radius_1);
+	background-size: 60px 40px;
+	background-position: -10px 0;
+	background-image: url(../img/profile_img.png);
+	background-repeat: no-repeat;
+}
+
+
+main .container{
 	width: 1200px; margin: 0 auto;
 }
 /* 버튼 섹션 */
@@ -209,74 +271,66 @@ a{color: #000;}
 }
 .spot_card_container .page_number+.page_number{margin-left: 12px;}
 
-/* header */
-header {
-	display: flex;
-	justify-content: center;
-}
-header #header_container {
-	display: flex;
-	justify-content: space-between;
-	width: var(--body_size);
-	padding: 10px 0;
-	border-radius: var(--border_radius_3);
-
-	box-sizing: border-box;
-	font-weight: 800;
-}
-#header_container .header_left{
-	display: flex;
-	gap: 30px;
-}
-#header_container .header_left .btn_home {
-	display: flex;
-	width: 66px;
-	height: 50px;
-	font-size: 14px;
-	font-weight: 800;
-	line-height: 80px;
-	overflow: hidden;
-	/* border: 1px solid #000; */
-}
-.btn_home .icon_home {
-	width: 40px;
-	height: 51px;
-	background-size: 60px 60px;
-	background-position: -10px -5px;
-	background-image: url(../img/rlab_logo.png);
-	background-repeat: no-repeat;
-}
-.top_menu_container{
-	width: 230px;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	font-size: 15px;
-	/* border: 1px solid #000; */
-}
-#header_container .header_right{
-	display: flex;
-	align-items: center;
-}
-.mypage_container .mypage .icon_mypage{
-	display: flex;
-	width: 40px;
-	height: 40px;
-	border: 2px solid var(--color_mint);
-	border-radius: var(--border_radius_1);
-	background-size: 60px 40px;
-	background-position: -10px 0;
-	background-image: url(../img/profile_img.png);
-	background-repeat: no-repeat;
-}
 
 
 
 
 /* footer */
-footer{
-	background-color: #01f3a3;
+footer .container{
+	width: 1200px; margin: 0 auto; padding: 50px;
 }
 .info_container{
-background-color: #66a0e2;
+margin-top: 25px;
+}
+.info_container .direct_num_box{
+	float: left;
+	width: 300px;
+	height: 180px;
+}
+.direct_num_box .list_tel{
+	margin-top: 5px;
+}
+.direct_num_box .item_tel{
+	margin-left: 10px;
+}
+.direct_num_box .link_tel{
+	font-size: 18px;
+	margin-top: 3px;
+	display: inline-block;
+}
+.info_container .info_right_container{
+	float: right;
+}
+.info_container .info_box_right{
+	float: left;
+	width: 140px;
+	height: 180px;
+	margin-right: 20px;
+}
+.info_container .info_box_right .info_title{
+	margin-bottom: 5px;
+}
+.info_container .info_box_right li{
+	padding-top: 5px;
+}
+footer .corp_container{
+	margin-top: 10px;
+}
+footer .corp_container .link_corp{
+	padding-left: 7px;
+	font-size: 13px;
+}
+footer .corp_container .link_corp::before{
+	width: 1px;
+	height: 11px;
+	content: '';
+	display: inline-block;
+	margin-right: 10px;
+	background-color: grey;
+}
+footer .corp_container .link_corp:nth-child(1){
+	padding: 0;
+}
+footer .corp_container .link_corp:nth-child(1)::before{
+	display: none;
 }
