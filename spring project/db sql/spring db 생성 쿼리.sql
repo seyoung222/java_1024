@@ -73,6 +73,10 @@ ALTER TABLE `member` ADD CONSTRAINT `PK_MEMBER` PRIMARY KEY (
 	`me_id`
 );
 
+ALTER TABLE `member_ok` ADD CONSTRAINT `PK_MEMBER_OK` PRIMARY KEY (
+	`mo_me_id`
+);
+
 ALTER TABLE `member_ok` ADD CONSTRAINT `FK_member_TO_member_ok_1` FOREIGN KEY (
 	`mo_me_id`
 )
