@@ -33,8 +33,17 @@
 	    </beans:property>
 	</beans:bean>
 	
-	<context:component-scan base-package="kr.kh.spring.*" />
+	<!-- 인터셉터 -->
+	<beans:bean id="loginInterceptor" 
+		class="kr.kh.spring.interceptor.LoginInterceptor"></beans:bean>
+	<interceptors>
+		<interceptor>
+			<mapping path="/login"/><!-- login페이지를 빠져나올 때 동작 -->
+			<beans:ref bean="loginInterceptor"/>
+		</interceptor>
+	</interceptors>
 	
+	<context:component-scan base-package="kr.kh.spring.*" />
 	
 	
 </beans:beans>
