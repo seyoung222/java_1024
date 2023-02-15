@@ -1,5 +1,7 @@
 package kr.kh.spring.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -73,6 +75,13 @@ public class HomeController {
 		else
 			mv.setViewName("redirect:/login");
 		System.out.println(user);//정상로그인되면 객체 뜸
+		return mv;
+	}
+	@RequestMapping(value = "/logout", method=RequestMethod.GET) 
+	public ModelAndView logout(ModelAndView mv, HttpSession session) {
+		//세션에 있는 회원 정보를 삭제하는 작업
+		session.removeAttribute("user");
+		mv.setViewName("redirect:/");
 		return mv;
 	}
 	
