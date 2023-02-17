@@ -13,7 +13,8 @@
 	<a href="/spring/ex4">데이터 전송 예제4</a> <br>
 	<a href="/spring/ex5?num=2022123001">DB 연결 예제5</a> <br>
 </div>
-
+세션에 저장된 정보는 언제든 $ { user } 로 불러올 수 있음 <br>
+현재 유저: ${user} 
 
 <!-- 
 <h1>
