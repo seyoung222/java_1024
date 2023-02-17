@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.kh.spring.dao.BoardDAO">
+  	<select id="selectAllBoardType" resultType="kr.kh.spring.vo.BoardTypeVO">
+  		<![CDATA[ 
+  		select * from board_type where bt_w_authority <= #{authority}
+  		]]> <!-- 태그가 아니라 문자열임을 나타내기 위해 이걸로 감싸줌: <가 태그 여는 걸로 인식될 수 있음 -->
+  	</select>
+  	<insert id="insertBoardType">
+  		insert into board_type(bt_type, bt_name, bt_r_authority, bt_w_authority)
+  		values(#{bt.bt_type},#{bt.bt_name},#{bt.bt_r_authority},#{bt.bt_w_authority})
+  	</insert>
+  	<update id="updateBoardType">
+  		update board_type
+  			set
+  				bt_type = #{bt.bt_type},
+  				bt_name = #{bt.bt_name},
+  				bt_r_authority = #{bt.bt_r_authority},
+  				bt_w_authority = #{bt.bt_w_authority}
+  			where
+  				bt_num = #{bt.bt_num}
+  	</update>
+  	<delete id="deleteBoardType">
+  		delete from board_type where bt_num = #{bt_num} 
+  	</delete>
+</mapper>
