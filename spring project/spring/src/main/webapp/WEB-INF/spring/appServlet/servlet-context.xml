@@ -36,10 +36,17 @@
 	<!-- 인터셉터 -->
 	<beans:bean id="loginInterceptor" 
 		class="kr.kh.spring.interceptor.LoginInterceptor"></beans:bean>
+	<beans:bean id="adminInterceptor" 
+		class="kr.kh.spring.interceptor.AdminInterceptor"></beans:bean>
+		
 	<interceptors>
 		<interceptor>
 			<mapping path="/login"/><!-- login페이지를 빠져나올 때 동작 -->
 			<beans:ref bean="loginInterceptor"/>
+		</interceptor>
+		<interceptor>
+			<mapping path="/admin/**"/>
+			<beans:ref bean="adminInterceptor"/>
 		</interceptor>
 	</interceptors>
 	
