@@ -32,7 +32,6 @@ public class HomeController {
 	}
 	@RequestMapping(value = "/signup", method = RequestMethod.POST)
 	public ModelAndView signupPost(ModelAndView mv, MemberVO member) {
-		System.out.println(member);
 		if(memberService.signup(member)) {
 			//성공했다고 알림 메세지(추후 구현 예정)
 			mv.setViewName("redirect:/");
@@ -40,6 +39,22 @@ public class HomeController {
 			//실패했다고 알림 메세지(추후 구현 예정)
 			mv.setViewName("redirect:/signup");
 		}
+		return mv;
+	}
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	public ModelAndView login(ModelAndView mv) {
+		mv.setViewName("/member/login");
+		return mv;
+	}
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	public ModelAndView loginPost(ModelAndView mv, MemberVO member) {
+		System.out.println(member);
+		MemberVO user = memberService.login(member);
+		System.out.println(user);
+		if(user != null)
+			mv.setViewName("redirect:/");
+		else
+			mv.setViewName("redirect:/login");
 		return mv;
 	}
 	
