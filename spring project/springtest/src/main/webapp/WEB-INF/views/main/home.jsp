@@ -6,6 +6,6 @@
 	<title>Home</title>
 </head>
 <body>
-
+	유저정보 : ${user}
 </body>
 </html>
