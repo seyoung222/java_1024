@@ -16,4 +16,7 @@
 	</div>
 	<button class="btn btn-outline-success col-12">로그인</button>
 </form>	
+<script>
+$('#id').focus();
+</script>
 

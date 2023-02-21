@@ -50,13 +50,19 @@ public class MemberServiceImp implements MemberService {
 	public MemberVO login(MemberVO member) {
 		if(member == null)
 			return null;
-		MemberVO user = memberDao.searchMemberById(member.getMe_id());
+		String idRegex = "^[a-zA-Z][a-zA-Z0-9!@#$]{4,12}$";
+		String pwRegex = "^[a-zA-Z0-9!@#$]{8,20}$";
+		if(member.getMe_id()==null || !Pattern.matches(idRegex, member.getMe_id()))
+			return null;
+		if(member.getMe_pw()==null || !Pattern.matches(pwRegex, member.getMe_pw()))
+			return null;
+		//아이디가 일치하는 회원 정보를 가져옴
+		MemberVO user = memberDao.selectMemberById(member.getMe_id());
 		if(user==null)
 			return null;
-		String encPw = passwordEncoder.encode(member.getMe_pw());
+		//입력한 비번과 암호화된 비번이 같은지를 확인
 		if(passwordEncoder.matches(member.getMe_pw(), user.getMe_pw()))
 			return user;
-		else
-			return null;
+		return null;
 	}
 }

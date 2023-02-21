@@ -1,5 +1,7 @@
 package kr.kh.test.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -48,13 +50,20 @@ public class HomeController {
 	}
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public ModelAndView loginPost(ModelAndView mv, MemberVO member) {
-		System.out.println(member);
 		MemberVO user = memberService.login(member);
+		mv.addObject("user", user);
 		System.out.println(user);
 		if(user != null)
 			mv.setViewName("redirect:/");
 		else
 			mv.setViewName("redirect:/login");
+		return mv;
+	}
+	@RequestMapping(value = "/logout", method = RequestMethod.POST)
+	public ModelAndView logoutPost(ModelAndView mv,HttpSession session) {
+		if(session != null)
+			session.removeAttribute("user");
+		mv.setViewName("redirect:/");
 		return mv;
 	}
 	
