@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.kh.test.service.MemberService;
+import kr.kh.test.vo.MemberOKVO;
 import kr.kh.test.vo.MemberVO;
 
 /**
@@ -51,18 +52,35 @@ public class HomeController {
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public ModelAndView loginPost(ModelAndView mv, MemberVO member) {
 		MemberVO user = memberService.login(member);
-		mv.addObject("user", user);
-		System.out.println(user);
-		if(user != null)
+		//인증한 회원들만 로그인 하도록
+		if(user != null && user.getMe_authority()>0) {
+			mv.addObject("user", user);
 			mv.setViewName("redirect:/");
-		else
+		}else {
+			if(user!=null) {
+				//인증 안된 회원이라고 알려주는 메세지
+				
+			}
 			mv.setViewName("redirect:/login");
+		}
 		return mv;
 	}
 	@RequestMapping(value = "/logout", method = RequestMethod.POST)
 	public ModelAndView logoutPost(ModelAndView mv,HttpSession session) {
 		if(session != null)
 			session.removeAttribute("user");
+		mv.setViewName("redirect:/");
+		return mv;
+	}
+	@RequestMapping(value = "/email/authentication", method = RequestMethod.GET)
+	public ModelAndView emailAuthentication(ModelAndView mv, MemberOKVO mok) {
+		System.out.println(mok);
+		boolean res = memberService.emailAuthentication(mok);
+		if(res){
+			//인증 성공 메세지
+		}else {
+			//인증 실패 메세지
+		}
 		mv.setViewName("redirect:/");
 		return mv;
 	}

@@ -81,7 +81,7 @@ public class MemberServiceImp implements MemberService {
 	        messageHelper.setFrom(setfrom);  // 보내는사람 생략하거나 하면 정상작동을 안함
 	        messageHelper.setTo(email);     // 받는사람 이메일
 	        messageHelper.setSubject(title); // 메일제목은 생략이 가능하다
-	        messageHelper.setText(content);  // 메일 내용
+	        messageHelper.setText(content, true);  // 메일 내용
 
 	        mailSender.send(message);
 	    } catch(Exception e){
@@ -91,7 +91,7 @@ public class MemberServiceImp implements MemberService {
 	}
 
 	private String getHref(MemberOKVO mok) {
-		String href = contextPath+"/email/authentication?mo_me_id="
+		String href ="http://localhost:8080"+contextPath+"/email/authentication?mo_me_id="
 				+mok.getMo_me_id()+"&mo_num="+mok.getMo_num();
 		return href;
 	}
@@ -124,5 +124,24 @@ public class MemberServiceImp implements MemberService {
 		if(passwordEncoder.matches(member.getMe_pw(), user.getMe_pw()))
 			return user;
 		return null;
+	}
+
+	@Override
+	public boolean emailAuthentication(MemberOKVO mok) {
+		System.out.println(mok);
+		//매개변수 체크
+		if(mok==null || mok.getMo_me_id()==null || mok.getMo_num()==null)
+			return false;
+		//아이디, 인증 번호를 이용하여 삭제시켜서 삭제된 갯수 받아옴
+		int delCount = memberDao.deleteMemberOK(mok);
+		//삭제 실패하면 : 만료시간 지남 또는 잘못된 경로로 들어옴
+		if(delCount == 0)
+			return false;
+		//인증 성공
+		//회원 등급(권한)을 일반 사용자로 업데이트
+		int updateCount = memberDao.updateMemberAuthority(mok.getMo_me_id(),1);
+		if(updateCount==0)
+			return false;
+		return true;
 	}
 }
