@@ -23,7 +23,7 @@ public class HomeController {
 	@Autowired
 	MemberService memberService;
 	
-	String contextPath="/text";
+	String contextPath="/test";
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ModelAndView home(ModelAndView mv, Integer num) {
