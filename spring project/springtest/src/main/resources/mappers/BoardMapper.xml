@@ -3,7 +3,23 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.kh.test.dao.BoardDAO">
-	<select id="selectAllBoardType" resultType="kr.kh.test.vo.BoardTypeVO">
-		select * from board_type
+	<select id="selectBoardTypeList" resultType="kr.kh.test.vo.BoardTypeVO">
+		select * from board_type where #{authority} >= bt_w_authority 
 	</select>
+	<select id="selectBoardTypeByName" resultType="kr.kh.test.vo.BoardTypeVO">
+		select * from board_type where bt_name = #{bt_name}
+	</select>
+	<insert id="insertBoardType">
+		insert into board_type(bt_type, bt_name, bt_r_authority, bt_w_authority)
+		 values(#{bt.bt_type}, #{bt.bt_name}, #{bt.bt_r_authority}, #{bt.bt_w_authority})
+	</insert>
+	<update id="updateBoardType">
+		update board_type 
+			set bt_type = #{bt.bt_type},
+				bt_name = #{bt.bt_name},
+				bt_r_authority = #{bt.bt_r_authority},
+				bt_w_authority = #{bt.bt_w_authority}
+			where bt_num = #{bt.bt_num}
+				
+	</update>
 </mapper>
