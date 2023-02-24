@@ -1,9 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
-
-
 <link href="<c:url value='/resources/css/summernote-bs4.min.css'></c:url>" rel="stylesheet">
 <script src="<c:url value='/resources/js/summernote-bs4.min.js'></c:url>"></script>
 <div class="container">
@@ -84,7 +81,6 @@ $('form').submit(function(){
 
 let common = [];
 <c:forEach items="${btList}" var="bt">
-	<c:if test="${bt.bt_type == '일반'}">common.push("${bt.bt_num}")</c:if>
+	<c:if test="${bt.bt_type == '일반'}">common.push('${bt.bt_num}')</c:if>
 </c:forEach>
-console.log(common);
 </script>

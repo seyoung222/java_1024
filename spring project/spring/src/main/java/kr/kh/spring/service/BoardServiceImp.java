@@ -23,25 +23,30 @@ public class BoardServiceImp implements BoardService{
 	
 	@Override
 	public boolean insertBoard(BoardVO board, MemberVO user) {
-		//회원정보가 없으면 
+		//회원정보가 없으면(=로그인안한 상태)
 		if(user==null)
 			return false;
-		//게시글에 빠진 항목이 있으면 false를 리턴
+		//게시글에 빠진 항목이 있으면 false 리턴
 		if(!checkBoard(board))
 			return false;
 		board.setBo_me_id(user.getMe_id());
 		//게시글 등록
 		boardDao.insertBoard(board);
-		//첨부파일 등록
+		//첨부파일 등록 //mapper의 usegeneratedKeys="true"덕에 기본키를 바로 가져와서 쓸 수 있음
 		
 		return true;
 	}
 	private boolean checkBoard(BoardVO board) {
 		//게시글이 없거나, 게시글 제목이 비었거나, 내용이 비어있으면
 		if(board==null || 
-				board.getBo_title()==null || board.getBo_title().trim().length()==0 ||
-				board.getBo_content()==null || board.getBo_content().trim().length()==0)
+			board.getBo_title()==null || board.getBo_title().trim().length()==0 ||
+			board.getBo_content()==null || board.getBo_content().trim().length()==0)
 			return false;
 		return true;
+	}
+
+	@Override
+	public ArrayList<BoardVO> getBoardList() {
+		return boardDao.selectBoardList();
 	}
 }

@@ -25,6 +25,9 @@ public class BoardController {
 	
 	@RequestMapping(value = "/board/list", method=RequestMethod.GET) 
 	public ModelAndView boardList(ModelAndView mv) {
+		//우선 천제 게시글을 가져오는 코드로 작성하고 추후에 페이지네이션 및 검색 기능을 적용
+		ArrayList<BoardVO> list = boardService.getBoardList();
+		mv.addObject("list",list);
 		mv.setViewName("/board/list");
 		return mv;
 	}
@@ -32,21 +35,20 @@ public class BoardController {
 	public ModelAndView boardinsert(ModelAndView mv,HttpServletRequest request) {
 		MemberVO user = (MemberVO)request.getSession().getAttribute("user");
 		ArrayList<BoardTypeVO> btList = boardService.getBoardType(user.getMe_authority());
+		mv.addObject("btList", btList);
 		//작성가능한 타입(게시판)이 없으면 작성페이지로 갈 필요없으니 게시글 리스트로 이동시킴
 		if(btList.size()==0)
 			mv.setViewName("redirect:/board/list");
 		else
-			mv.setViewName("board/insert");
-		mv.addObject("btList", btList);
-		mv.setViewName("/board/insert");
+			mv.setViewName("/board/insert");
 		return mv;
 	}
 	@RequestMapping(value = "/board/insert", method=RequestMethod.POST) 
 	public ModelAndView boardinsertPost(ModelAndView mv, BoardVO board,
 			HttpSession session) {
+		// 작성자에 넣기 위해 세션에 있는 회원정보 가져옴
 		MemberVO user = (MemberVO)session.getAttribute("user");
 		boardService.insertBoard(board, user);
-		System.out.println(board);
 		mv.setViewName("redirect:/board/list");
 		return mv;
 	}
