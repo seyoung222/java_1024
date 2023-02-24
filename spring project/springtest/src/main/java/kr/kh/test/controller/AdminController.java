@@ -45,11 +45,21 @@ public class AdminController {
 	@RequestMapping(value = "/admin/board/type/update", method = RequestMethod.POST)
 	public ModelAndView boardTypeListUpdate(ModelAndView mv, BoardTypeVO bt,
 			HttpServletResponse response, HttpServletRequest request) {
-		System.out.println(bt);
 		if(adminService.updateBoardType(bt))
 			MessageUtils.alertAndMovePage(response, "게시판을 수정했습니다.", request.getContextPath(), "/admin/board/type/list");
 		else
 			MessageUtils.alertAndMovePage(response, "게시판을 수정하지 못했습니다.", request.getContextPath(), "/admin/board/type/list");
+		
+		mv.setViewName("redirect:/admin/board/type/list");
+		return mv;
+	}
+	@RequestMapping(value = "/admin/board/type/delete", method = RequestMethod.GET)
+	public ModelAndView boardTypeListDelete(ModelAndView mv, Integer bt_num,
+			HttpServletResponse response, HttpServletRequest request) {
+		if(adminService.deleteBoardType(bt_num))
+			MessageUtils.alertAndMovePage(response, "게시판을 삭제했습니다.", request.getContextPath(), "/admin/board/type/list");
+		else
+			MessageUtils.alertAndMovePage(response, "게시판을 삭제하지 못했습니다.", request.getContextPath(), "/admin/board/type/list");
 		
 		mv.setViewName("redirect:/admin/board/type/list");
 		return mv;
