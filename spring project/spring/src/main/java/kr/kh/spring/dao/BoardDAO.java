@@ -22,4 +22,8 @@ public interface BoardDAO {
 	ArrayList<BoardVO> selectBoardList();
 
 	void insertFile(@Param("file")FileVO fileVo);
+
+	BoardVO selectBoard(@Param("bo_num")int bo_num);
+
+	ArrayList<FileVO> selectFileList(@Param("bo_num")int bo_num);
 }
