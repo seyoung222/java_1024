@@ -7,7 +7,17 @@ import java.util.UUID;
 
 import org.springframework.util.FileCopyUtils;
 
+//첨부파일을 올리면 파일을 그대로 받아오기 위해 필요한 util
 public class UploadFileUtils {
+	public static boolean removeFile(String uploadPath, String fileName) {//fileName은 fi_name을 의미함
+		fileName = fileName.replace("/", File.separator);//폴더 구분자 맞게 변경
+		File file = new File(uploadPath + fileName);
+		if(file.exists()) {
+			return file.delete();
+		}
+		return false;
+	}
+	
 	///서버에 파일을 업로드하고 업로드 된 경로와 파일명이 합쳐진 문자열을 반환
 	public static String uploadFile(String uploadPath, String originalName, byte[] 	
 			fileData)throws Exception{

@@ -53,6 +53,17 @@ public class BoardServiceImp implements BoardService{
 			boardDao.insertFile(fileVo);
 		}
 	}
+	private void deleteFileList(ArrayList<FileVO> fileList) {
+		if(fileList == null || fileList.size()==0)
+			return;
+		for(FileVO file : fileList) {
+			if(file==null)
+				continue;
+			UploadFileUtils.removeFile(uploadPath, file.getFi_name());
+			boardDao.deleteFile(file);
+		}
+	}
+	
 	
 	@Override
 	public ArrayList<BoardTypeVO> getBoardType(int authority) {
@@ -148,6 +159,9 @@ public class BoardServiceImp implements BoardService{
 		//로그인한 사용자와 작성자가 다르면
 		if(!board.getBo_me_id().equals(user.getMe_id()))
 			return false;
+		//게시글에 올라온 첨부파일 정보를 불러와서 파일이 있으면 저장소에서 지움
+		ArrayList<FileVO> fileList = boardDao.selectFileList(bo_num);
+		deleteFileList(fileList);
 		return boardDao.deleteBoard(bo_num) != 0;
 		
 	}
