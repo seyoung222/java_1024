@@ -3,6 +3,7 @@ package kr.kh.spring.controller;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.kh.spring.service.BoardService;
+import kr.kh.spring.utils.MessageUtils;
 import kr.kh.spring.vo.BoardTypeVO;
 import kr.kh.spring.vo.BoardVO;
 import kr.kh.spring.vo.FileVO;
@@ -58,13 +60,16 @@ public class BoardController {
 	@RequestMapping(value = "/board/detail/{bo_num}", method=RequestMethod.GET) 
 	public ModelAndView boardDetail(ModelAndView mv,
 			@PathVariable("bo_num")int bo_num,//경로에 매개변수가 있는 경우 PathVariable로 가져올 수 있음
-			HttpSession session) {
+			HttpSession session, HttpServletResponse response) {
 		MemberVO user = (MemberVO)session.getAttribute("user"); //권한 있는 게시글만 볼 수 있게 회원정보 가져옴. null일수도 있음
 		BoardVO board = boardService.getBoard(bo_num, user);
 		ArrayList<FileVO> files = boardService.getFileList(bo_num);
 		mv.addObject("board", board);
 		mv.addObject("files", files);
 		if(board==null) {
+			MessageUtils.alertAndMovePage(response,
+					"삭제되거나 조회 권한이 없는 게시글입니다.",
+					"/spring","/board/list");
 			mv.setViewName("redirect:/board/list");
 		}else {
 			mv.setViewName("/board/detail");			
