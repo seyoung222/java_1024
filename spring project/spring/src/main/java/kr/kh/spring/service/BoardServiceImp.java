@@ -82,7 +82,11 @@ public class BoardServiceImp implements BoardService{
 	}
 	@Override
 	public BoardVO getBoard(int bo_num) {
-		return boardDao.selectBoard(bo_num);
+		//조회수 증가
+		boardDao.updateBoardViews(bo_num);
+		//게시글 가져오기(조회수를 나중에 증가시키면 가져온 정보와 DB값이 달라짐)
+		BoardVO board = boardDao.selectBoard(bo_num);
+		return board;
 	}
 	@Override
 	public ArrayList<FileVO> getFileList(int bo_num) {
