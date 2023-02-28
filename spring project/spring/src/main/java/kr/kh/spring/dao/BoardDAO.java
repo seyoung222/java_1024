@@ -28,4 +28,6 @@ public interface BoardDAO {
 	ArrayList<FileVO> selectFileList(@Param("bo_num")int bo_num);
 
 	void updateBoardViews(@Param("bo_num")int bo_num);
+
+	BoardTypeVO selectBoardType(@Param("bt_num")int bo_bt_num);
 }

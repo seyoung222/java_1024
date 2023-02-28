@@ -57,12 +57,18 @@ public class BoardController {
 	}
 	@RequestMapping(value = "/board/detail/{bo_num}", method=RequestMethod.GET) 
 	public ModelAndView boardDetail(ModelAndView mv,
-			@PathVariable("bo_num")int bo_num) {//경로에 매개변수가 있는 경우 PathVariable로 가져올 수 있음
-		BoardVO board = boardService.getBoard(bo_num);
+			@PathVariable("bo_num")int bo_num,//경로에 매개변수가 있는 경우 PathVariable로 가져올 수 있음
+			HttpSession session) {
+		MemberVO user = (MemberVO)session.getAttribute("user"); //권한 있는 게시글만 볼 수 있게 회원정보 가져옴. null일수도 있음
+		BoardVO board = boardService.getBoard(bo_num, user);
 		ArrayList<FileVO> files = boardService.getFileList(bo_num);
 		mv.addObject("board", board);
 		mv.addObject("files", files);
-		mv.setViewName("/board/detail");
+		if(board==null) {
+			mv.setViewName("redirect:/board/list");
+		}else {
+			mv.setViewName("/board/detail");			
+		}
 		return mv;
 	}
 }
