@@ -37,4 +37,6 @@ public interface BoardDAO {
 	void insertLikes(@Param("li")LikesVO likesVo);
 
 	void updateLikes(@Param("li")LikesVO likesVo);
+
+	int deleteBoard(@Param("bo_num")int bo_num);
 }

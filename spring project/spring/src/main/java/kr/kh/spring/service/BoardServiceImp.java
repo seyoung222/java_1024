@@ -132,4 +132,23 @@ public class BoardServiceImp implements BoardService{
 		// 0을 리턴
 		return 0;
 	}
+	@Override
+	public LikesVO getLikes(int bo_num, MemberVO user) {
+		if(user==null)
+			return null;
+		return boardDao.selectLikesById(user.getMe_id(), bo_num);
+	}
+	@Override
+	public boolean deleteBoard(int bo_num, MemberVO user) {
+		if(user==null)
+			return false;
+		BoardVO board = boardDao.selectBoard(bo_num);
+		if(board==null)
+			return false;
+		//로그인한 사용자와 작성자가 다르면
+		if(!board.getBo_me_id().equals(user.getMe_id()))
+			return false;
+		return boardDao.deleteBoard(bo_num) != 0;
+		
+	}
 }

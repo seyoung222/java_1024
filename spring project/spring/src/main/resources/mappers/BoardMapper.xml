@@ -61,4 +61,7 @@
   	<update id="updateLikes">
   		update likes set li_state = #{li.li_state} where li_num = #{li.li_num}
   	</update>
+  	<delete id="deleteBoard">
+  		delete from board where bo_num = ${bo_num}
+  	</delete>
 </mapper>

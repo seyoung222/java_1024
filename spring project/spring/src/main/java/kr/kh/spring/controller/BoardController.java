@@ -22,6 +22,7 @@ import kr.kh.spring.utils.MessageUtils;
 import kr.kh.spring.vo.BoardTypeVO;
 import kr.kh.spring.vo.BoardVO;
 import kr.kh.spring.vo.FileVO;
+import kr.kh.spring.vo.LikesVO;
 import kr.kh.spring.vo.MemberVO;
 
 @Controller
@@ -67,8 +68,11 @@ public class BoardController {
 		MemberVO user = (MemberVO)session.getAttribute("user"); //권한 있는 게시글만 볼 수 있게 회원정보 가져옴. null일수도 있음
 		BoardVO board = boardService.getBoard(bo_num, user);
 		ArrayList<FileVO> files = boardService.getFileList(bo_num);
+		LikesVO likesVo = boardService.getLikes(bo_num, user);
+		
 		mv.addObject("board", board);
 		mv.addObject("files", files);
+		mv.addObject("likes", likesVo);
 		if(board==null) {
 			MessageUtils.alertAndMovePage(response,
 					"삭제되거나 조회 권한이 없는 게시글입니다.",
@@ -89,5 +93,22 @@ public class BoardController {
 		int res = boardService.updateLikes(user, bo_num, li_state);
 		map.put("res", res);
 		return map;
+	}
+	@RequestMapping(value = "/board/delete/{bo_num}", method=RequestMethod.GET) 
+	public ModelAndView boardDelete(ModelAndView mv, 
+			HttpSession session, @PathVariable("bo_num")int bo_num,
+			HttpServletResponse response) {
+		//세션에 있는 회원정보 가져옴. 작성자와 아이디가 같은지 확인하려고
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		boolean res = boardService.deleteBoard(bo_num, user);
+		if(res) {
+			MessageUtils.alertAndMovePage(response, "게시글을 삭제했습니다.", "/spring", "/board/list");
+		}else {
+			MessageUtils.alertAndMovePage(response, "작성자가 아니거나 이미 삭제된 게시글입니다.",
+					"/spring", "/board/detail/"+bo_num);
+		}
+		
+		mv.setViewName("redirect:/board/list");
+		return mv;
 	}
 }
