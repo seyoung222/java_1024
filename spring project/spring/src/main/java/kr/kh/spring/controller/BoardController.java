@@ -112,12 +112,12 @@ public class BoardController {
 		return mv;
 	}
 	@RequestMapping(value = "/board/update/{bo_num}", method=RequestMethod.GET) 
-	public ModelAndView boardUpdate(ModelAndView mv, 
-			HttpSession session, @PathVariable("bo_num")int bo_num,
-			HttpServletResponse response) {
+	public ModelAndView boardUpdate(ModelAndView mv, HttpSession session, 
+			@PathVariable("bo_num")int bo_num, HttpServletResponse response) {
 		//세션에 있는 회원정보 가져옴. 작성자와 아이디가 같은지 확인하려고
 		MemberVO user = (MemberVO)session.getAttribute("user");
 		BoardVO board = boardService.getBoardByWriteAuthority(bo_num, user);
+		ArrayList<FileVO> files = boardService.getFileList(bo_num);
 		if(board==null) {
 			MessageUtils.alertAndMovePage(response, "작성자가 아니거나 존재하지 않는 게시글입니다.",
 					"/spring", "/board/list");
@@ -125,6 +125,8 @@ public class BoardController {
 			mv.addObject("board", board);
 			ArrayList<BoardTypeVO> btList = boardService.getBoardType(user.getMe_authority());
 			mv.addObject("btList", btList);
+			System.out.println(files);
+			mv.addObject("files", files);
 			//작성가능한 타입(게시판)이 없으면 작성페이지로 갈 필요없으니 게시글 리스트로 이동시킴
 			if(btList.size()==0)
 				MessageUtils.alertAndMovePage(response, "권한이 없어서 작성할 수 있는 게시판이 없습니다.",
@@ -132,6 +134,34 @@ public class BoardController {
 			else
 				mv.setViewName("/board/update");	
 		}
+		return mv;
+	}
+	@RequestMapping(value = "/board/update/{bo_num}", method=RequestMethod.POST) 
+	public ModelAndView boardUpdatePost(ModelAndView mv, HttpSession session, 
+			@PathVariable("bo_num")int bo_num, HttpServletResponse response,
+			BoardVO board, //수정할 게시글 정보
+			MultipartFile[] files, //추가된 첨부파일
+			int [] fileNums) { //삭제될 첨부파일
+		//세션에 있는 회원정보 가져옴. 작성자와 아이디가 같은지 확인하려고
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		if(boardService.updateBoard(board,files,fileNums,user)) {
+			MessageUtils.alertAndMovePage(response, "게시글을 수정했습니다.",
+					"/spring", "/board/detail/"+bo_num);
+		}else {
+			MessageUtils.alertAndMovePage(response, "게시글을 수정하지 못했습니다.",
+					"/spring", "/board/list");
+		}
+		
+//		if(files!=null) 
+//			for(MultipartFile file: files) {
+//				if(file == null || file.getOriginalFilename().length()==0)
+//					continue;
+//				System.out.println(file.getOriginalFilename());
+//			}
+//		if(fileNums!=null)
+//			for(int fileNum : fileNums) {
+//				System.out.println(fileNum);
+//			}	
 		return mv;
 	}
 }
