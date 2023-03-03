@@ -24,6 +24,8 @@ import kr.kh.spring.vo.BoardVO;
 import kr.kh.spring.vo.FileVO;
 import kr.kh.spring.vo.LikesVO;
 import kr.kh.spring.vo.MemberVO;
+import kr.kh.sprint.pagination.Criteria;
+import kr.kh.sprint.pagination.PageMaker;
 
 @Controller
 //@RequestMapping(value="/board")//이걸 추가하면 여기포함된 건 모두 /board로 시작하는셈
@@ -33,10 +35,14 @@ public class BoardController {
 	BoardService boardService;
 	
 	@RequestMapping(value = "/board/list", method=RequestMethod.GET) 
-	public ModelAndView boardList(ModelAndView mv) {
+	public ModelAndView boardList(ModelAndView mv, Criteria cri) {
 		//우선 천제 게시글을 가져오는 코드로 작성하고 추후에 페이지네이션 및 검색 기능을 적용
-		ArrayList<BoardVO> list = boardService.getBoardList();
+		cri.setPerPageNum(2);//한페이지당 보이는 게시글 수
+		ArrayList<BoardVO> list = boardService.getBoardList(cri);
+		int totalCount = boardService.getBoardTotalCount(cri);
+		PageMaker pm = new PageMaker(totalCount,3,cri);//시작페이지, 한번에 보이는 페이지네이션 수
 		mv.addObject("list",list);
+		mv.addObject("pm", pm);
 		mv.setViewName("/board/list");
 		return mv;
 	}

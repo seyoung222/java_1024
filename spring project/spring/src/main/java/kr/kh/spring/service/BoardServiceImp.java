@@ -13,6 +13,7 @@ import kr.kh.spring.vo.BoardVO;
 import kr.kh.spring.vo.FileVO;
 import kr.kh.spring.vo.LikesVO;
 import kr.kh.spring.vo.MemberVO;
+import kr.kh.sprint.pagination.Criteria;
 
 @Service
 public class BoardServiceImp implements BoardService{
@@ -94,8 +95,10 @@ public class BoardServiceImp implements BoardService{
 	}
 	
 	@Override
-	public ArrayList<BoardVO> getBoardList() {
-		return boardDao.selectBoardList();
+	public ArrayList<BoardVO> getBoardList(Criteria cri) {
+		if(cri==null)
+			cri=new Criteria();
+		return boardDao.selectBoardList(cri);
 	}
 	@Override
 	public BoardVO getBoard(int bo_num, MemberVO user) {
@@ -219,5 +222,9 @@ public class BoardServiceImp implements BoardService{
 	@Override
 	public void updateBoardByLikes(int bo_num) {
 		boardDao.updateBoardByLikes(bo_num);
+	}
+	@Override
+	public int getBoardTotalCount(Criteria cri) {
+		return boardDao.selectBoardTotalCount(cri);
 	}
 }

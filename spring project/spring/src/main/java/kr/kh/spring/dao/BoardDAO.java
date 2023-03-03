@@ -8,6 +8,7 @@ import kr.kh.spring.vo.BoardTypeVO;
 import kr.kh.spring.vo.BoardVO;
 import kr.kh.spring.vo.FileVO;
 import kr.kh.spring.vo.LikesVO;
+import kr.kh.sprint.pagination.Criteria;
 
 public interface BoardDAO {
 	ArrayList<BoardTypeVO> selectAllBoardType(@Param("authority")int authority);
@@ -20,7 +21,7 @@ public interface BoardDAO {
 
 	void insertBoard(@Param("bo")BoardVO board);
 
-	ArrayList<BoardVO> selectBoardList();
+	ArrayList<BoardVO> selectBoardList(@Param("cri")Criteria cri);
 
 	void insertFile(@Param("file")FileVO fileVo);
 
@@ -47,4 +48,6 @@ public interface BoardDAO {
 	FileVO selectFile(@Param("fi_num")int fileNum);
 
 	void updateBoardByLikes(@Param("bo_num")int bo_num);
+
+	int selectBoardTotalCount(@Param("cri")Criteria cri);
 }
