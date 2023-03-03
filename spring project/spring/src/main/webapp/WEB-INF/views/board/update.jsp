@@ -18,6 +18,11 @@
 #image>div>div{
 	float:left; margin-right:20px; 
 }
+#image .btn-times{
+	position: absolute; top: 5px; right: 5px; width: 30px; height: 30px;
+	border: 1px solid black; background-color: #fff; text-align: center;
+	line-height: 27px; font-size: 20px; border-radius: 5px;  cursor: pointer;
+}
 </style>
 <div class="container">
 	<h1>게시글 수정</h1>
@@ -57,10 +62,11 @@
 			<label>이미지:</label>
 			<div class="form-group mt-3">
 				<c:forEach items="${files}" var="file">
-					<div>
+					<div style="position: relative;">
 						<div class="file-box" style="display:none;">+</div>
 						<input type="file" class="form-control" name="files" accept="image/*" onchange="readURL(this);">
 						<img class="preview" height="200" width="auto" src="<c:url value='/download${file.fi_name}'></c:url>">
+						<span class="btn-times" data-num="${file.fi_num}">X</span>
 					</div>
 				</c:forEach>
 				<c:forEach begin="1" end="${3-files.size()}">
@@ -107,8 +113,22 @@ $('form').submit(function(){
 		return false;
 	}
 	let bo_content = $('[name=bo_content]').val();
-	if(bo_content.trim().length == 0){
+	if(bo_content.trim().length == 0 && common.indexOf($('#type').val())>=0){
 		alert('내용을 입력하세요.');
+		return false;
+	}
+	//이미지 게시판에서 이미지가 1개이상 선택되어야 전송되도록 유효성 검사
+	if(common.indexOf($('#type').val()) < 0){
+		let images = image.querySelectorAll('[type=file]');
+		for(i=0; i<images.length; i++){
+			if(images[i].files && images[i].files[0]) //아이디가 image인 검색결과 배열중 파일이 담긴 files에 파일이 있는지(=이미지가 있으면)
+				return true;
+		}
+		let imgCount = '${files.size()}';
+		let deleteImgCount = image.querySelectorAll('[name=fileNums]').size();
+		if(imgCount - deleteImgCount != 0)
+			return true;
+		alert('이미지를 1개 이상 선택하세요.');
 		return false;
 	}
 });
@@ -124,7 +144,7 @@ if(common.includes('${board.bo_bt_num}'))
 else
 	$('#image').show();;
 $('#content').summernote('code', '${board.bo_content}');
-$('.btn-times').click(function(e){
+$('#common .btn-times').click(function(e){
 	e.preventDefault();
 	$('.files').append('<input type="file" class="form-control" name="files">');
 	$('.files').append('<input type="hidden" name="fileNums" value="'+$(this).data('num')+'">');
@@ -135,6 +155,19 @@ $('.btn-times').click(function(e){
 $('.file-box, .preview').click(function(){
 	$(this).siblings('input').click(); //다음 내용인 첨부파일 추가가 눌려서 마치 자기가 첨부파일 넣는것처럼 보이게 하기
 });
+
+$('#image .btn-times').click(function(){
+	$(this).siblings('.preview').attr('src','');
+	$(this).siblings('.file-box').show();
+	$(this).parent().detach().appendTo('#image>div');
+
+	//input태그로 삭제할 첨부파일 번호를 전송하기 위한 준비 작업
+	$(this).after('<input type="hidden" name="fileNums" value="'+$(this).data('num')+'">');
+	$(this).remove();
+});
+
+
+
 function readURL(input){
 	if(!input.files || !input.files[0]){
 		input.nextElementSibling.src='';
