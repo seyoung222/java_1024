@@ -50,6 +50,19 @@
 	    </interceptor>
 	</interceptors>
 	
+	<!-- 파일 업로드 기능 -->
+	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+	    <!-- 업로드 최대 크기 10Mb -->
+	    <beans:property name="maxUploadSize" value="10485760"></beans:property>
+	</beans:bean>
+	<!-- 파일 업로드 - 파일경로 추가 -->
+	<beans:bean id="uploadPath" class="java.lang.String">
+	    <!--
+		<beans:constructor-arg value="서버에 저장할 경로"></beans:constructor-arg>
+		-->
+	    <beans:constructor-arg value="D:\\uploadfiles"></beans:constructor-arg>
+	</beans:bean>
+
 	<context:component-scan base-package="kr.kh.test.*" />
 	
 	
