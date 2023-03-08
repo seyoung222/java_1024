@@ -202,12 +202,7 @@
 		    <artifactId>mail</artifactId>
 		    <version>1.4.3</version>
 		</dependency>
-		<!-- 파일 업로드 기능 -->
-		<dependency>
-		    <groupId>org.imgscalr</groupId>
-		    <artifactId>imgscalr-lib</artifactId>
-		    <version>4.2</version>
-		</dependency>
+		<!-- 첨부파일 업로드 기능 -->
 		<dependency>
 		    <groupId>commons-fileupload</groupId>
 		    <artifactId>commons-fileupload</artifactId>

@@ -3,9 +3,11 @@ package kr.kh.test.dao;
 import java.util.ArrayList;
 
 import org.apache.ibatis.annotations.Param;
+import org.springframework.web.multipart.MultipartFile;
 
 import kr.kh.test.vo.BoardTypeVO;
 import kr.kh.test.vo.BoardVO;
+import kr.kh.test.vo.FileVO;
 
 public interface BoardDAO {
 
@@ -20,5 +22,7 @@ public interface BoardDAO {
 	int deleteBoardType(@Param("bt_num")Integer bt_num);
 
 	int insertBoard(@Param("bo")BoardVO board);
+
+	void insertFile(@Param("file")FileVO fileVo);
 
 }
