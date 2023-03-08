@@ -49,6 +49,13 @@ public class BoardController {
 		mv.setViewName("/board/insert");
 		return mv;
 	}
+	@RequestMapping(value = "/board/list", method = RequestMethod.GET)
+	public ModelAndView boardList(ModelAndView mv) {
+		ArrayList<BoardVO> list = boardService.getBoardList();
+		mv.addObject("list", list);
+		mv.setViewName("/board/list");
+		return mv;
+	}
 	
 	
 }
