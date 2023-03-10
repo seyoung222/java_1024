@@ -34,6 +34,38 @@
 		values(#{file.fi_bo_num},#{file.fi_name},#{file.fi_ori_name})
 	</insert>
 	<select id="selectBoardList" resultType="kr.kh.test.vo.BoardVO">
-		select * from board order by bo_num desc
+		select * from board 
+			where (bo_title like concat('%', #{cri.search},'%') 
+				or bo_content like concat('%',#{cri.search}, '%'))
+			<if test="cri.type!=0">
+				and bo_bt_num = #{cri.type}
+			</if>
+			order by bo_num desc
+			limit #{cri.pageStart}, #{cri.perPageNum}
 	</select>
+	<select id="selectTotalCountBoard" resultType="int">
+		select count(*) from board
+			where (bo_title like concat('%',#{cri.search},'%')
+				or bo_content like concat('%',#{cri.search},'%'))
+			<if test="cri.type!=0">
+				and bo_bt_num = #{cri.type}
+			</if>
+	</select>
+	<update id="updateViews">
+		update board set bo_views = bo_views+1 where bo_num = #{bo_num}
+	</update>
+	<select id="selectBoard" resultType="kr.kh.test.vo.BoardVO">
+		select * from board
+		join board_type on bo_bt_num = bt_num
+		where bo_num = #{bo_num}
+	</select>
+	<select id="selectFileList" resultType="kr.kh.test.vo.FileVO">
+		select * from file where fi_bo_num = #{bo_num}
+	</select>
+	<delete id="deleteFile">
+		delete from file where fi_num = #{fi_num}
+	</delete>
+	<delete id="deleteBoard">
+		delete from board where bo_num = #{bo_num}
+	</delete>
 </mapper>
