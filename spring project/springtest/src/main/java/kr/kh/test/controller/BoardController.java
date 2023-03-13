@@ -116,10 +116,10 @@ public class BoardController {
 	@RequestMapping(value = "/board/update/{bo_num}", method = RequestMethod.POST)
 	public ModelAndView boardUpdatePost(ModelAndView mv,
 			@PathVariable("bo_num")int bo_num, 
-			BoardVO board, HttpSession session,
+			HttpSession session, BoardVO board,
 			MultipartFile[] files, int[] fileNums) {
 		MemberVO user = (MemberVO) session.getAttribute("user");
-		String url = "/board/detail/{bo_num}";
+		String url = "/board/detail/"+bo_num;
 		String msg = "";
 		if(boardService.updateBoard(board, user, files, fileNums)) {
 			msg = "게시글 수정 성공!";

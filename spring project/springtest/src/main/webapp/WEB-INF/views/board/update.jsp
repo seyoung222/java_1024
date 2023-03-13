@@ -5,7 +5,7 @@
 <script src="<c:url value='/resources/js/summernote-bs4.min.js'></c:url>"></script>
 <h1>게시글 수정</h1>
 
-<form action="<c:url value='/board/update'></c:url>" method="post" enctype="multipart/form-data">
+<form action="<c:url value='/board/update/${board.bo_num}'></c:url>" method="post" enctype="multipart/form-data">
 	<div class="form-group">
 		<label>타입</label>
 		<select name="bo_bt_num" class="form-control">

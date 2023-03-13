@@ -121,14 +121,34 @@ public class BoardServiceImp implements BoardService{
 	}
 
 	@Override
-	public boolean updateBoard(BoardVO board, MemberVO user, MultipartFile[] files, int[] deleteFiles) {
-		if(board==null || user==null)
+	public boolean updateBoard(BoardVO board, MemberVO user, MultipartFile[] files, int[] fileNums) {
+		if(user==null)
+			return false;
+		if(board==null || board.getBo_title().trim().length()==0 ||
+				board.getBo_content().trim().length()==0 ||
+				board.getBo_bt_num()<=0)
 			return false;
 		BoardVO dbBoard = boardDao.selectBoard(board.getBo_num());
-		if(dbBoard==null || dbBoard.getBo_me_id().equals(user.getMe_id()))
+		if(dbBoard==null)
+			return false;
+		if(!dbBoard.getBo_me_id().equals(user.getMe_id()))
+			return false;
+		if(boardDao.updateBoard(board)==0)
 			return false;
 		//새로운 첨부파일 추가
-		//있던 첨부파일들을 삭제(반복문)
-		return false;
+		insertFileList(board.getBo_num(), files);
+		//1. 기존 첨부파일 삭제 안하는 경우
+		if(fileNums==null || fileNums.length==0)
+			return true;
+		//2. 있던 첨부파일들을 삭제(반복문 이용해 int[]를 ArrayList<FileVO>로 변환)
+		ArrayList<FileVO> fileList = new ArrayList<FileVO>();
+		for(int fileNum : fileNums) {
+			FileVO fileVo = boardDao.selectFile(fileNum);
+			if(fileVo==null)
+				continue;
+			fileList.add(fileVo);
+		}
+		deleteFileList(fileList);
+		return true;
 	}
 }
