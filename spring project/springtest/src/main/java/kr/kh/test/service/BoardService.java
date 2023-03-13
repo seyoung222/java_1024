@@ -30,4 +30,6 @@ public interface BoardService {
 
 	boolean updateBoard(BoardVO board, MemberVO user, MultipartFile[] files, int[] fileNums);
 
+	int updateLike(MemberVO user, int li_bo_num, int li_state);
+
 }
