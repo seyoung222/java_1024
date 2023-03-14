@@ -79,7 +79,7 @@
 		select * from file where fi_num = #{fi_num}
 	</select>
 	<select id="selectLikes" resultType="kr.kh.test.vo.LikesVO">
-		select * from likes where li_me_id = #{li_me_id) and li_bo_num = #{li_bo_num}
+		select * from likes where li_me_id = #{li_me_id} and li_bo_num = #{li_bo_num}
 	</select>
 	<insert id="insertLikes">
 		insert into likes (li_me_id, li_state, li_bo_num)
