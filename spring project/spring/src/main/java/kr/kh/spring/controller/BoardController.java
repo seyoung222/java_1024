@@ -37,7 +37,7 @@ public class BoardController {
 	@RequestMapping(value = "/board/list", method=RequestMethod.GET) 
 	public ModelAndView boardList(ModelAndView mv, Criteria cri) {
 		//우선 천제 게시글을 가져오는 코드로 작성하고 추후에 페이지네이션 및 검색 기능을 적용
-		cri.setPerPageNum(2);//한페이지당 보이는 게시글 수
+//		cri.setPerPageNum(2);//한페이지당 보이는 게시글 수
 		ArrayList<BoardVO> list = boardService.getBoardList(cri);
 		int totalCount = boardService.getBoardTotalCount(cri);
 		PageMaker pm = new PageMaker(totalCount,3,cri);//시작페이지, 한번에 보이는 페이지네이션 수
@@ -49,10 +49,15 @@ public class BoardController {
 		return mv;
 	}
 	@RequestMapping(value = "/board/insert", method=RequestMethod.GET) 
-	public ModelAndView boardinsert(ModelAndView mv,HttpServletRequest request) {
+	public ModelAndView boardinsert(ModelAndView mv, HttpServletRequest request,
+			Integer bo_ori_num) {
 		MemberVO user = (MemberVO)request.getSession().getAttribute("user");
 		ArrayList<BoardTypeVO> btList = boardService.getBoardType(user.getMe_authority());
+		bo_ori_num = bo_ori_num==null? 0 : bo_ori_num;
+		BoardVO board = boardService.getBoard(bo_ori_num, user);
+		mv.addObject("board", board);
 		mv.addObject("btList", btList);
+		mv.addObject("bo_ori_num", bo_ori_num);
 		//작성가능한 타입(게시판)이 없으면 작성페이지로 갈 필요없으니 게시글 리스트로 이동시킴
 		if(btList.size()==0)
 			mv.setViewName("redirect:/board/list");

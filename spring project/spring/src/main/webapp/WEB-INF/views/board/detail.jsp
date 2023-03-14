@@ -100,17 +100,37 @@
 	 		<button class="btn btn-outline-danger btn-down ml-2">비추천</button>
 	 	</c:if>
 	 </div>
-</div>
-<c:if test="${user!=null && user.me_id == board.bo_me_id}">
-	<div>
-		<a href="<c:url value='/board/update/${board.bo_num}'></c:url>">
-			<button class="btn btn-outline-primary btn-update">수정</button>
-		</a>	
-		<a href="<c:url value='/board/delete/${board.bo_num}'></c:url>">
-			<button class="btn btn-outline-primary btn-delete">삭제</button>
+	<c:if test="${user!=null && user.me_id == board.bo_me_id}">
+		<div>
+			<a href="<c:url value='/board/update/${board.bo_num}'></c:url>">
+				<button class="btn btn-outline-primary btn-update">수정</button>
+			</a>	
+			<a href="<c:url value='/board/delete/${board.bo_num}'></c:url>">
+				<button class="btn btn-outline-primary btn-delete">삭제</button>
+			</a>
+		</div>
+	</c:if>
+	<c:if test="${board.bo_num == board.bo_ori_num }">
+		<a href="<c:url value='/board/insert?bo_ori_num=${board.bo_num}'></c:url>">
+			<button class="btn btn-outline-primary btn-reply">답글</button>
 		</a>
+	</c:if>
+	<!-- 댓글 -->
+	<div class="comment-list mt-4">
+		
 	</div>
-</c:if>
+	<div class="comment-pagination mt-2">
+		
+	</div>
+	<div class="comment-box mt-2">
+		 <div class="input-group mb-3">
+		 	<textarea class="form-control" placeholder="댓글을 입력하세요." name="co_content"></textarea>
+		 	<div class="input-group-append">
+		 		<button class="btn btn-success btn-comment-insert" type="submit">댓글 등록</button>
+		 	</div>
+		 </div>
+	</div>
+</div>
 <script>
 $(function(){
 	// 추천버튼을 누르면 로그인하도록.. 예 누르면 로그인화면, 아니오 누르면 그 페이지 그대로있도록
@@ -168,4 +188,40 @@ var swiper = new Swiper(".mySwiper", {
     },
     loop: true,
   });
+</script>
+<script>
+$('.btn-comment-insert').click(function(){
+	//로그인 여부 체크
+	if('${user.me_id}'==''){
+		alert('로그인하세요.');
+		return;
+	}
+	//ajax를 이용하여 댓글 등록
+	//-> 댓글 정보를 가진 객체를 생성
+	let co_content = $('[name=co_content]').val();
+	if(co_content.trim().length == 0){
+		alert('내용을 입력하세요.');
+		return;
+	}
+	let comment = {
+			co_content : co_content,
+			co_bo_num : '${board.bo_num}'
+	}
+	ajax('POST', comment, '<c:url value="/comment/insert"></c:url>', 
+		function(data){
+			console.log(data);
+		}
+	)
+});
+function ajax(method, obj, url, successFunc, errorFunc){
+	$.ajax({
+        async:false,
+        type: method,
+        data: JSON.stringify(obj),
+        url: url,
+        dataType:"json", //success에 있는 data타입(주는거)
+        contentType:"application/json; charset=UTF-8", //위에있는 data타입(받는거)
+        success : successFunc
+	});
+}
 </script>
