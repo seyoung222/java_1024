@@ -221,16 +221,44 @@ $('.btn-comment-insert').click(function(){
 	insertComment(comment);
 });
 /* 댓글 페이지네이션 이벤트  
-: 페이지네이션은 js로 등록되었기 때문에 document를 써야함. 
-그냥.click쓰면 이벤트 일어나지 않음*/
+: 페이지네이션은 js로 등록되었기 때문에 그냥 .click으로 등록하면 이벤트 일어나지 않음
+  => document를 써서 항시 이벤트 발생하도록 해야함. */
 $(document).on('click', '.comment-pagination a', function(e){
 	e.preventDefault();
 	page = $(this).parent().data('page');
 	selectCommentList(page, bo_num);
 });
+/* 댓글 삭제버튼 클릭 이벤트 */
+$(document).on('click', '.comment-list .btn-delete', function(){
+	//댓글 번호 확인
+	let co_num = $(this).data('num');
+	let comment = {
+			co_num : co_num
+	}
+	//deleteComment 호출
+	deleteComment(comment,page); //이 때 page는 전역변수 page
+});
+
+
 const bo_num = '${board.bo_num}';
 let page = 1; //댓글 페이지
 selectCommentList(1, bo_num);
+//댓글 삭제하는 함수
+function deleteComment(comment, page){
+	ajax('POST', comment, '<c:url value="/comment/delete"></c:url>', 
+		function(data){
+			console.log(data);
+			if(data.result){
+				alert('댓글을 삭제했습니다.');
+				//댓글 조회
+				selectCommentList(page, bo_num);
+			}else{
+				alert('댓글 삭제에 실패했습니다');
+			}
+		}
+	)
+}
+//페이지네이션에 따라 댓글을 보여주는 함수
 function selectCommentList(page,bo_num){
 	//현재 페이지 정보
 	let cri = {
@@ -246,9 +274,13 @@ function selectCommentList(page,bo_num){
 					'<div class="co_me_id">'+list[i].co_me_id+'</div>'+
 					'<div class="co_content">'+list[i].co_content+'</div>'+
 					'<div class="co_register_date">'+list[i].co_register_date_str+'</div>'+
-					'<button class="btn btn-outline-success btn-reply">답글</button>'+
-					'<button class="btn btn-outline-success btn-update">수정</button>'+
-					'<button class="btn btn-outline-success btn-delete">삭제</button>'+
+					'<button class="btn btn-outline-success btn-reply">답글</button>';
+				if('${user.me_id}'== list[i].co_me_id){
+					str +=
+					'<button class="btn btn-outline-success btn-update ml-2" data-num="'+list[i].co_num+'">수정</button>'+
+					'<button class="btn btn-outline-success btn-delete ml-2" data-num="'+list[i].co_num+'">삭제</button>';
+				}
+				str += 
 					'<hr>'+
 				'</div>';
 			}
@@ -278,6 +310,7 @@ function insertComment(comment){
 			if(data.result){
 				alert('댓글을 등록했습니다.');
 				//등록 후 댓글 조회 다시 해줘야함
+				selectCommentList(1, bo_num);
 			}else{
 				alert('댓글 등록에 실패했습니다');
 			}
