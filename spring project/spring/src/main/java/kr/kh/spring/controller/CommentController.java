@@ -38,7 +38,7 @@ public class CommentController {
 			@PathVariable("co_bo_num") int co_bo_num) { 
 		Map<String, Object> map = new HashMap<String, Object>();
 		//댓글을 가져와서 개수별로 보여줌(mapper에서 limit로 cri 설정)
-		cri.setPerPageNum(2);
+//		cri.setPerPageNum(2);
 		ArrayList<CommentVO> list = boardService.getCommentList(cri, co_bo_num);
 		//PageMaker 만들어줘야함
 		int totalCount = boardService.getTotalCountCommentList(co_bo_num);
@@ -53,6 +53,15 @@ public class CommentController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		MemberVO user = (MemberVO) session.getAttribute("user");
 		boolean res = boardService.deleteComment(comment, user);
+		map.put("result", res);
+		return map;
+	}
+	@RequestMapping(value = "/comment/update", method=RequestMethod.POST) 
+	public Map<String, Object> commentUpdate(@RequestBody CommentVO comment,
+			HttpSession session) { 
+		Map<String, Object> map = new HashMap<String, Object>();
+		MemberVO user = (MemberVO) session.getAttribute("user");
+		boolean res = boardService.updateComment(comment, user);
 		map.put("result", res);
 		return map;
 	}
