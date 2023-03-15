@@ -116,12 +116,22 @@
 		</a>
 	</c:if>
 	<!-- 댓글 -->
-	<div class="comment-list mt-4">
-		
+	<div class="comment-list mt-4 border rounded-sm border-success">
+		<div class="comment-row p-3">
+			<div class="co_me_id">qwe123</div>
+			<div class="co_content">11</div>
+			<div class="co_register_date">2023-03-15</div>
+			<button class="btn btn-outline-success btn-reply">답글</button>
+			<button class="btn btn-outline-success btn-update">수정</button>
+			<button class="btn btn-outline-success btn-delete">삭제</button>
+			<hr>
+		</div>
 	</div>
-	<div class="comment-pagination mt-2">
-		
-	</div>
+	<ul class="comment-pagination mt-2 pagination justify-content-center">
+		<li class="page-item" data-page=""><a class="page-link" href="#">이전</a></li>
+		<li class="page-item" data-page=""><a class="page-link" href="#">1</a></li>
+		<li class="page-item" data-page=""><a class="page-link" href="#">다음</a></li>
+	</ul>
 	<div class="comment-box mt-2">
 		 <div class="input-group mb-3">
 		 	<textarea class="form-control" placeholder="댓글을 입력하세요." name="co_content"></textarea>
@@ -190,6 +200,7 @@ var swiper = new Swiper(".mySwiper", {
   });
 </script>
 <script>
+//댓글등록버튼클릭
 $('.btn-comment-insert').click(function(){
 	//로그인 여부 체크
 	if('${user.me_id}'==''){
@@ -205,14 +216,74 @@ $('.btn-comment-insert').click(function(){
 	}
 	let comment = {
 			co_content : co_content,
-			co_bo_num : '${board.bo_num}'
+			co_bo_num : bo_num
 	}
-	ajax('POST', comment, '<c:url value="/comment/insert"></c:url>', 
+	insertComment(comment);
+});
+/* 댓글 페이지네이션 이벤트  
+: 페이지네이션은 js로 등록되었기 때문에 document를 써야함. 
+그냥.click쓰면 이벤트 일어나지 않음*/
+$(document).on('click', '.comment-pagination a', function(e){
+	e.preventDefault();
+	page = $(this).parent().data('page');
+	selectCommentList(page, bo_num);
+});
+const bo_num = '${board.bo_num}';
+let page = 1; //댓글 페이지
+selectCommentList(1, bo_num);
+function selectCommentList(page,bo_num){
+	//현재 페이지 정보
+	let cri = {
+			page : page
+	}
+	ajax('POST', cri, '<c:url value="/comment/list/'+bo_num+'"></c:url>', 
 		function(data){
-			console.log(data);
+			let str = '';
+			let list = data.list;
+			for(i=0; i<list.length; i++){
+				str += 
+				'<div class="comment-row p-3">'+
+					'<div class="co_me_id">'+list[i].co_me_id+'</div>'+
+					'<div class="co_content">'+list[i].co_content+'</div>'+
+					'<div class="co_register_date">'+list[i].co_register_date_str+'</div>'+
+					'<button class="btn btn-outline-success btn-reply">답글</button>'+
+					'<button class="btn btn-outline-success btn-update">수정</button>'+
+					'<button class="btn btn-outline-success btn-delete">삭제</button>'+
+					'<hr>'+
+				'</div>';
+			}
+			$('.comment-list').html(str); 
+			str='';
+			let pm = data.pm;
+			if(pm.prev)
+				str +=
+				'<li class="page-item" data-page="'+(pm.startPage-1)+'"><a class="page-link" href="#">이전</a></li>'
+			for(i=pm.startPage; i<=pm.endPage; i++){
+				let active = i==pm.cri.page ? 'active' : ''; //active들어가면 색상들어감
+				str +=
+				'<li class="page-item '+active+'" data-page="'+i+'"><a class="page-link" href="#">'+i+'</a></li>'
+			}
+			if(pm.next)
+				str +=
+				'<li class="page-item" data-page="'+(pm.endPage+1)+'"><a class="page-link" href="#">다음</a></li>'
+			$('.comment-pagination').html(str);
 		}
 	)
-});
+}
+
+//댓글 객체가 주어지면 댓글을 등록하는 함수
+function insertComment(comment){
+	ajax('POST', comment, '<c:url value="/comment/insert"></c:url>', 
+		function(data){
+			if(data.result){
+				alert('댓글을 등록했습니다.');
+				//등록 후 댓글 조회 다시 해줘야함
+			}else{
+				alert('댓글 등록에 실패했습니다');
+			}
+		}
+	)
+}
 function ajax(method, obj, url, successFunc, errorFunc){
 	$.ajax({
         async:false,
