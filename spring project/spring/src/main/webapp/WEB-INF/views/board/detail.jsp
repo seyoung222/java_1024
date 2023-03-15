@@ -364,8 +364,13 @@ function selectCommentList(page,bo_num){
 				'<div class="comment-row p-3">'+
 				'<div style="padding-left:'+pl+'px">'+
 					'<div class="co_me_id">'+list[i].co_me_id+'</div>'+
-					'<div class="co_content">'+list[i].co_content+'</div>'+
+					'<div class="co_content">'+list[i].co_content+'</div>';
+				if(list[i].co_update_date_str=='')
+					str +=
 					'<div class="co_register_date">'+list[i].co_register_date_str+'</div>';
+				else
+					str +=
+					'<div class="co_register_date">'+list[i].co_update_date_str+'</div>';
 				if(list[i].co_num == list[i].co_ori_num)
 					str +=
 					'<button class="btn btn-outline-success btn-reply" data-num="'+list[i].co_num+'">답글</button>';
