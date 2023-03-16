@@ -78,9 +78,13 @@ public class HomeController {
 		MemberVO user = memberService.login(member);
 		//member는 입력받은 데이터, user는 그걸 통해 DB에서 찾아서 가져온 데이터
 		mv.addObject("user",user);
-		if(user != null)
+		if(user != null) {
 			mv.setViewName("redirect:/");
-		else
+			//자동로그인 체크 여부는 화면에서 가져오는거지 DB에서 가져오는게 x
+			//user는 DB에서 가져온 회원정보라 자동로그인 여부를 알 수 없음
+			// -> 화면에서 가져온 member에 있는 자동로그인 여부를 user에 반영해 수정
+			user.setAutoLogin(member.isAutoLogin());
+		}else
 			mv.setViewName("redirect:/login");
 		System.out.println(user);//정상로그인되면 객체 뜸
 		return mv;
@@ -99,6 +103,9 @@ public class HomeController {
 		}
 		//세션에 있는 회원 정보를 삭제하는 작업
 		session.removeAttribute("user");
+		//자동로그인을 위해 등록된 만료시간 없애서 user에 반영
+		user.setMe_session_limit(null);
+		memberService.updateMemberBySession(user);
 		mv.setViewName("redirect:/");
 		return mv;
 	}

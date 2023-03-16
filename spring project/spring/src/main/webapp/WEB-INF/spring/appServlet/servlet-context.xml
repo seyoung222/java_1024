@@ -43,8 +43,14 @@
 		class="kr.kh.spring.interceptor.MemberInterceptor"></beans:bean>
 	<beans:bean id="guestInterceptor" 
 		class="kr.kh.spring.interceptor.GuestInterceptor"></beans:bean>
+	<beans:bean id="autoLoginInterceptor" 
+		class="kr.kh.spring.interceptor.AutoLoginInterceptor"></beans:bean>
 		
 	<interceptors>
+		<interceptor>
+			<mapping path="/**"/><!-- 자동로그인 -->
+			<beans:ref bean="autoLoginInterceptor"/>
+		</interceptor>
 		<interceptor>
 			<mapping path="/login"/><!-- login페이지를 빠져나올 때 동작 -->
 			<beans:ref bean="loginInterceptor"/>
