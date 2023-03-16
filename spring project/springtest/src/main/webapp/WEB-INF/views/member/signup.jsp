@@ -10,7 +10,7 @@
 	  <label for="me_id">아이디:</label>
 	  <input type="text" class="form-control" id="id" name="me_id">
 	</div>
-	<button class="btn btn-outline-success col-12" type="button" onclick="alert('추후 구현')">아이디 중복체크</button>
+	<button class="btn btn-outline-success col-12" type="button" id="id_check">아이디 중복체크</button>
 	<div class="form-group">
 	  <label for="me_pw">비밀번호:</label>
 	  <input type="password" class="form-control" id="pw" name="me_pw">
@@ -32,6 +32,38 @@
 <!-- 유효성 검사 (두개 순서 바뀌면 안됨) -->
 <script src="<c:url value='/resources/js/jquery.validate.min.js'></c:url>"></script>
 <script src="<c:url value='/resources/js/additional-methods.min.js'></c:url>"></script>
+<script>
+let idCheck = false;
+
+$('#id_check').click(function(){
+	let me_id = $('[name=me_id]').val();
+	if(me_id.trim().length==0){
+		alert('아이디를 입력하세요.');
+		return;
+	}
+	let obj = {
+			me_id : me_id
+	}
+	$.ajax({
+        async:true,
+        type:'POST',
+        data: JSON.stringify(obj),
+        url:"<c:url value='/check/id'></c:url>",
+        dataType:"json",
+        contentType:"application/json; charset=UTF-8",
+        success : function(data){
+            if(data.res){
+            	alert('사용 가능한 아이디입니다.');
+            	idCheck = true;
+            }else
+            	alert('이미 사용중인 아이디입니다.')
+        }
+    });
+});
+$('[name=me_id]').change(function(){
+	idCheck=false;
+})
+</script>
 <script>
 $('form').validate({
 	rules:{
@@ -75,7 +107,12 @@ $('form').validate({
 			required : '필수 항목입니다.',
 			date : '날짜 형식이 아닙니다. 입력예시: yyyy-mm-dd'
 		}
-	}
+	}, submitHandler : function(form){
+			if(!idCheck){
+				alert('아이디 중복 체크를 하세요.');
+				return false;
+			}
+		}
 });
 $.validator.addMethod( //정규표현식 test를 위해 등록해야하는 함수.
 	"regex",

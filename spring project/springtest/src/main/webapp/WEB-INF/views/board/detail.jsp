@@ -61,6 +61,12 @@
 	</form>
 	<a href="<c:url value='/board/update/${board.bo_num}'></c:url>" class="btn btn-outline-primary">수정</a>
 </c:if>
+<div class="input-group mb-3 mt-4">
+  <textarea class="form-control" placeholder="댓글을 입력하세요." id="co_content"></textarea>
+  <div class="input-group-append">
+    <button class="btn btn-success btn-comment-insert" type="submit">댓글 작성</button>
+  </div>
+</div>
 <script>
 $('.btn-up, .btn-down').click(function(){
 	if('${user.me_id}'==''){
@@ -105,4 +111,35 @@ $('.btn-up, .btn-down').click(function(){
         }
     });
 })
+</script>
+<script>
+/* 댓글 작성 클릭 이벤트 */
+ $('.btn-comment-insert').click(function(){
+	if('${user.me_id}' == ''){
+		confirm('로그인 후 이용 가능한 서비스입니다. 로그인 화면으로 이동합니다.');
+	}
+	let co_content = $('#co_content').val();
+	if(co_content == ''){
+		alert('내용을 입력하세요.');
+		return;
+	}
+	let obj = {
+			co_content : co_content,
+			co_me_id : '${user.me_id}',
+			co_bo_num : '${board.bo_num}'
+	}
+	console.log(obj);
+	$.ajax({
+        async:false,
+        type:'POST',
+        data: JSON.stringify(obj),
+        url:'<c:url value="/comment/insert"></c:url>',
+        dataType:"json", 
+        contentType:"application/json; charset=UTF-8", 
+        success : function(data){
+            
+        }
+	});
+ });
+ 
 </script>

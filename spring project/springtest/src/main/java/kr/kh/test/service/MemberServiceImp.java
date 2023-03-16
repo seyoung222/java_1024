@@ -144,4 +144,15 @@ public class MemberServiceImp implements MemberService {
 			return false;
 		return true;
 	}
+
+	@Override
+	public boolean checkId(MemberVO user) {
+		if(user==null) 
+			return false;
+		String idRegex = "^[a-zA-Z][a-zA-Z0-9!@#$]{4,12}";
+		if(user.getMe_id()==null || !Pattern.matches(idRegex, user.getMe_id()))
+			return false;
+		user = memberDao.selectMemberById(user.getMe_id());
+		return user==null;
+	}
 }
