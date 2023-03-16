@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -69,7 +70,13 @@ public class HomeController {
 		return mv;
 	}
 	@RequestMapping(value = "/login", method=RequestMethod.GET) 
-	public ModelAndView login(ModelAndView mv) {
+	public ModelAndView login(ModelAndView mv, HttpServletRequest request) {
+		//만약 다른 곳을 통해서 로그인 페이지로 왔다면 그 전 링크를 저장함 ex.추천하려다가 로그인창 옴
+		String url = request.getHeader("Referer");
+		if(url!=null && !url.contains("login")) {
+			//이전 페이지가 없거나, 로그인post실패해서 redirect해온 경우 -> prevURL로 저장
+			request.getSession().setAttribute("prevURL", url);
+		}
 		mv.setViewName("/member/login");
 		return mv;
 	}

@@ -45,8 +45,14 @@
 		class="kr.kh.spring.interceptor.GuestInterceptor"></beans:bean>
 	<beans:bean id="autoLoginInterceptor" 
 		class="kr.kh.spring.interceptor.AutoLoginInterceptor"></beans:bean>
+	<beans:bean id="loginRedirectInterceptor" 
+		class="kr.kh.spring.interceptor.LoginRedirectInterceptor"></beans:bean>
 		
-	<interceptors>
+	<interceptors><!-- path : 어느 화면에 있을때 인터셉터 발동할건지. all이면 /** -->
+		<interceptor>
+			<mapping path="/**"/> <!-- 로그인하고 이전 페이지로 돌아오게 해줌 -->
+			<beans:ref bean="loginRedirectInterceptor"/>
+		</interceptor>
 		<interceptor>
 			<mapping path="/**"/><!-- 자동로그인 -->
 			<beans:ref bean="autoLoginInterceptor"/>
