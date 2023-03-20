@@ -3,6 +3,7 @@ package kr.kh.test.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -57,7 +58,11 @@ public class HomeController {
 		return mv;
 	}
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public ModelAndView login(ModelAndView mv) {
+	public ModelAndView login(ModelAndView mv, HttpServletRequest request) {
+		String url = request.getHeader("Referer");
+		if(url != null && !url.contains("/login")) {
+			request.getSession().setAttribute("prevURL", url);
+		}
 		mv.setViewName("/member/login");
 		return mv;
 	}

@@ -1,5 +1,8 @@
 package kr.kh.test.interceptor;
 
+import java.util.Date;
+
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -27,6 +30,18 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 	    	//세션에 회원정보 추가
 	        HttpSession session = request.getSession();
 	        session.setAttribute("user", user);
+	        if(user.isAutoLogin()) {
+	        	int time = 60 * 60 * 24 * 7;
+	        	Cookie cookie = new Cookie("testCookie", session.getId());
+	        	cookie.setPath("/");
+	        	cookie.setMaxAge(time);
+	        	response.addCookie(cookie);
+	        	
+	        	Date date = new Date(System.currentTimeMillis() + (time)*1000L);
+	        	user.setMe_session_limit(date);
+	        	user.setMe_session_id(session.getId());
+	        	memberService.updateSession(user);
+	        }
 	    }
 	}
 	

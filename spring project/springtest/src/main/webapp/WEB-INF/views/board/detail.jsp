@@ -61,10 +61,13 @@
 	</form>
 	<a href="<c:url value='/board/update/${board.bo_num}'></c:url>" class="btn btn-outline-primary">수정</a>
 </c:if>
-<div class="input-group mb-3 mt-4">
-  <textarea class="form-control" placeholder="댓글을 입력하세요." id="co_content"></textarea>
+<hr>
+<h4>댓글</h4>
+<hr>
+<div class="input-group mb-3">
+  <textarea class="form-control" placeholder="댓글을 입력하세요." name="co_content"></textarea>
   <div class="input-group-append">
-    <button class="btn btn-success btn-comment-insert" type="submit">댓글 작성</button>
+    <button class="btn btn-success btn-comment-insert" type="button">댓글 작성</button>
   </div>
 </div>
 <script>
@@ -113,33 +116,63 @@ $('.btn-up, .btn-down').click(function(){
 })
 </script>
 <script>
+//댓글과 관련된 전역 변수들
+const bo_num = '${bo_num}';
+
 /* 댓글 작성 클릭 이벤트 */
  $('.btn-comment-insert').click(function(){
 	if('${user.me_id}' == ''){
-		confirm('로그인 후 이용 가능한 서비스입니다. 로그인 화면으로 이동합니다.');
+		if(confirm('로그인 후 이용 가능한 서비스입니다. \n로그인 화면으로 이동하시겠습니까?')){
+			location.href = '<c:url value="/login"></c:url>'
+		}
+		return;
 	}
-	let co_content = $('#co_content').val();
-	if(co_content == ''){
+	let co_content = $('[name=co_content]').val();
+	if(co_content.trim().length == 0){
 		alert('내용을 입력하세요.');
 		return;
 	}
-	let obj = {
+	let comment = {
+			co_bo_num : bo_num
 			co_content : co_content,
-			co_me_id : '${user.me_id}',
-			co_bo_num : '${board.bo_num}'
 	}
-	console.log(obj);
-	$.ajax({
-        async:false,
-        type:'POST',
-        data: JSON.stringify(obj),
-        url:'<c:url value="/comment/insert"></c:url>',
-        dataType:"json", 
-        contentType:"application/json; charset=UTF-8", 
-        success : function(data){
-            
-        }
-	});
+	ajaxPost(comment, '<c:url value="/comment/insert"></c:url>',insertSuccess)
  });
- 
+
+/*댓글 수정 */
+ajaxPost(cri, '<c:url value="/comment/list/'+bo_num+'"></c:url>', listSuccess);
+function listSuccess(data){
+	addCommentList(data.list);
+	addPagination(data.pm);
+}
+function addCommentList(list){
+	
+}
+function addPagination(pm){
+	
+}
+function listSuccess(data){
+	if(data.res){
+		
+	}
+}
+function insertSuccess(data){
+	if(data.res){
+		alert('댓글을 등록했습니다.');
+		$('[name=co_content]').val();
+	}else{
+		alert('댓글을 등록하지 못했습니다.');
+	}
+}
+function ajaxPost(obj, url, successFunction){
+	 $.ajax({
+       async:false,
+       type:'POST',
+       data: JSON.stringify(obj),
+       url:url,
+       dataType:"json", 
+       contentType:"application/json; charset=UTF-8", 
+       success : successFunction
+	});
+}
 </script>
