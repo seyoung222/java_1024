@@ -32,29 +32,35 @@ public class HomeController {
 	String contextPath="/test";
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public ModelAndView home(ModelAndView mv, Integer num) {
+	public ModelAndView home(ModelAndView mv, Integer num,
+			HttpServletResponse response, HttpServletRequest request) {
 		String name = memberService.selectMemberName(num);
 		mv.setViewName("/main/home");
 		return mv;
 	}
 	@RequestMapping(value = "/signup", method = RequestMethod.GET)
 	public ModelAndView signup(ModelAndView mv) {
-		
 		mv.setViewName("/member/signup");
 		return mv;
 	}
 	@RequestMapping(value = "/signup", method = RequestMethod.POST)
 	public ModelAndView signupPost(ModelAndView mv, MemberVO member,
 			HttpServletResponse response) {
+		String msg, url;
 		if(memberService.signup(member)) {
 			//성공했다고 알림 메세지
-			MessageUtils.alertAndMovePage(response, "회원가입에 성공했습니다.", contextPath, "/");
-			mv.setViewName("redirect:/");
+//			MessageUtils.alertAndMovePage(response, "회원가입에 성공했습니다.", contextPath, "/");
+			msg = "회원가입에 성공했습니다.";
+			url = "/";
 		}else {
 			//실패했다고 알림 메세지
-			MessageUtils.alertAndMovePage(response, "회원가입에 실패했습니다.", contextPath, "/signup");
-			mv.setViewName("redirect:/signup");
+//			MessageUtils.alertAndMovePage(response, "회원가입에 실패했습니다.", contextPath, "/signup");
+			msg = "회원가입에 실패했습니다.";
+			url = "/signup";
 		}
+		mv.addObject("msg", msg);
+		mv.addObject("url", url);
+		mv.setViewName("common/message");
 		return mv;
 	}
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
@@ -70,30 +76,38 @@ public class HomeController {
 	public ModelAndView loginPost(ModelAndView mv, MemberVO member,
 			HttpServletResponse response) {
 		MemberVO user = memberService.login(member);
+		String msg, url;
 		//인증한 회원들만 로그인 하도록
 		if(user != null && user.getMe_authority()>0) {
 			mv.addObject("user", user);
-			mv.setViewName("redirect:/");
-			MessageUtils.alertAndMovePage(response, "로그인에 성공했습니다.",
-					contextPath, "/");
+			msg = "로그인에 성공했습니다.";
+			url = "/";
+//			MessageUtils.alertAndMovePage(response, "로그인에 성공했습니다.",contextPath, "/");
 			//contextPath는 HttyServletRequest request가져와서 request.contextPath()해도됨
 		}else {
+			url = "/login";
 			if(user!=null) {
 				//인증 안된 회원이라고 알려주는 메세지
-				MessageUtils.alertAndMovePage(response, "이메일 인증을 완료해야 로그인이 가능합니다.",
-						contextPath, "/login");
+//				MessageUtils.alertAndMovePage(response, "이메일 인증을 완료해야 로그인이 가능합니다.",contextPath, "/login");
+				msg = "이메일 인증을 완료해야 로그인이 가능합니다.";
 			}else {
-				MessageUtils.alertAndMovePage(response, "로그인에 실패했습니다.",
-						contextPath, "/login");
+				msg = "로그인에 실패했습니다.";
+//				MessageUtils.alertAndMovePage(response, "로그인에 실패했습니다.",contextPath, "/login");
 			}
-			mv.setViewName("redirect:/login");
 		}
+		mv.addObject("msg", msg);
+		mv.addObject("url", url);
+		mv.setViewName("/common/message");
 		return mv;
 	}
 	@RequestMapping(value = "/logout", method = RequestMethod.POST)
 	public ModelAndView logoutPost(ModelAndView mv,HttpSession session,
 			HttpServletResponse response) {
 		if(session != null) {
+			//로그아웃하면 자동로그인 만료시간을 없애고 DB에 반영, 세션정보를 지움
+			MemberVO user = (MemberVO)session.getAttribute("user");
+			user.setMe_session_limit(null);
+			memberService.updateSession(user);
 			session.removeAttribute("user");
 			MessageUtils.alertAndMovePage(response, "로그아웃에 성공했습니다.", contextPath, "/");
 		}

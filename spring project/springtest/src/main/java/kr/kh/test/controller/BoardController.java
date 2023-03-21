@@ -80,9 +80,9 @@ public class BoardController {
 		ArrayList<FileVO> fileList = boardService.getFileList(bo_num);
 		MemberVO user = (MemberVO) session.getAttribute("user");
 		LikesVO likesVo = boardService.getLikes(user, bo_num);
-		
 		mv.addObject("like", likesVo);
 		mv.addObject("board", board);
+		mv.addObject("user", user);
 		mv.addObject("fileList", fileList);
 		mv.setViewName("/board/detail");
 		return mv;

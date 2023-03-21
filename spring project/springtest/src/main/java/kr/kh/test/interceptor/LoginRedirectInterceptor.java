@@ -1,13 +1,11 @@
 package kr.kh.test.interceptor;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
-import org.springframework.web.util.WebUtils;
 
 import kr.kh.test.service.MemberService;
 import kr.kh.test.vo.MemberVO;
@@ -37,14 +35,8 @@ public class LoginRedirectInterceptor extends HandlerInterceptorAdapter  {
 		if(prevUrl == null)
 			return true;
 		//이전 url로 보내는 작업
-		String me_session_id = cookie.getValue();
-		user = memberService.getMemberBySession(me_session_id);
-		
-		if(user == null)
-			return true;
-		
-		session.setAttribute("user", user);
-		
-		return true;
+		response.sendRedirect(prevUrl);
+		session.removeAttribute("prevURL");
+		return false;
 	}
 }

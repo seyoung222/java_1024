@@ -64,6 +64,30 @@
 <hr>
 <h4>댓글</h4>
 <hr>
+<div class="comment-list">
+	<div class="comment">
+		<div class="comment-id">아이디</div>
+		<div class="comment-date">시간</div>
+		<div class="comment-content">내용</div>
+		<div class="btn-group">
+			<button type="button" class="btn btn-outline-success btn-reply" data-num="">답글</button>
+			<button type="button" class="btn btn-outline-success btn-update" data-num="">수정</button>
+			<button type="button" class="btn btn-outline-success btn-delete" data-num="">삭제</button>
+		</div>
+	</div>
+</div>
+<ul class="comment-pagination pagination justify-content-center">
+	<li class="page-item">
+		<a class="page-link" href="#">이전</a>
+	</li>
+	<li class="page-item">
+		<a class="page-link" href="#">1</a>
+	</li>
+	<li class="page-item">
+		<a class="page-link" href="#">다음</a>
+	</li>
+</ul>
+<hr>
 <div class="input-group mb-3">
   <textarea class="form-control" placeholder="댓글을 입력하세요." name="co_content"></textarea>
   <div class="input-group-append">
@@ -118,6 +142,10 @@ $('.btn-up, .btn-down').click(function(){
 <script>
 //댓글과 관련된 전역 변수들
 const bo_num = '${bo_num}';
+let cri = {
+		page : 1,
+		perPageNum : 5
+}
 
 /* 댓글 작성 클릭 이벤트 */
  $('.btn-comment-insert').click(function(){
@@ -133,28 +161,136 @@ const bo_num = '${bo_num}';
 		return;
 	}
 	let comment = {
-			co_bo_num : bo_num
-			co_content : co_content,
+			co_bo_num : bo_num,
+			co_content : co_content
 	}
-	ajaxPost(comment, '<c:url value="/comment/insert"></c:url>',insertSuccess)
+	insertComment(comment, 1);
  });
 
-/*댓글 수정 */
-ajaxPost(cri, '<c:url value="/comment/list/'+bo_num+'"></c:url>', listSuccess);
+selectCommentList(cri);
+
 function listSuccess(data){
+	console.log(data);
 	addCommentList(data.list);
 	addPagination(data.pm);
 }
 function addCommentList(list){
-	
+	str = '';
+	for(i=0; i<list.length; i++){
+		str += createComment(list[i]);
+	}
+	$('.comment-list').html(str);
+	//답글 클릭 이벤트 추가
+	$('.btn-reply').click(function(){
+		//다른 답글 입력창을 제거
+		$('.reply-box').remove();
+		//다른 버튼들은 모두 보여줌
+		$('.btn-group').show();
+		//버튼들을 감춤
+		$(this).parent().hide();
+		//답글 입력창을 추가(버튼을 포함)
+		str = '';
+		str +=
+		'<div class="reply-box input-group mb-3">'+
+			'<textarea class="form-control" placeholder="댓글을 입력하세요." name="co_content"></textarea>'+
+			'<div class="input-group-append">'+
+				'<button class="btn btn-success btn-reply-insert" type="button" data_num="'+$(this).data('num')+'">댓글 작성</button>'+
+			'</div>'+
+		'</div>';
+		$(this).parent().after(str);
+		//답글등록 클릭 이벤트
+		$('.btn-reply-insert').click(function(){
+			let co_content = $(this).parents('.reply-box').find('[name=co_content]').val();
+			if('${user.me_id}'==''){
+				if(confirm('로그인한 회원만 댓글 답글을 추가할 수 있습니다.\n로그인하시겠습니까?')){
+					
+				}
+				return;
+			}
+			let comment = {
+					co_content : co_content,
+					co_bo_num : bo_num,
+					co_ori_num : co_ori_num
+			}
+			console.log(comment)
+			insertComment(comment, cri.page);
+		});
+		
+	});
+	//삭제 클릭 이벤트 추가
+	$('.btn-delete').click(function(){
+		if('${user.me_id}'==''){
+			if(confirm('작성자만 댓글을 삭제할 수 있습니다. \n로그인 하시겠습니까?'))
+				location.href = '<c:url value="/login"></c:url>';
+			return;
+		}
+	let co_num = $(this).data('num');
+	let comment = {
+			co_num : co_num
+	}
+	ajaxPost(comment, '<c:url value="/comment/delete"></c:url>', deleteSuccess);
+	})
+	//수정 클릭 이벤트 추가
+}
+function deleteSuccess(data){
+	if(data.res==-1)
+		alert('작성자만 삭제할 수 있습니다.')
+	else if(data.res==0)
+		alert('댓글 삭제에 실패했습니다.')
+	else
+		alert('댓글을 삭제했습니다.');
+	selectCommentList(cri);
+}
+function createComment(comment){
+	str = '';
+	str +=
+	'<div class="comment">'+
+		'<div class="comment-id">'+comment.co_me_id+'</div>'+
+		'<div class="comment-date">'+comment.co_register_date_str+'</div>'+
+		'<div class="comment-content">'+comment.co_content+'</div>'+
+		'<div class="btn-group">'+
+			'<button type="button" class="btn btn-outline-success btn-reply" data-num="'+comment.co_num+'">답글</button>'+
+			'<button type="button" class="btn btn-outline-success btn-update" data-num="'+comment.co_num+'">수정</button>'+
+			'<button type="button" class="btn btn-outline-success btn-delete" data-num="'+comment.co_num+'">삭제</button>'+
+		'</div>'+
+	'</div>';
+	return str;
 }
 function addPagination(pm){
-	
-}
-function listSuccess(data){
-	if(data.res){
-		
+	let prev = pm.prev? '': 'disabled';
+	let next = pm.next? '': 'disabled';
+	str = '';
+	str +=
+	'<li class="page-item '+prev+'">'+
+		'<a class="page-link" href="#" data-page="'+(pm.startPage-1)+'">이전</a>'+
+	'</li>';
+	for(i=pm.startPage; i<=pm.endPage; i++){
+		let page = pm.cri.page==i ? 'active' : '';
+		str +=
+		'<li class="page-item '+page+'">'+
+			'<a class="page-link" href="#" data-page="'+i+'">'+i+'</a>'+
+		'</li>';
 	}
+	str +=
+	'<li class="page-item '+next+'">'+
+		'<a class="page-link" href="#" data-page="'+(pm.endPage+1)+'">다음</a>'+
+	'</li>';
+	$('.comment-pagination').html(str);
+	//페이지네이션 이벤트 등록(다음 페이지 누르면 page정보 바꾸고 새로 로딩)
+	$('.comment-pagination .page-link').click(function(e){
+		e.preventDefault();
+		let page = $(this).data('page');
+		cri.page = page;
+		selectCommentList(cri);
+	})
+}
+function selectCommentList(cri){
+	ajaxPost(cri, '<c:url value="/comment/list/'+bo_num+'"></c:url>', listSuccess);
+}
+function insertComment(comment, page){
+	ajaxPost(comment, '<c:url value="/comment/insert"></c:url>',insertSuccess)
+	cri.page = page;
+	selectCommentList(cri);
 }
 function insertSuccess(data){
 	if(data.res){
@@ -163,6 +299,8 @@ function insertSuccess(data){
 	}else{
 		alert('댓글을 등록하지 못했습니다.');
 	}
+	cri.page = 1;
+	selectCommentList(cri);
 }
 function ajaxPost(obj, url, successFunction){
 	 $.ajax({
