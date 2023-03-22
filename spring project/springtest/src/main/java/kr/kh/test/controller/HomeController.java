@@ -34,6 +34,7 @@ public class HomeController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ModelAndView home(ModelAndView mv, Integer num,
 			HttpServletResponse response, HttpServletRequest request) {
+		System.out.println(1/0);
 		String name = memberService.selectMemberName(num);
 		mv.setViewName("/main/home");
 		return mv;
