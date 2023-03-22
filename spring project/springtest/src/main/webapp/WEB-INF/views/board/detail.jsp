@@ -182,10 +182,7 @@ function addCommentList(list){
 	$('.comment-list').html(str);
 	//답글 클릭 이벤트 추가
 	$('.btn-reply').click(function(){
-		//다른 답글 입력창을 제거
-		$('.reply-box').remove();
-		//다른 버튼들은 모두 보여줌
-		$('.btn-group').show();
+		commentInit();
 		//버튼들을 감춤
 		$(this).parent().hide();
 		//답글 입력창을 추가(버튼을 포함)
@@ -194,19 +191,15 @@ function addCommentList(list){
 		'<div class="reply-box input-group mb-3">'+
 			'<textarea class="form-control" placeholder="댓글을 입력하세요." name="co_content"></textarea>'+
 			'<div class="input-group-append">'+
-				'<button class="btn btn-success btn-reply-insert" type="button" data_num="'+$(this).data('num')+'">댓글 작성</button>'+
+				'<button class="btn btn-success btn-reply-insert" type="button" data-num="'+$(this).data('num')+'">댓글 작성</button>'+
 			'</div>'+
 		'</div>';
 		$(this).parent().after(str);
 		//답글등록 클릭 이벤트
 		$('.btn-reply-insert').click(function(){
 			let co_content = $(this).parents('.reply-box').find('[name=co_content]').val();
-			if('${user.me_id}'==''){
-				if(confirm('로그인한 회원만 댓글 답글을 추가할 수 있습니다.\n로그인하시겠습니까?')){
-					
-				}
+			if(!checkLogin('로그인한 회원만 댓글 답글을 추가할 수 있습니다.'))
 				return;
-			}
 			let comment = {
 					co_content : co_content,
 					co_bo_num : bo_num,
@@ -219,11 +212,8 @@ function addCommentList(list){
 	});
 	//삭제 클릭 이벤트 추가
 	$('.btn-delete').click(function(){
-		if('${user.me_id}'==''){
-			if(confirm('작성자만 댓글을 삭제할 수 있습니다. \n로그인 하시겠습니까?'))
-				location.href = '<c:url value="/login"></c:url>';
+		if(!checkLogin('작성자만 댓글을 삭제할 수 있습니다.'))
 			return;
-		}
 	let co_num = $(this).data('num');
 	let comment = {
 			co_num : co_num
@@ -231,6 +221,68 @@ function addCommentList(list){
 	ajaxPost(comment, '<c:url value="/comment/delete"></c:url>', deleteSuccess);
 	})
 	//수정 클릭 이벤트 추가
+	$('.btn-update').click(function(){
+		if(!checkLogin('작성자만 댓글을 수정할 수 있습니다.'))
+			return;
+		commentInit();
+		$(this).parent().hide();//선택된 댓글의 버튼들 안보이게
+		//수정창 추가
+		let co_content = $(this).parents('.comment').find('.comment-content').text();
+		
+		str = '';
+		str +=
+		'<div class="update-box input-group mb-3">'+
+			'<textarea class="form-control" placeholder="댓글을 입력하세요." name="co_content">'+co_content+'</textarea>'+
+			'<div class="input-group-append">'+
+				'<button class="btn btn-success btn-update-insert" type="button" data-num="'+$(this).data('num')+'">댓글 수정</button>'+
+			'</div>'+
+		'</div>';
+		$(this).parent().prev().hide(); //이미 적혀있던 댓글내용 감춤
+		$(this).parent().before(str);
+		//댓글 수정 등록버튼 클릭 이벤트 추가
+		$('.btn-update-insert').click(function(){
+			if(!checkLogin('작성자만 댓글을 수정할 수 있습니다.'))
+				return;
+			let co_content = $(this).parents('.update-box').find('[name=co_content]').val();
+			let co_num = $(this).data('num');
+			console.log(co_num); //얘가 undefined 뜨는데.....................................
+			let comment = {
+					co_content : co_content,
+					co_num : co_num
+			}
+			ajaxPost(comment,'<c:url value="/comment/update"></c:url>',updateSuccess);
+		})
+	})
+}
+function updateSuccess(data){
+	console.log(data);
+	if(data.res==-1)
+		alert('작성자만 수정할 수 있습니다.')
+	else if(data.res==0)
+		alert('댓글 수정에 실패했습니다.')
+	else
+		alert('댓글이 수정되었습니다.');
+	selectCommentList(cri);
+}
+function checkLogin(msg){
+	if('${user.me_id}'==''){
+		if(confirm(msg+'\n로그인 하시겠습니까?'))
+			location.href = '<c:url value="/login"></c:url>';
+		return false;
+	}
+	return true;
+}
+//댓글의 보기설정 초기화하는 함수(답글,수정버튼 눌렀을 때 동시에 안되게하려고 하나에 묶음)
+function commentInit(){
+	//다른 댓글버튼들, 덧글내용 보이게
+	$('.btn-group').show();
+	$('.comment-content').show();
+	//다른 댓글 수정창 제거
+	$('.update-box').remove();
+	
+	//다른 답글 입력창을 제거
+	$('.reply-box').remove();
+	
 }
 function deleteSuccess(data){
 	if(data.res==-1)
@@ -249,9 +301,13 @@ function createComment(comment){
 		'<div class="comment-date">'+comment.co_register_date_str+'</div>'+
 		'<div class="comment-content">'+comment.co_content+'</div>'+
 		'<div class="btn-group">'+
-			'<button type="button" class="btn btn-outline-success btn-reply" data-num="'+comment.co_num+'">답글</button>'+
+			'<button type="button" class="btn btn-outline-success btn-reply" data-num="'+comment.co_num+'">답글</button>';
+	if(comment.co_me_id=='${user.me_id}'){
+			str +=
 			'<button type="button" class="btn btn-outline-success btn-update" data-num="'+comment.co_num+'">수정</button>'+
-			'<button type="button" class="btn btn-outline-success btn-delete" data-num="'+comment.co_num+'">삭제</button>'+
+			'<button type="button" class="btn btn-outline-success btn-delete" data-num="'+comment.co_num+'">삭제</button>';
+	}
+		str +=
 		'</div>'+
 	'</div>';
 	return str;
