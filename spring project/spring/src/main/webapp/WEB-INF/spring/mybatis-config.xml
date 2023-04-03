@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+  <!-- (중간 설정들은 이미 root-context.xml에 있으므로 지움) -->
+  <typeAliases>
+    <typeAlias type="kr.kh.spring.vo.BoardVO" alias="BoardVO"/>
+    <typeAlias type="kr.kh.spring.vo.MemberVO" alias="MemberVO"/>
+  </typeAliases>
+  <settings>
+    <setting name="jdbcTypeForNull" value="NULL"/>
+    <setting name="mapUnderscoreToCamelCase" value="true"/> : 검색결과가 자동으로 카멜표기법에 맞게 바뀌도록 해주는 속성
+  </settings>
+</configuration>
