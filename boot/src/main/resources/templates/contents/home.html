@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}"><!-- 여기가 layout 적용하는 부분 -->
+
+<!-- Content -->
+<div layout:fragment="content">
+<!-- thymeleaf를 사용하면 구성한 화면을 그대로 가져와서 th태그를 이용해 값을 집어넣을 수 있다... -->
+    <h1 th:text="${id}">Content</h1>
+</div>
+</html>
